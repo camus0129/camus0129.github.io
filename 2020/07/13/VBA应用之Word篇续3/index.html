@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+    
+    
+<link rel="stylesheet" href="/css/mdui.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            VBA应用之Word篇续3 | 编程小白学VBA
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">编程小白学VBA</a>
+    <a href="/" class="header-subtitle mdui-typo-headline"></a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-2">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">主页</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/categories/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-folder"></i>
+                    </div>
+                    <div class="mdui-list-item-content">分类</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-2">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.gif"/>
+                
+            </div>
+            <div class="sidebar-author-name">编程小白学VBA</div>
+            <div class="sidebar-description">帮助编程小白学习VBA</div>
+        </div>
+
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/">VBA应用之Word篇续3</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-07-13
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2020-08-03
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=VBA应用之Word篇续3&url=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/&pic=http://yoursite.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=VBA应用之Word篇续3&url=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/&via=编程小白学VBA" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/&title=VBA应用之Word篇续3" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=编程小白学VBA&title=VBA应用之Word篇续3&summary=帮助编程小白学习VBA&pics=http://yoursite.com/null&url=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://yoursite.com/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/&text=VBA应用之Word篇续3" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/VBA%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8/ >VBA编程应用</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
+<p><strong>Selection对象</strong></p>
+<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
+<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
+<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/13_1.png"></p>
+<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
+<p><img src="/resource/13_2.png"></p>
+<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
+<p>下面详细解释一下代码的含义：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
+<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
+<p><img src="/resource/wechat.jpg"></p>
+
+  </div>
+  <!--文末结束语-->
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/2020/07/15/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87/">
+        <i class="iconfont icon-angle-left"></i>
+        <span>VBA应用之Excel篇</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/2020/07/06/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD2/">
+        <span>VBA应用之Word篇续2</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/" id="toc-header" class="mdui-ripple">文章目录</a>
+        
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2015 - 2020 
+        
+        编程小白学VBA
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >
