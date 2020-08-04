@@ -27,6 +27,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-dployer-git --save</span><br></pre></td></tr></table></figure>
 
 
+
 ]]></content>
       <tags>
         <tag>博客搭建</tag>
@@ -372,7 +373,7 @@
 
 <p>虽然代码只有短短的几行，但是涉及到的信息还是不少的，其中如下结构是固定的，</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub aaaaa()</span><br><span class="line">bbbbb</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+
 <p>称之为Sub 过程，aaaa是过程的名字，可以随意取，可包含字母，数字，下划线等，不能与其他Sub重复，在Office 2013上验证还可以支持中文，但依然建议采用英文字母开头，不要使用中文名字，防止出现兼容性问题。</p>
 <p>bbbbb则是过程中的语句，理论上应该是可以无数条的，但通常的原则是一个Sub过程只完成一个小功能，方便复用。</p>
 <p>Debug.Print 是用来在下方的立即窗口输出代码调试信息的，不产生实际的作用。</p>
@@ -611,7 +612,6 @@
 <p>其中expr要求为数值表达式或者字符串表达式</p>
 <p>exprlist1，exprlist2 为expr可能的取值或者可能的取值的范围的表达式。</p>
 <p>Select case的工作流程如下：</p>
-<a id="more"></a>
 <p>首先计算expr的值，当expr的值与exprlist1的值相同，或者在exprlist1的范围内，则执行执行Case exprlist1后面的语句。</p>
 <p>如果expr的值不满足exprlist1的要求，则继续检查是否满足exprlist2的要求，如果满足exprlist2的要求，这执行Case exprlist2的语句。</p>
 <p>同理，还可以自行添加更多的Case在后面。</p>
@@ -674,6 +674,44 @@
 ]]></content>
       <tags>
         <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA数组的声明及应用</title>
+    <url>/2020/08/04/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>Hi ,大家好,通过此前的VBA编程基础和VBA编程应用的一些教程，大家对于VBA的编程和实际的应用，基本上已经有一些了解，并且应该是可以自行实现一些简单的应用了，属于基本上入门了。</p>
+<p>但是这些基础知识仅能部分的解决一些问题，能替代我们完成一部分的需要重复的任务，但是要想更多的任务通过VBA代码实现自动化，则需要进一步的学习。</p>
+<p>今天就给大家介绍一个更高级的数据结构—数组</p>
+<p><strong>数组</strong></p>
+<p>数组是一组顺序索引的元素，这些元素的基础数据类型是一样的，数组的每个元素都有唯一的索引号，对某一个数组元素的更改，不会影响到其他的元素。</p>
+<p>和此前变量可以理解为一个用来装数据的盒子一样，数组可以理解为排列在一起的一排的盒子，并且每个盒子都按顺序编号，不过这一组盒子都需要放同样类型的数据，如果要放一系列另外一个类型的数据，则需要另外声明一个新的数组用来存放。</p>
+<p>声明数组与声明其他变量类似，但是因为是保存一些列的数据，因此就涉及到需要保存多少个变量的问题，也就是盒子的多少个问题，VBA中的数组支持固定大小的数组和不固定大小的数组，也叫动态大小数组.</p>
+<p><strong>声明固定大小的数组</strong></p>
+<p>例如如下代码声明一个保存6个整形数据的数组,这个为6是因为数组的下标默认是从0开始的</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br></pre></td></tr></table></figure>
+
+<p><strong>声明动态大小的数组</strong></p>
+<p>如下代码则声明一个动态数组</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br></pre></td></tr></table></figure>
+
+<p>固定大小的数组定义了之后，就可以往里面保存数据了，保存数据的方法与变量类似，但是数组是通过括号里面的下标访问到数组中不同的数据的。</p>
+<p>动态大小的数组声明之后，是不能直接往里面保存数据的，因为声明的动态大小的数组大小默认是0，需要通过ReDim重新设置动态数组的大小之后才可以使用，并且通过ReDim的动态数组的名字需要与前面声明的保持一致，否则会重新声明一个新名字的数组。</p>
+<p>如下代码重新定义了上述动态大小数组为6</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果是多次使用ReDim的话，则数组的的大小会在ReDim之后重新定义，并且此前保存在数组中的数据是默认清空的，如果想保留此前的数据，则需要添加Preserve关键字，如一下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>定义完成之后，则动态大小的数组与固定大小的数组使用的方式是一样的，下面通过一个具体的例子演示一下数组具体的用法：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode1()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个固定大小的数组及一个动态大小的数组</span></span><br><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环给固定大小的数组依次赋值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">5</span></span><br><span class="line">IntArray(i) = i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环逆序打印出固定大小数组的每一个值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">5</span> <span class="keyword">To</span> <span class="number">0</span> <span class="keyword">Step</span> <span class="number">-1</span></span><br><span class="line">Debug.Print IntArray(i)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新指定动态数组大小为6</span></span><br><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第4个元素赋值3</span></span><br><span class="line">DintArray(<span class="number">3</span>) = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新定义动态数组的大小为11，并且保留之前的值</span></span><br><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第9个元素赋值8</span></span><br><span class="line">DintArray(<span class="number">8</span>) = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出动态数组的第4个及第9个元素</span></span><br><span class="line">Debug.Print DintArray(<span class="number">3</span>)</span><br><span class="line">Debug.Print DintArray(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/18_1.png"></p>
+<p>以上就是VBA中数组的声明及简单应用，保存的数据不仅仅是代码演示的整形数据，其他的基本的数据类型的数据也是可以的，大家可以自行尝试一下。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
 </search>
