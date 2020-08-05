@@ -131,7 +131,7 @@
 
 <p>复制粘贴上述代码到Excel的VBA代码编辑环境中(这里我们主要是模拟通过Excel调用Outlook发送邮件)，如下图所示：</p>
 <p><img src="/resource/17_1.png"></p>
-<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#120;&#x79;&#122;&#x40;&#x61;&#98;&#x63;&#x2e;&#99;&#x6f;&#x6d;">&#120;&#x79;&#122;&#x40;&#x61;&#98;&#x63;&#x2e;&#99;&#x6f;&#x6d;</a>“替换为所需要的发送的邮件收件人。</p>
+<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#x79;&#x7a;&#x40;&#x61;&#98;&#99;&#x2e;&#99;&#x6f;&#109;">&#x78;&#x79;&#x7a;&#x40;&#x61;&#98;&#99;&#x2e;&#99;&#x6f;&#109;</a>“替换为所需要的发送的邮件收件人。</p>
 <p>因Excel默认没有引用Outlook应用程序对象库，因此，在第一次使用的时候，需要手动添加Outlook对象的应用，添加的方法也很简单，点击VBA编程环境的”工具”栏，点击”引用”，然后再弹出的对话框中，找到”Microsoft  Outlook 15.0 Object Library”，确保前面的复选框是选中状态，然后点击确定，关闭对话框,如下图所示：</p>
 <p><img src="/resource/17_2.png"></p>
 <p>点击运行按钮，运行”Send_Mail” 子程序，此时有可能会弹出安全提醒，如下图所示：</p>
@@ -190,6 +190,33 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA应用之Word篇续3</title>
+    <url>/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
+<p><strong>Selection对象</strong></p>
+<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
+<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
+<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/13_1.png"></p>
+<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
+<p><img src="/resource/13_2.png"></p>
+<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
+<p>下面详细解释一下代码的含义：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
+<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA应用之Word篇续2</title>
     <url>/2020/07/06/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD2/</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的应用，主要是介绍了如何使用VBA的文件操作，例如新建文档，重命名及另存为等操作。</p>
@@ -221,33 +248,6 @@
 <li>对设置的区域进行加粗和倾斜操作</li>
 </ol>
 <p>整体的操作还是很简单的，通过调整Range的区域的大小，还是可以对加粗，倾斜的文本范围进行进一步的调整，感兴趣的可以调整代码试一试。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA应用之Word篇续3</title>
-    <url>/2020/07/13/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
-<p><strong>Selection对象</strong></p>
-<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
-<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
-<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/13_1.png"></p>
-<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
-<p><img src="/resource/13_2.png"></p>
-<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
-<p>下面详细解释一下代码的含义：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
-<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
@@ -366,6 +366,55 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA数据运算</title>
+    <url>/2020/05/12/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97/</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
+<p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
+<ul>
+<li>算术运算符</li>
+<li>比较运算符</li>
+<li>串联运算符</li>
+<li>逻辑运算符</li>
+</ul>
+<p>我们先看一下运用的最多的算术运算符</p>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>算术运算符，主要就是用来执行数学计算的运算符，主要包含加+，减-，乘*，除（整数除\，浮点除/），取余Mod，指数运算^ 这几项.<br><strong>加法运算符</strong> “+” ,用来对两个数进行加法运算，从而的到两个数的和，具体的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result &#x3D; num1 + num2</span><br></pre></td></tr></table></figure>
+<p>其中num1 和num2分别是需要相加的变量，sum为运算得到的总和的变量，变量名是可以是任意取的，并且num1 和num2分别可以为整数，单精度浮点数，双精度浮点数等,下同<br><strong>减法运算符</strong>“-“,用来对两个数进行减法运算，从而的到两个数的差，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 - num2</span><br></pre></td></tr></table></figure>
+<p><strong>乘法运算符</strong>“*”,用来对两个数进行乘法运算，从而的到两个数的积，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1*num2</span><br></pre></td></tr></table></figure>
+
+<p><strong>整数除法运算符</strong>“\“, 用来对两个数进行除法操作，但是得到的值只保留整数部分，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1\num2</span><br></pre></td></tr></table></figure>
+
+<p> <strong>浮点除法运算符</strong>“/“,用来对两个数进行除法操作，但是的到的值是个浮点数，具体的语法如下：</p>
+<figure class="highlight vbs"><table><tr><td class="code"><pre><span class="line">result = num1/num2</span><br></pre></td></tr></table></figure>
+
+<p><strong>取余运算符</strong>“Mod”,用来对两个数进行除法操作，然后返回整除之后的余数部分，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 Mod num2</span><br></pre></td></tr></table></figure>
+
+<p><strong>幂指数运算符</strong>“^”,用来求幂指数运算操作，返回指数幂的结果，具体语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 ^ num2</span><br></pre></td></tr></table></figure>
+
+<p>下面，我们用一小段代码来演示一下上面提到的各种常用的运算符，复制如下代码到VBA开发环境的代码编辑框中(戳这里了解VBA运行环境构建)，</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest()</span><br><span class="line"><span class="keyword">Dim</span> sum1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> sum2 As Single</span><br><span class="line"><span class="keyword">Dim</span> num1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num3 As Single</span><br><span class="line"><span class="keyword">Dim</span> num4 As Single</span><br><span class="line">num1 = <span class="number">5</span></span><br><span class="line">num2 = <span class="number">3</span></span><br><span class="line">num3 = <span class="number">2.5</span></span><br><span class="line">num4 = <span class="number">5.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;加法运算</span></span><br><span class="line">sum1 = num1 + num2</span><br><span class="line">sum2 = num3 + num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;减法运算</span></span><br><span class="line">sum1 = num1 - num2</span><br><span class="line">sum2 = num3 - num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;乘法运算</span></span><br><span class="line">sum1 = num1 * num2</span><br><span class="line">sum2 = num3 * num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;除法运算</span></span><br><span class="line">sum1 = num1 \ num2</span><br><span class="line">sum2 = num1 / num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;取余运算</span></span><br><span class="line">sum1 = num1 Mod num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;幂指数运算</span></span><br><span class="line">sum2 = num1 ^ num2</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>如下图所示：</p>
+<p><img src="/4_1.png" alt="4_1"></p>
+<p>点击运行Optest子程序，在立即窗口可以得到如下运行结果：</p>
+<p><img src="/resource/4_2.png"></p>
+<p>可以看到，立即窗口打印出来的值分别对应着如下的运算</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>+<span class="number">3</span> = <span class="number">8</span>          </span><br><span class="line"><span class="number">2.5</span>+<span class="number">5.3</span> = <span class="number">7.8</span></span><br><span class="line"><span class="number">5</span><span class="number">-3</span> = <span class="number">2</span></span><br><span class="line"><span class="number">2.5</span><span class="number">-5.3</span> = <span class="number">-2.8</span></span><br><span class="line"><span class="number">5</span>*<span class="number">3</span>=<span class="number">15</span></span><br><span class="line"><span class="number">2.5</span>*<span class="number">5.3</span>=<span class="number">13.25</span></span><br><span class="line"><span class="number">5</span>\<span class="number">3</span>=<span class="number">1</span>         <span class="comment">//这里是整除，只保留整数部分</span></span><br><span class="line"><span class="number">5</span>/<span class="number">3</span>=<span class="number">1.666667</span>  <span class="comment">//这里是浮点除，保留了小数部分</span></span><br><span class="line"><span class="number">5</span> Mod <span class="number">3</span> = <span class="number">2</span>   <span class="comment">//这里是5除以3，商为1，余数为2，因此得到的结果就是余数2</span></span><br><span class="line"><span class="number">5</span>^<span class="number">3</span>= <span class="number">125</span>      <span class="comment">//这里表示5的3次方，也就是5*5*5=125</span></span><br></pre></td></tr></table></figure>
+
+<p>常用的算术运算符就是这些了，大家掌握了吗？</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA数据类型</title>
     <url>/2020/04/29/VBA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
     <content><![CDATA[<p>Hi，大家好，上一期使用VBA顺利完成了第一个程序，先简要分析下我们的第一个开工程序的代码，源代码如下：</p>
@@ -410,55 +459,6 @@
 <p><img src="/resource/3_2.png"></p>
 <p>这里就是VBA中变量的定义及赋值和取值的简单例子，后续还会有更多变量的类型和赋值，但基本上与这个形式是差不多。</p>
 <p>如果大家有任何的疑问，可以在在下方留言噢~</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA数据运算</title>
-    <url>/2020/05/12/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97/</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
-<p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
-<ul>
-<li>算术运算符</li>
-<li>比较运算符</li>
-<li>串联运算符</li>
-<li>逻辑运算符</li>
-</ul>
-<p>我们先看一下运用的最多的算术运算符</p>
-<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>算术运算符，主要就是用来执行数学计算的运算符，主要包含加+，减-，乘*，除（整数除\，浮点除/），取余Mod，指数运算^ 这几项.<br><strong>加法运算符</strong> “+” ,用来对两个数进行加法运算，从而的到两个数的和，具体的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result &#x3D; num1 + num2</span><br></pre></td></tr></table></figure>
-<p>其中num1 和num2分别是需要相加的变量，sum为运算得到的总和的变量，变量名是可以是任意取的，并且num1 和num2分别可以为整数，单精度浮点数，双精度浮点数等,下同<br><strong>减法运算符</strong>“-“,用来对两个数进行减法运算，从而的到两个数的差，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 - num2</span><br></pre></td></tr></table></figure>
-<p><strong>乘法运算符</strong>“*”,用来对两个数进行乘法运算，从而的到两个数的积，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1*num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>整数除法运算符</strong>“\“, 用来对两个数进行除法操作，但是得到的值只保留整数部分，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1\num2</span><br></pre></td></tr></table></figure>
-
-<p> <strong>浮点除法运算符</strong>“/“,用来对两个数进行除法操作，但是的到的值是个浮点数，具体的语法如下：</p>
-<figure class="highlight vbs"><table><tr><td class="code"><pre><span class="line">result = num1/num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>取余运算符</strong>“Mod”,用来对两个数进行除法操作，然后返回整除之后的余数部分，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 Mod num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>幂指数运算符</strong>“^”,用来求幂指数运算操作，返回指数幂的结果，具体语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 ^ num2</span><br></pre></td></tr></table></figure>
-
-<p>下面，我们用一小段代码来演示一下上面提到的各种常用的运算符，复制如下代码到VBA开发环境的代码编辑框中(戳这里了解VBA运行环境构建)，</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest()</span><br><span class="line"><span class="keyword">Dim</span> sum1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> sum2 As Single</span><br><span class="line"><span class="keyword">Dim</span> num1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num3 As Single</span><br><span class="line"><span class="keyword">Dim</span> num4 As Single</span><br><span class="line">num1 = <span class="number">5</span></span><br><span class="line">num2 = <span class="number">3</span></span><br><span class="line">num3 = <span class="number">2.5</span></span><br><span class="line">num4 = <span class="number">5.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;加法运算</span></span><br><span class="line">sum1 = num1 + num2</span><br><span class="line">sum2 = num3 + num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;减法运算</span></span><br><span class="line">sum1 = num1 - num2</span><br><span class="line">sum2 = num3 - num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;乘法运算</span></span><br><span class="line">sum1 = num1 * num2</span><br><span class="line">sum2 = num3 * num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;除法运算</span></span><br><span class="line">sum1 = num1 \ num2</span><br><span class="line">sum2 = num1 / num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;取余运算</span></span><br><span class="line">sum1 = num1 Mod num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;幂指数运算</span></span><br><span class="line">sum2 = num1 ^ num2</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>如下图所示：</p>
-<p><img src="/4_1.png" alt="4_1"></p>
-<p>点击运行Optest子程序，在立即窗口可以得到如下运行结果：</p>
-<p><img src="/resource/4_2.png"></p>
-<p>可以看到，立即窗口打印出来的值分别对应着如下的运算</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>+<span class="number">3</span> = <span class="number">8</span>          </span><br><span class="line"><span class="number">2.5</span>+<span class="number">5.3</span> = <span class="number">7.8</span></span><br><span class="line"><span class="number">5</span><span class="number">-3</span> = <span class="number">2</span></span><br><span class="line"><span class="number">2.5</span><span class="number">-5.3</span> = <span class="number">-2.8</span></span><br><span class="line"><span class="number">5</span>*<span class="number">3</span>=<span class="number">15</span></span><br><span class="line"><span class="number">2.5</span>*<span class="number">5.3</span>=<span class="number">13.25</span></span><br><span class="line"><span class="number">5</span>\<span class="number">3</span>=<span class="number">1</span>         <span class="comment">//这里是整除，只保留整数部分</span></span><br><span class="line"><span class="number">5</span>/<span class="number">3</span>=<span class="number">1.666667</span>  <span class="comment">//这里是浮点除，保留了小数部分</span></span><br><span class="line"><span class="number">5</span> Mod <span class="number">3</span> = <span class="number">2</span>   <span class="comment">//这里是5除以3，商为1，余数为2，因此得到的结果就是余数2</span></span><br><span class="line"><span class="number">5</span>^<span class="number">3</span>= <span class="number">125</span>      <span class="comment">//这里表示5的3次方，也就是5*5*5=125</span></span><br></pre></td></tr></table></figure>
-
-<p>常用的算术运算符就是这些了，大家掌握了吗？</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
@@ -553,6 +553,44 @@
 ]]></content>
       <tags>
         <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA数组的声明及应用</title>
+    <url>/2020/08/04/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<p>Hi ,大家好,通过此前的VBA编程基础和VBA编程应用的一些教程，大家对于VBA的编程和实际的应用，基本上已经有一些了解，并且应该是可以自行实现一些简单的应用了，属于基本上入门了。</p>
+<p>但是这些基础知识仅能部分的解决一些问题，能替代我们完成一部分的需要重复的任务，但是要想更多的任务通过VBA代码实现自动化，则需要进一步的学习。</p>
+<p>今天就给大家介绍一个更高级的数据结构—数组</p>
+<p><strong>数组</strong></p>
+<p>数组是一组顺序索引的元素，这些元素的基础数据类型是一样的，数组的每个元素都有唯一的索引号，对某一个数组元素的更改，不会影响到其他的元素。</p>
+<p>和此前变量可以理解为一个用来装数据的盒子一样，数组可以理解为排列在一起的一排的盒子，并且每个盒子都按顺序编号，不过这一组盒子都需要放同样类型的数据，如果要放一系列另外一个类型的数据，则需要另外声明一个新的数组用来存放。</p>
+<p>声明数组与声明其他变量类似，但是因为是保存一些列的数据，因此就涉及到需要保存多少个变量的问题，也就是盒子的多少个问题，VBA中的数组支持固定大小的数组和不固定大小的数组，也叫动态大小数组.</p>
+<p><strong>声明固定大小的数组</strong></p>
+<p>例如如下代码声明一个保存6个整形数据的数组,这个为6是因为数组的下标默认是从0开始的</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br></pre></td></tr></table></figure>
+
+<p><strong>声明动态大小的数组</strong></p>
+<p>如下代码则声明一个动态数组</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br></pre></td></tr></table></figure>
+
+<p>固定大小的数组定义了之后，就可以往里面保存数据了，保存数据的方法与变量类似，但是数组是通过括号里面的下标访问到数组中不同的数据的。</p>
+<p>动态大小的数组声明之后，是不能直接往里面保存数据的，因为声明的动态大小的数组大小默认是0，需要通过ReDim重新设置动态数组的大小之后才可以使用，并且通过ReDim的动态数组的名字需要与前面声明的保持一致，否则会重新声明一个新名字的数组。</p>
+<p>如下代码重新定义了上述动态大小数组为6</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果是多次使用ReDim的话，则数组的的大小会在ReDim之后重新定义，并且此前保存在数组中的数据是默认清空的，如果想保留此前的数据，则需要添加Preserve关键字，如一下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>定义完成之后，则动态大小的数组与固定大小的数组使用的方式是一样的，下面通过一个具体的例子演示一下数组具体的用法：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode1()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个固定大小的数组及一个动态大小的数组</span></span><br><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环给固定大小的数组依次赋值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">5</span></span><br><span class="line">IntArray(i) = i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环逆序打印出固定大小数组的每一个值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">5</span> <span class="keyword">To</span> <span class="number">0</span> <span class="keyword">Step</span> <span class="number">-1</span></span><br><span class="line">Debug.Print IntArray(i)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新指定动态数组大小为6</span></span><br><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第4个元素赋值3</span></span><br><span class="line">DintArray(<span class="number">3</span>) = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新定义动态数组的大小为11，并且保留之前的值</span></span><br><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第9个元素赋值8</span></span><br><span class="line">DintArray(<span class="number">8</span>) = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出动态数组的第4个及第9个元素</span></span><br><span class="line">Debug.Print DintArray(<span class="number">3</span>)</span><br><span class="line">Debug.Print DintArray(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/18_1.png"></p>
+<p>以上就是VBA中数组的声明及简单应用，保存的数据不仅仅是代码演示的整形数据，其他的基本的数据类型的数据也是可以的，大家可以自行尝试一下。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
   <entry>
@@ -674,44 +712,6 @@
 ]]></content>
       <tags>
         <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA数组的声明及应用</title>
-    <url>/2020/08/04/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>Hi ,大家好,通过此前的VBA编程基础和VBA编程应用的一些教程，大家对于VBA的编程和实际的应用，基本上已经有一些了解，并且应该是可以自行实现一些简单的应用了，属于基本上入门了。</p>
-<p>但是这些基础知识仅能部分的解决一些问题，能替代我们完成一部分的需要重复的任务，但是要想更多的任务通过VBA代码实现自动化，则需要进一步的学习。</p>
-<p>今天就给大家介绍一个更高级的数据结构—数组</p>
-<p><strong>数组</strong></p>
-<p>数组是一组顺序索引的元素，这些元素的基础数据类型是一样的，数组的每个元素都有唯一的索引号，对某一个数组元素的更改，不会影响到其他的元素。</p>
-<p>和此前变量可以理解为一个用来装数据的盒子一样，数组可以理解为排列在一起的一排的盒子，并且每个盒子都按顺序编号，不过这一组盒子都需要放同样类型的数据，如果要放一系列另外一个类型的数据，则需要另外声明一个新的数组用来存放。</p>
-<p>声明数组与声明其他变量类似，但是因为是保存一些列的数据，因此就涉及到需要保存多少个变量的问题，也就是盒子的多少个问题，VBA中的数组支持固定大小的数组和不固定大小的数组，也叫动态大小数组.</p>
-<p><strong>声明固定大小的数组</strong></p>
-<p>例如如下代码声明一个保存6个整形数据的数组,这个为6是因为数组的下标默认是从0开始的</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br></pre></td></tr></table></figure>
-
-<p><strong>声明动态大小的数组</strong></p>
-<p>如下代码则声明一个动态数组</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br></pre></td></tr></table></figure>
-
-<p>固定大小的数组定义了之后，就可以往里面保存数据了，保存数据的方法与变量类似，但是数组是通过括号里面的下标访问到数组中不同的数据的。</p>
-<p>动态大小的数组声明之后，是不能直接往里面保存数据的，因为声明的动态大小的数组大小默认是0，需要通过ReDim重新设置动态数组的大小之后才可以使用，并且通过ReDim的动态数组的名字需要与前面声明的保持一致，否则会重新声明一个新名字的数组。</p>
-<p>如下代码重新定义了上述动态大小数组为6</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>如果是多次使用ReDim的话，则数组的的大小会在ReDim之后重新定义，并且此前保存在数组中的数据是默认清空的，如果想保留此前的数据，则需要添加Preserve关键字，如一下代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
-
-<p>定义完成之后，则动态大小的数组与固定大小的数组使用的方式是一样的，下面通过一个具体的例子演示一下数组具体的用法：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode1()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个固定大小的数组及一个动态大小的数组</span></span><br><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环给固定大小的数组依次赋值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">5</span></span><br><span class="line">IntArray(i) = i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环逆序打印出固定大小数组的每一个值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">5</span> <span class="keyword">To</span> <span class="number">0</span> <span class="keyword">Step</span> <span class="number">-1</span></span><br><span class="line">Debug.Print IntArray(i)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新指定动态数组大小为6</span></span><br><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第4个元素赋值3</span></span><br><span class="line">DintArray(<span class="number">3</span>) = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新定义动态数组的大小为11，并且保留之前的值</span></span><br><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第9个元素赋值8</span></span><br><span class="line">DintArray(<span class="number">8</span>) = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出动态数组的第4个及第9个元素</span></span><br><span class="line">Debug.Print DintArray(<span class="number">3</span>)</span><br><span class="line">Debug.Print DintArray(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
-<p><img src="/resource/18_1.png"></p>
-<p>以上就是VBA中数组的声明及简单应用，保存的数据不仅仅是代码演示的整形数据，其他的基本的数据类型的数据也是可以的，大家可以自行尝试一下。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
 </search>
