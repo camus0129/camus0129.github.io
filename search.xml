@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hexo博客搭建步骤</title>
-    <url>/2020/08/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4/</url>
+    <url>/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4.html</url>
     <content><![CDATA[<p>在本地安装好了node.js及hexo之后，就可以开始着手搭建博客了<br>首先打开git-bash,在想要放置站点的位置执行如下指令：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init foldername</span><br></pre></td></tr></table></figure>
 
@@ -35,7 +35,7 @@
   </entry>
   <entry>
     <title>VBA应用之Excel篇</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87/</url>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87.html</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA在Word上的常见的应用，今天开始看看VBA在Excel上的应用，这个也是很多人用VBA进行自动化操作的的主要的应用场景。</p>
 <p>Excel表上有大量众多的数据单元格，每个单元格都是独立的，并且使用了横纵坐标来表示，这样就为使用VBA代码来处理Excel的数据提供了绝佳的运行环境,大大增强了处理Excel表格的能力。</p>
 <p>要处理Excel表格里面的数据，首先的步骤是要打开Excel，然后定位到需要处理的表格。</p>
@@ -61,8 +61,33 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA应用之Excel篇续2</title>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD2.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的基本的文件操作，例如新建,另存为，重命名等操作。</p>
+<p>有了之前的Excel文件操作的基础了，就可以进一步的学习激动人心的Excel的单元格的操作。</p>
+<p>同样，VBA也对单元格进行了抽象，使用Worksheet对象的Cells属性来表示工作表的所有的单元格。</p>
+<p>如果Cells属性带上横纵坐标的参数，则表示对应的横纵坐标的单元格。这里说的横纵坐标就是对应Excel上的第多少列和多少行，因此通过Cells属性及横纵坐标的参数，就可以访问Excel表格中任意一个单元格。</p>
+<p>通过坐标以及此前介绍的循环，就可以批量访问任意的单元格了。</p>
+<p>下面通过一个具体的例子，看看通过VBA代码对单元格实行操作,具体代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到Excel的中Sheet1的VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/15_1.png"></p>
+<p>点击运行按钮，运行此子过程代码，运行结果如下图所示：</p>
+<p><img src="/resource/15_2.png"></p>
+<p>代码看起来有点多，但很多实际上都只是在设置字体，字号什么的，真正打印的九九乘法表仅仅几行代码就可以了。</p>
+<p>下面详细的注释一下相关的代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义几个控制变量，用于循环控制</span></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;为了便于下面的设置，这里将第9行，第15列单元格绑定到Range对象上</span></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;对第9行，15列单元格进行设置</span></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容加粗</span></span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容斜体</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格字号为20</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格的内容为“九九乘法表”</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格列宽为自适应，防止文字太长显示不全</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;循环设置九九乘法表对应的各个单元格，并设置对应单元格列宽为自适应</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>觉得有用吗？想了解更多吗 ？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA应用之Excel篇续3</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD3/</url>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD3.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的单元格的常见操作，主要涉及到单元格的访问，单元格内容字体格式设置等等，并最终通过生成一个九九乘法表的例子讲解了相关的代码。</p>
 <p>我们生成的单元格内容都是静态的，生成一次之后就没有更新了，是否有办法定时更新相关的内容，然后及时的通过单元格显示出来呢？</p>
 <p>需要定时更新的话，则需要涉及到定时器的使用，但是VBA中并没有直接提供定时器功能，要想实现定时功能，则需要通过其他的相关的功能，模拟实现定时器类似的功能。</p>
@@ -94,33 +119,8 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA应用之Excel篇续2</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD2/</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的基本的文件操作，例如新建,另存为，重命名等操作。</p>
-<p>有了之前的Excel文件操作的基础了，就可以进一步的学习激动人心的Excel的单元格的操作。</p>
-<p>同样，VBA也对单元格进行了抽象，使用Worksheet对象的Cells属性来表示工作表的所有的单元格。</p>
-<p>如果Cells属性带上横纵坐标的参数，则表示对应的横纵坐标的单元格。这里说的横纵坐标就是对应Excel上的第多少列和多少行，因此通过Cells属性及横纵坐标的参数，就可以访问Excel表格中任意一个单元格。</p>
-<p>通过坐标以及此前介绍的循环，就可以批量访问任意的单元格了。</p>
-<p>下面通过一个具体的例子，看看通过VBA代码对单元格实行操作,具体代码如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述代码到Excel的中Sheet1的VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/15_1.png"></p>
-<p>点击运行按钮，运行此子过程代码，运行结果如下图所示：</p>
-<p><img src="/resource/15_2.png"></p>
-<p>代码看起来有点多，但很多实际上都只是在设置字体，字号什么的，真正打印的九九乘法表仅仅几行代码就可以了。</p>
-<p>下面详细的注释一下相关的代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义几个控制变量，用于循环控制</span></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;为了便于下面的设置，这里将第9行，第15列单元格绑定到Range对象上</span></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;对第9行，15列单元格进行设置</span></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容加粗</span></span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容斜体</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格字号为20</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格的内容为“九九乘法表”</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格列宽为自适应，防止文字太长显示不全</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;循环设置九九乘法表对应的各个单元格，并设置对应单元格列宽为自适应</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>觉得有用吗？想了解更多吗 ？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA应用之Outlook篇</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BOutlook%E7%AF%87/</url>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BOutlook%E7%AF%87.html</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA在Word和Excel的上的一些基础应用，虽然绝大部分的应用都是在Excel上，但是利用VBA代码批量生成邮件，添加附件，自动发邮件的这些需求，也是在日常的工作中会经常遇到的，这里介绍下如何使用VBA调用Outlook发送邮件。</p>
 <p>要想利用Outlook发送邮件，则首先需要设置Outlook邮件收发功能，添加邮箱账号，设置好收发邮件服务器地址及端口，确保Outlook能够正常的收发邮件，具体的设置方法及参数因邮件服务器不同而不同，这里就不赘述了。</p>
 <p>要想利用VBA代码控制Outlook发送邮件，需要对Outlook应用程序在VBA代码中进行抽象，像此前的Word/Excel一样，VBA代码中同样使用application的对象来代表Outlook应用程序。</p>
@@ -131,7 +131,7 @@
 
 <p>复制粘贴上述代码到Excel的VBA代码编辑环境中(这里我们主要是模拟通过Excel调用Outlook发送邮件)，如下图所示：</p>
 <p><img src="/resource/17_1.png"></p>
-<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#121;&#122;&#64;&#97;&#98;&#99;&#46;&#x63;&#111;&#109;">&#x78;&#121;&#122;&#64;&#97;&#98;&#99;&#46;&#x63;&#111;&#109;</a>“替换为所需要的发送的邮件收件人。</p>
+<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#121;&#122;&#64;&#x61;&#98;&#x63;&#46;&#99;&#x6f;&#109;">&#x78;&#121;&#122;&#64;&#x61;&#98;&#x63;&#46;&#99;&#x6f;&#109;</a>“替换为所需要的发送的邮件收件人。</p>
 <p>因Excel默认没有引用Outlook应用程序对象库，因此，在第一次使用的时候，需要手动添加Outlook对象的应用，添加的方法也很简单，点击VBA编程环境的”工具”栏，点击”引用”，然后再弹出的对话框中，找到”Microsoft  Outlook 15.0 Object Library”，确保前面的复选框是选中状态，然后点击确定，关闭对话框,如下图所示：</p>
 <p><img src="/resource/17_2.png"></p>
 <p>点击运行按钮，运行”Send_Mail” 子程序，此时有可能会弹出安全提醒，如下图所示：</p>
@@ -150,7 +150,7 @@
   </entry>
   <entry>
     <title>VBA应用之Word篇</title>
-    <url>/2020/06/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87/</url>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87.html</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA的编程基础，大家都掌握了吗？戳这里回顾VBA编程基础</p>
 <p>今天我们就要开始VBA编程的实际应用了，这里我们先从Word开始，看看VBA如何应用在Word文档上面。</p>
 <p>我们先回想一下自己平时使用Word的情形，发现我们绝大部分使用Word的场景都是新建或打开已经存在的Word文档，然后开始一些编辑操作，例如增加，删除，查找，替换及排版等操作，操作完成之后，再保存退出Word.</p>
@@ -191,7 +191,7 @@
   </entry>
   <entry>
     <title>VBA应用之Word篇续2</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD2/</url>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD2.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的应用，主要是介绍了如何使用VBA的文件操作，例如新建文档，重命名及另存为等操作。</p>
 <p>除了上述的文件操作，还有很大一部分操作是文件编辑操作，这个也是可以通过VBA来实现的。</p>
 <p>再介绍使用VBA编辑操作之前，需要介绍一个新的概念—Range对象。</p>
@@ -230,7 +230,7 @@
   </entry>
   <entry>
     <title>VBA应用之Word篇续3</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3/</url>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
 <p><strong>Selection对象</strong></p>
 <p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
@@ -257,7 +257,7 @@
   </entry>
   <entry>
     <title>VBA开发环境配置</title>
-    <url>/2020/03/VBA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</url>
+    <url>/VBA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</url>
     <content><![CDATA[<p>Hi，大家好，提到职场办公软件，绕不开的是微软的office办公套件，尤其是Word,Excel,Power Point三件套（以下简称三件套），已经成为办公领域事实的标准，并且也足够好用，但是总会有一些情况，需要重复的处理很多类似的任务，</p>
 <p>虽然都是简单的步骤，但是重复的次数多了，难免感觉浪费时间，效率也不高。</p>
 <p>那么问题来了，是否有工具可以批量自动完成这些任务，从而可以从繁重的体力劳动中解脱出来呢???</p>
@@ -292,7 +292,7 @@
   </entry>
   <entry>
     <title>VBA循环控制介绍</title>
-    <url>/2020/06/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D/</url>
+    <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
     <content><![CDATA[<p>Hi，大家好，上两期介绍了流程控制里面的分支流程控制，分支流程控制主要是用于解决各种不同的情况下的问题的处理。</p>
 <p>但是生活中我们除了不同的情况的处理，更多的时候我们面对的是很多重复性的操作，而重复性工作正好是电脑所擅长的。</p>
 <p>为了达到让电脑自动为我们工作，就需要利用循环控制，让电脑自动循环重复，我们只需要开始的时候告诉电脑怎么做，然后剩下的就是告诉他一直重复这个步骤，然后在完成之后自动停止，这才是终极的节约时间和节省体力的法宝。</p>
@@ -330,7 +330,7 @@
   </entry>
   <entry>
     <title>VBA循环控制介绍续2</title>
-    <url>/2020/06/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2/</url>
+    <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2.html</url>
     <content><![CDATA[<p>Hi，大家好，上期介绍了循环流程控制里面的For循环控制，今天再介绍另外两种循环—Loop循环及While循环。</p>
 <p><strong>Loop循环</strong></p>
 <p>从For循环的语法我们了解到，For循环需要预先知道要循环多少次，并将这个参数填写到For循环中去，但是如果我们不知道具体要循环多少次呢？这种条件下，我们要么就计算或者预估一个循环次数，然后做一些额外的处理，要么选择使用Loop循环来处理。</p>
@@ -367,7 +367,7 @@
   </entry>
   <entry>
     <title>VBA数据类型</title>
-    <url>/2020/04/VBA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期使用VBA顺利完成了第一个程序，先简要分析下我们的第一个开工程序的代码，源代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub HelloWorld()</span><br><span class="line">Debug.Print &quot;Hello,world!&quot;</span><br><span class="line">MsgBox (&quot;Hello,world!&quot;)</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
 
@@ -419,7 +419,7 @@
   </entry>
   <entry>
     <title>VBA数据运算</title>
-    <url>/2020/05/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97/</url>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
 <p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
 <ul>
@@ -468,7 +468,7 @@
   </entry>
   <entry>
     <title>VBA数据运算续2</title>
-    <url>/2020/05/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD2/</url>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD2.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的算术运算符，也就是常见的加减乘除等等，今天再继续介绍另一个常用的运算符–比较运算符。</p>
 <p>在介绍比较运算符之前，需要先了解一下表达式的概念。</p>
 <p><strong>表达式</strong>是由变量，常量，运算符等组合起来的一个算式，类似于加减乘除的混合运算，经过计算之后，可以得到一个结果，得到的结果可以是整型数据，浮点数据，布尔型数据等等。</p>
@@ -503,7 +503,7 @@
   </entry>
   <entry>
     <title>VBA数据运算续3</title>
-    <url>/2020/05/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD3/</url>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD3.html</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的比较运算符，主要用于比较两个表达式的大小，是否相等等，比较运算符的比较结果为逻辑真或者逻辑假(对于VBA来说，则为布尔值”True”和布尔值”False”).</p>
 <p>那么问题来了，对于多个比较运算结果的比较结果，如果想进一步处理，也就是布尔值的运算的话，则涉及到另外一个运算符–逻辑运算符。</p>
 <p>逻辑运算符主要用于对两个逻辑表达式(可以理解为返回值为布尔值的表达式)进行运算，同时返回值同样为布尔值。</p>
@@ -557,7 +557,7 @@
   </entry>
   <entry>
     <title>VBA数组的声明及应用</title>
-    <url>/2020/08/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8/</url>
+    <url>/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
     <content><![CDATA[<p>Hi ,大家好,通过此前的VBA编程基础和VBA编程应用的一些教程，大家对于VBA的编程和实际的应用，基本上已经有一些了解，并且应该是可以自行实现一些简单的应用了，属于基本上入门了。</p>
 <p>但是这些基础知识仅能部分的解决一些问题，能替代我们完成一部分的需要重复的任务，但是要想更多的任务通过VBA代码实现自动化，则需要进一步的学习。</p>
 <p>今天就给大家介绍一个更高级的数据结构—数组</p>
@@ -594,8 +594,49 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA流程控制介绍续2</title>
+    <url>/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了分支控制流程中的if语句，今天继续介绍分支流程控制的另外一个形式—switch语句</p>
+<p>switch语句的功能与if语句类似，也有两种基本的形式。</p>
+<p>形式1的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
+
+<p>其中expr要求为数值表达式或者字符串表达式</p>
+<p>exprlist1，exprlist2 为expr可能的取值或者可能的取值的范围的表达式。</p>
+<p>Select case的工作流程如下：</p>
+<p>首先计算expr的值，当expr的值与exprlist1的值相同，或者在exprlist1的范围内，则执行执行Case exprlist1后面的语句。</p>
+<p>如果expr的值不满足exprlist1的要求，则继续检查是否满足exprlist2的要求，如果满足exprlist2的要求，这执行Case exprlist2的语句。</p>
+<p>同理，还可以自行添加更多的Case在后面。</p>
+<p>这里可以看出来，添加的不同的Case的顺序很重要，都是在不满足上一个Case的条件下，再继续往下验证下一个Case的，因此有些情况下，要注意Case的顺序，尤其是针对Case的条件是范围值的时候。</p>
+<p>有的时候，Case异常的多，全部写出来达到了成百上千条的那种，总不能每一条都写出来吧，因此对于这样的情况，就引出来另外一种Select Case的形式。</p>
+<p>形式2的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">Case</span> <span class="keyword">Else</span></span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
+
+<p>从形式2的语法上来看，与形式1的语法就在最后相差一下Case Else，别小看这一点点差别，能处理的Case就大大增强了。</p>
+<p>注意这的Case Else只能放在最后，用于处理都不满足前面的Case的情况。</p>
+<p>下面通过一个具体的例子看看实际的应用。</p>
+<p>实例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub Optest4()</span><br><span class="line"></span><br><span class="line">Dim age As Integer</span><br><span class="line"> </span><br><span class="line">age &#x3D; 20</span><br><span class="line"></span><br><span class="line">Select Case age</span><br><span class="line"></span><br><span class="line">Case 10</span><br><span class="line">    Debug.Print &quot;已经10岁啦&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 18</span><br><span class="line">    Debug.Print &quot;已经是成年人了&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 6</span><br><span class="line">    Debug.Print &quot;是青少年了&quot;</span><br><span class="line">    </span><br><span class="line">Case Else</span><br><span class="line">    Debug.Print &quot;是婴幼儿&quot;</span><br><span class="line">    </span><br><span class="line">End Select</span><br><span class="line"></span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/8_1.png"></p>
+<p>点击运行按钮，并查看运行结果如下：</p>
+<p><img src="/resource/8_2.png"></p>
+<p>可以看到当age=20的时候，首先对比第一个Case,由于第一个Case为10，不匹配，因此继续往下对比第二个Case， 20正好大于等于18，因此匹配到了第二个Case，并执行第二个Case的输出语句，也就是输出”已经是成年人了”,此时Case 对比结束，退出Select对比。</p>
+<p>大家可以将age分别修改为5,10,15等不同的值，然后保存并运行，看看匹配的Case。</p>
+<p>提示：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">age = <span class="number">5</span>  <span class="comment">&#x27;匹配的是Case Else, 输出 &quot;是婴幼儿&quot;</span></span><br><span class="line">age = <span class="number">10</span> <span class="comment">&#x27;匹配的是Case 10, 输出 &quot;已经10岁啦&quot;</span></span><br><span class="line">age = <span class="number">15</span> <span class="comment">&#x27;匹配的是Case Is &gt;= 6,输出 &quot;是青少年了&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA流程控制介绍</title>
-    <url>/2020/05/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D/</url>
+    <url>/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
     <content><![CDATA[<p>Hi，大家好，前几期主要介绍了变量及变量的操作–数据运算，有了这些基础之后，我们开始介绍编程里面另外一个核心—流程控制。</p>
 <p>到目前为止，此前展示的例子里面，其实我们已经用到了流程控制，只不过我们用的是顺序的流程控制，也就是自上而下，根据代码书写个顺序，一句一句的执行的的。</p>
 <p>但因为有变量的存在，变量的值有可能是随时都有可能变化的，因此，如果还是一直按照顺序来执行，在有些情况下，就会出现不满足需求的情况，在这样的情况下，就需要引入分支流程控制。</p>
@@ -640,49 +681,8 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA流程控制介绍续2</title>
-    <url>/2020/06/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2/</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了分支控制流程中的if语句，今天继续介绍分支流程控制的另外一个形式—switch语句</p>
-<p>switch语句的功能与if语句类似，也有两种基本的形式。</p>
-<p>形式1的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
-
-<p>其中expr要求为数值表达式或者字符串表达式</p>
-<p>exprlist1，exprlist2 为expr可能的取值或者可能的取值的范围的表达式。</p>
-<p>Select case的工作流程如下：</p>
-<p>首先计算expr的值，当expr的值与exprlist1的值相同，或者在exprlist1的范围内，则执行执行Case exprlist1后面的语句。</p>
-<p>如果expr的值不满足exprlist1的要求，则继续检查是否满足exprlist2的要求，如果满足exprlist2的要求，这执行Case exprlist2的语句。</p>
-<p>同理，还可以自行添加更多的Case在后面。</p>
-<p>这里可以看出来，添加的不同的Case的顺序很重要，都是在不满足上一个Case的条件下，再继续往下验证下一个Case的，因此有些情况下，要注意Case的顺序，尤其是针对Case的条件是范围值的时候。</p>
-<p>有的时候，Case异常的多，全部写出来达到了成百上千条的那种，总不能每一条都写出来吧，因此对于这样的情况，就引出来另外一种Select Case的形式。</p>
-<p>形式2的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">Case</span> <span class="keyword">Else</span></span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
-
-<p>从形式2的语法上来看，与形式1的语法就在最后相差一下Case Else，别小看这一点点差别，能处理的Case就大大增强了。</p>
-<p>注意这的Case Else只能放在最后，用于处理都不满足前面的Case的情况。</p>
-<p>下面通过一个具体的例子看看实际的应用。</p>
-<p>实例代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub Optest4()</span><br><span class="line"></span><br><span class="line">Dim age As Integer</span><br><span class="line"> </span><br><span class="line">age &#x3D; 20</span><br><span class="line"></span><br><span class="line">Select Case age</span><br><span class="line"></span><br><span class="line">Case 10</span><br><span class="line">    Debug.Print &quot;已经10岁啦&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 18</span><br><span class="line">    Debug.Print &quot;已经是成年人了&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 6</span><br><span class="line">    Debug.Print &quot;是青少年了&quot;</span><br><span class="line">    </span><br><span class="line">Case Else</span><br><span class="line">    Debug.Print &quot;是婴幼儿&quot;</span><br><span class="line">    </span><br><span class="line">End Select</span><br><span class="line"></span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述代码到VBA代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/8_1.png"></p>
-<p>点击运行按钮，并查看运行结果如下：</p>
-<p><img src="/resource/8_2.png"></p>
-<p>可以看到当age=20的时候，首先对比第一个Case,由于第一个Case为10，不匹配，因此继续往下对比第二个Case， 20正好大于等于18，因此匹配到了第二个Case，并执行第二个Case的输出语句，也就是输出”已经是成年人了”,此时Case 对比结束，退出Select对比。</p>
-<p>大家可以将age分别修改为5,10,15等不同的值，然后保存并运行，看看匹配的Case。</p>
-<p>提示：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">age = <span class="number">5</span>  <span class="comment">&#x27;匹配的是Case Else, 输出 &quot;是婴幼儿&quot;</span></span><br><span class="line">age = <span class="number">10</span> <span class="comment">&#x27;匹配的是Case 10, 输出 &quot;已经10岁啦&quot;</span></span><br><span class="line">age = <span class="number">15</span> <span class="comment">&#x27;匹配的是Case Is &gt;= 6,输出 &quot;是青少年了&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA第一个程序</title>
-    <url>/2020/04/VBA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F/</url>
+    <url>/VBA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F.html</url>
     <content><![CDATA[<p>Hi，大家好，自从上一期我们成功开启了Office的开发者模式后，就等于是拿到隐藏的绝世武功的秘籍，通往高手之路已经完成了第一步，接下来的就要开启修炼之路了。</p>
 <p>在码农界，有个传统，就是运行的第一个程序，是要输出”Hello world!”，我姑且称之为开工仪式吧，所以我们也继续遵循并发扬这个传统，从”Hello,world”开始高手之路。</p>
 <p>千万不要小瞧这个开工仪式，要是顺利，后面的学习之路也会更加顺畅噢~</p>
