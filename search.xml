@@ -34,31 +34,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA应用之Excel篇续2</title>
-    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD2/</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的基本的文件操作，例如新建,另存为，重命名等操作。</p>
-<p>有了之前的Excel文件操作的基础了，就可以进一步的学习激动人心的Excel的单元格的操作。</p>
-<p>同样，VBA也对单元格进行了抽象，使用Worksheet对象的Cells属性来表示工作表的所有的单元格。</p>
-<p>如果Cells属性带上横纵坐标的参数，则表示对应的横纵坐标的单元格。这里说的横纵坐标就是对应Excel上的第多少列和多少行，因此通过Cells属性及横纵坐标的参数，就可以访问Excel表格中任意一个单元格。</p>
-<p>通过坐标以及此前介绍的循环，就可以批量访问任意的单元格了。</p>
-<p>下面通过一个具体的例子，看看通过VBA代码对单元格实行操作,具体代码如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述代码到Excel的中Sheet1的VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/15_1.png"></p>
-<p>点击运行按钮，运行此子过程代码，运行结果如下图所示：</p>
-<p><img src="/resource/15_2.png"></p>
-<p>代码看起来有点多，但很多实际上都只是在设置字体，字号什么的，真正打印的九九乘法表仅仅几行代码就可以了。</p>
-<p>下面详细的注释一下相关的代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义几个控制变量，用于循环控制</span></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;为了便于下面的设置，这里将第9行，第15列单元格绑定到Range对象上</span></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;对第9行，15列单元格进行设置</span></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容加粗</span></span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容斜体</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格字号为20</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格的内容为“九九乘法表”</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格列宽为自适应，防止文字太长显示不全</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;循环设置九九乘法表对应的各个单元格，并设置对应单元格列宽为自适应</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>觉得有用吗？想了解更多吗 ？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA应用之Excel篇</title>
     <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87/</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA在Word上的常见的应用，今天开始看看VBA在Excel上的应用，这个也是很多人用VBA进行自动化操作的的主要的应用场景。</p>
@@ -119,6 +94,31 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA应用之Excel篇续2</title>
+    <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD2/</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的基本的文件操作，例如新建,另存为，重命名等操作。</p>
+<p>有了之前的Excel文件操作的基础了，就可以进一步的学习激动人心的Excel的单元格的操作。</p>
+<p>同样，VBA也对单元格进行了抽象，使用Worksheet对象的Cells属性来表示工作表的所有的单元格。</p>
+<p>如果Cells属性带上横纵坐标的参数，则表示对应的横纵坐标的单元格。这里说的横纵坐标就是对应Excel上的第多少列和多少行，因此通过Cells属性及横纵坐标的参数，就可以访问Excel表格中任意一个单元格。</p>
+<p>通过坐标以及此前介绍的循环，就可以批量访问任意的单元格了。</p>
+<p>下面通过一个具体的例子，看看通过VBA代码对单元格实行操作,具体代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到Excel的中Sheet1的VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/15_1.png"></p>
+<p>点击运行按钮，运行此子过程代码，运行结果如下图所示：</p>
+<p><img src="/resource/15_2.png"></p>
+<p>代码看起来有点多，但很多实际上都只是在设置字体，字号什么的，真正打印的九九乘法表仅仅几行代码就可以了。</p>
+<p>下面详细的注释一下相关的代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Multi_Table()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义几个控制变量，用于循环控制</span></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"><span class="keyword">Dim</span> j As Integer</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;为了便于下面的设置，这里将第9行，第15列单元格绑定到Range对象上</span></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">9</span>, <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;对第9行，15列单元格进行设置</span></span><br><span class="line"><span class="keyword">With</span> rng</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容加粗</span></span><br><span class="line">.Font.Bold = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格内容斜体</span></span><br><span class="line">.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格字号为20</span></span><br><span class="line">.Font.Size = <span class="number">20</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格的内容为“九九乘法表”</span></span><br><span class="line">.Value = <span class="string">&quot;九九乘法表&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置该单元格列宽为自适应，防止文字太长显示不全</span></span><br><span class="line">.Columns.AutoFit</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;循环设置九九乘法表对应的各个单元格，并设置对应单元格列宽为自适应</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">1</span> <span class="keyword">To</span> <span class="number">9</span></span><br><span class="line"> <span class="keyword">For</span> j = <span class="number">1</span> <span class="keyword">To</span> i</span><br><span class="line"> Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j) = j &amp; <span class="string">&quot; * &quot;</span> &amp; i &amp; <span class="string">&quot; = &quot;</span> &amp; j * i</span><br><span class="line"> Sheet1.Range(Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j), Sheet1.Cells(<span class="number">10</span> + i, <span class="number">10</span> + j)).Columns.AutoFit</span><br><span class="line"> <span class="keyword">Next</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>觉得有用吗？想了解更多吗 ？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA应用之Outlook篇</title>
     <url>/2020/07/VBA%E5%BA%94%E7%94%A8%E4%B9%8BOutlook%E7%AF%87/</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA在Word和Excel的上的一些基础应用，虽然绝大部分的应用都是在Excel上，但是利用VBA代码批量生成邮件，添加附件，自动发邮件的这些需求，也是在日常的工作中会经常遇到的，这里介绍下如何使用VBA调用Outlook发送邮件。</p>
@@ -131,7 +131,7 @@
 
 <p>复制粘贴上述代码到Excel的VBA代码编辑环境中(这里我们主要是模拟通过Excel调用Outlook发送邮件)，如下图所示：</p>
 <p><img src="/resource/17_1.png"></p>
-<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#120;&#x79;&#x7a;&#x40;&#x61;&#x62;&#x63;&#x2e;&#x63;&#111;&#x6d;">&#120;&#x79;&#x7a;&#x40;&#x61;&#x62;&#x63;&#x2e;&#x63;&#111;&#x6d;</a>“替换为所需要的发送的邮件收件人。</p>
+<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#121;&#122;&#64;&#97;&#98;&#99;&#46;&#x63;&#111;&#109;">&#x78;&#121;&#122;&#64;&#97;&#98;&#99;&#46;&#x63;&#111;&#109;</a>“替换为所需要的发送的邮件收件人。</p>
 <p>因Excel默认没有引用Outlook应用程序对象库，因此，在第一次使用的时候，需要手动添加Outlook对象的应用，添加的方法也很简单，点击VBA编程环境的”工具”栏，点击”引用”，然后再弹出的对话框中，找到”Microsoft  Outlook 15.0 Object Library”，确保前面的复选框是选中状态，然后点击确定，关闭对话框,如下图所示：</p>
 <p><img src="/resource/17_2.png"></p>
 <p>点击运行按钮，运行”Send_Mail” 子程序，此时有可能会弹出安全提醒，如下图所示：</p>
@@ -467,6 +467,41 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA数据运算续2</title>
+    <url>/2020/05/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD2/</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的算术运算符，也就是常见的加减乘除等等，今天再继续介绍另一个常用的运算符–比较运算符。</p>
+<p>在介绍比较运算符之前，需要先了解一下表达式的概念。</p>
+<p><strong>表达式</strong>是由变量，常量，运算符等组合起来的一个算式，类似于加减乘除的混合运算，经过计算之后，可以得到一个结果，得到的结果可以是整型数据，浮点数据，布尔型数据等等。</p>
+<p><strong>比较运算符</strong></p>
+<p>比较运算符主要就是用来比较两个表达式的大小，是否相等的运算，是否相等的运算，返回的结果为布尔值，也就是只有真和假这两种值,有以下6种常用的运算符：</p>
+<p><img src="/resource/5_3.png"></p>
+<p>以第一个”&lt;”比较运算符为例进行说明，当需要检查表达式expr1是否小于表达是expr2时，可以通过如下语法表示:</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">expr1 &lt; expr2 </span><br></pre></td></tr></table></figure>
+
+<p>程序会分别自动计算expr1和expr2这两个表达式的值，然后比较计算出来的表达式的值，当表达式expr1的值确实比表达式expr2的值要小时，则整个运算返回的结果是布尔值”True”, 反之，当表达式expr1的值大于或者等于表达式expr2的值时，则返回布尔值”False”</p>
+<p>其他的几个比较运算符也是一样的流程，这里不再赘述，通过如下代码可以看到比较运算符的实际应用：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> CompTest()</span><br><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &lt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述事例代码到VBA代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/5_1.png"></p>
+<p>点击运行代码，可以得到如下图所示结果：</p>
+<p><img src="/resource/5_2.png"></p>
+<p>可以看到底下的立即窗口打印了不同的比较运算符的结果。</p>
+<p>如下代码定义了三个变量,分别赋值为1,2,2</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>如下代码则分别调用不同的比较运算符，对三个不同的变量执行比较运算，并通过立即窗口打印比较运算的结果</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Debug.Print expr1 &lt; expr2    // 1 小于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1   //2 小于 1 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3  // 2 小于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2    //1 大于 2 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3    //2大于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3    //2 等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3  //2 不等于 2 比较运算结果为假</span><br></pre></td></tr></table></figure>
+
+<p>表达式和比较运算符应用的范围很广，在后续的很多场合都可以看到表达式和比较运算符的应用，这里只是简单介绍了比较运算符的语法及使用，后面会看到更多比较运算符的例子。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA数据运算续3</title>
     <url>/2020/05/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD3/</url>
     <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的比较运算符，主要用于比较两个表达式的大小，是否相等等，比较运算符的比较结果为逻辑真或者逻辑假(对于VBA来说，则为布尔值”True”和布尔值”False”).</p>
@@ -513,41 +548,6 @@
 <figure class="highlight"><table><tr><td class="code"><pre><span class="line">False        //expr1为真，expr2为假，与运算为假</span><br><span class="line">True        //expr1为真，expr3为真，与运算为真</span><br><span class="line">True        //expr1为真，expr2为假，或运算为真</span><br><span class="line">True        //expr1为真，expr3为真，或运算为真</span><br><span class="line">True        //expr1为真，expr2为假，异或运算为真</span><br><span class="line">False        //expr1为真，expr3为真，异或运算为假</span><br><span class="line">False        //expr1为真，expr2为假，等价算为假</span><br><span class="line">True        //expr1为真，expr3为真，等价算为真</span><br><span class="line">False        //expr1为真，expr2为假，蕴含算为假</span><br><span class="line">True        //expr1为真，expr3为真，蕴含算为真</span><br><span class="line">False        //expr1为真，非运算为假</span><br><span class="line">True        //expr2为假，非运算为真</span><br></pre></td></tr></table></figure>
 
 <p>怎么样？逻辑运算符应该是很简单的，只要掌握了逻辑运算符的真值表，基本上就不会有问题了。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA数据运算续2</title>
-    <url>/2020/05/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD2/</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的算术运算符，也就是常见的加减乘除等等，今天再继续介绍另一个常用的运算符–比较运算符。</p>
-<p>在介绍比较运算符之前，需要先了解一下表达式的概念。</p>
-<p><strong>表达式</strong>是由变量，常量，运算符等组合起来的一个算式，类似于加减乘除的混合运算，经过计算之后，可以得到一个结果，得到的结果可以是整型数据，浮点数据，布尔型数据等等。</p>
-<p><strong>比较运算符</strong></p>
-<p>比较运算符主要就是用来比较两个表达式的大小，是否相等的运算，是否相等的运算，返回的结果为布尔值，也就是只有真和假这两种值,有以下6种常用的运算符：</p>
-<p><img src="/resource/5_3.png"></p>
-<p>以第一个”&lt;”比较运算符为例进行说明，当需要检查表达式expr1是否小于表达是expr2时，可以通过如下语法表示:</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">expr1 &lt; expr2 </span><br></pre></td></tr></table></figure>
-
-<p>程序会分别自动计算expr1和expr2这两个表达式的值，然后比较计算出来的表达式的值，当表达式expr1的值确实比表达式expr2的值要小时，则整个运算返回的结果是布尔值”True”, 反之，当表达式expr1的值大于或者等于表达式expr2的值时，则返回布尔值”False”</p>
-<p>其他的几个比较运算符也是一样的流程，这里不再赘述，通过如下代码可以看到比较运算符的实际应用：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> CompTest()</span><br><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &lt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述事例代码到VBA代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/5_1.png"></p>
-<p>点击运行代码，可以得到如下图所示结果：</p>
-<p><img src="/resource/5_2.png"></p>
-<p>可以看到底下的立即窗口打印了不同的比较运算符的结果。</p>
-<p>如下代码定义了三个变量,分别赋值为1,2,2</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>如下代码则分别调用不同的比较运算符，对三个不同的变量执行比较运算，并通过立即窗口打印比较运算的结果</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Debug.Print expr1 &lt; expr2    // 1 小于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1   //2 小于 1 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3  // 2 小于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2    //1 大于 2 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3    //2大于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3    //2 等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3  //2 不等于 2 比较运算结果为假</span><br></pre></td></tr></table></figure>
-
-<p>表达式和比较运算符应用的范围很广，在后续的很多场合都可以看到表达式和比较运算符的应用，这里只是简单介绍了比较运算符的语法及使用，后面会看到更多比较运算符的例子。</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
@@ -678,15 +678,6 @@
 ]]></content>
       <tags>
         <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA集合的声明及应用</title>
-    <url>/2020/08/VBA%E9%9B%86%E5%90%88%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8/</url>
-    <content><![CDATA[<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
   <entry>
