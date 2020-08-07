@@ -34,39 +34,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA应用之Excel篇续3</title>
-    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD3.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的单元格的常见操作，主要涉及到单元格的访问，单元格内容字体格式设置等等，并最终通过生成一个九九乘法表的例子讲解了相关的代码。</p>
-<p>我们生成的单元格内容都是静态的，生成一次之后就没有更新了，是否有办法定时更新相关的内容，然后及时的通过单元格显示出来呢？</p>
-<p>需要定时更新的话，则需要涉及到定时器的使用，但是VBA中并没有直接提供定时器功能，要想实现定时功能，则需要通过其他的相关的功能，模拟实现定时器类似的功能。</p>
-<p>要实现模拟定时器功能，则需要涉及到一个新的对象—-Application对象.   Application是对应用程序的一种抽象。</p>
-<p>不同的应用程序的Application对象是不一样的，在Excel中，Application对象代表整个Excel应用程序，在Word中，则代表整个Word应用程序。</p>
-<p>Application的OnTime功能可以指定一个子程序在将来的特定时间运行,利用这个特性，在子程序里面在实现对自身子程序的定时调用，从而间接实现定时功能。</p>
-<p>但是这里有个特殊的地方是如果通过Application对象调用子程序，相关的宏代码所放置的位置与我们此前放置的workbook或者Worksheet的代码编辑区是不一样的，如果还是放置在此前的位置，是无法自动运行，会报无法找到宏的错误，需要单独放置在新建模块里面。</p>
-<p>模块，也是一个代码块，只是这个代码块的代码是可以导出为一个文件，可以供其他的代码调用的，就像是VBA提供的系统的功能一样，简单的说，就是可以复用的自定义功能。</p>
-<p>根据上述实现定时器原理，下面通过一个简单的例子，看看具体是如何实现的：</p>
-<p>首先在Excel的VBA集成开发环境的左上角工程资源管理器空白处点击鼠标右键，然后选择插入模块，如下图所示：</p>
-<p><img src="/resource/16_1.png"></p>
-<p>上述步骤会自动添加一个新的模块1,双击模块1,打开模块1的代码编辑窗口，复制粘贴如下代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Option</span> <span class="keyword">Explicit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> startshowtime()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line">rng.Font.Size = <span class="number">14</span></span><br><span class="line">rng.NumberFormatLocal = <span class="string">&quot;hh:mm:ss&quot;</span></span><br><span class="line">rng.Value = <span class="built_in">Now</span></span><br><span class="line">rng.Columns.AutoFit</span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> stopshowtime()</span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">False</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>添加对应代码到模块1后如下图所示：</p>
-<p><img src="/resource/16_2.png"></p>
-<p>切换到Excel表窗口，点击开发工具菜单栏，点击开发工具菜单栏下宏安全按键，在弹出的信任中心的宏安全设置中，确保宏设置为启用所有宏选项，如下图所示：</p>
-<p><img src="/resource/16_3.png"></p>
-<p>重新切回到模块1的代码编辑环境，选中startshowtime子程序，然后点击运行按钮，运行该子程序,可以看到在Excel的Sheet1表的H8单元格显示当前时间，并且是持续变化的，点击运行stopshowtime,则会停止定时器，显示停止定时器之前的时间，如图所示：</p>
-<p><img src="/resource/16_4.png"></p>
-<p>下面注释一下相关的代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;强制显示声明模块中的所有变量，没有声明的变量使用会报错</span></span><br><span class="line"><span class="keyword">Option</span> <span class="keyword">Explicit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> startshowtime()</span><br><span class="line"></span><br><span class="line">’声明一个Range变量</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置Range变量为第8行第8列单元格，也就是H8单元格</span></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置单元格字体大小为14</span></span><br><span class="line">rng.Font.Size = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27; 设置单元格显示内容的格式为时间格式“hh:mm:ss”</span></span><br><span class="line">rng.NumberFormatLocal = <span class="string">&quot;hh:mm:ss&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置单元格显示内容为当前时间</span></span><br><span class="line">rng.Value = <span class="built_in">Now</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置单元格为自适应列宽</span></span><br><span class="line">rng.Columns.AutoFit</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27; 在当前时间基础上，延后1秒运行startshowtime子程序</span></span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> stopshowtime()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;停止运行startshowtime子程序</span></span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>这里仅仅通过定时器显示了当前的时间，大家可以在此基础上扩充相关功能，并修改定时时间，完成更复杂的功能，并可以导出模块为.bas文件，供其他的人调用。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA应用之Excel篇</title>
     <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87.html</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA在Word上的常见的应用，今天开始看看VBA在Excel上的应用，这个也是很多人用VBA进行自动化操作的的主要的应用场景。</p>
@@ -119,6 +86,39 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA应用之Excel篇续3</title>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BExcel%E7%AF%87%E7%BB%AD3.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Excel上的单元格的常见操作，主要涉及到单元格的访问，单元格内容字体格式设置等等，并最终通过生成一个九九乘法表的例子讲解了相关的代码。</p>
+<p>我们生成的单元格内容都是静态的，生成一次之后就没有更新了，是否有办法定时更新相关的内容，然后及时的通过单元格显示出来呢？</p>
+<p>需要定时更新的话，则需要涉及到定时器的使用，但是VBA中并没有直接提供定时器功能，要想实现定时功能，则需要通过其他的相关的功能，模拟实现定时器类似的功能。</p>
+<p>要实现模拟定时器功能，则需要涉及到一个新的对象—-Application对象.   Application是对应用程序的一种抽象。</p>
+<p>不同的应用程序的Application对象是不一样的，在Excel中，Application对象代表整个Excel应用程序，在Word中，则代表整个Word应用程序。</p>
+<p>Application的OnTime功能可以指定一个子程序在将来的特定时间运行,利用这个特性，在子程序里面在实现对自身子程序的定时调用，从而间接实现定时功能。</p>
+<p>但是这里有个特殊的地方是如果通过Application对象调用子程序，相关的宏代码所放置的位置与我们此前放置的workbook或者Worksheet的代码编辑区是不一样的，如果还是放置在此前的位置，是无法自动运行，会报无法找到宏的错误，需要单独放置在新建模块里面。</p>
+<p>模块，也是一个代码块，只是这个代码块的代码是可以导出为一个文件，可以供其他的代码调用的，就像是VBA提供的系统的功能一样，简单的说，就是可以复用的自定义功能。</p>
+<p>根据上述实现定时器原理，下面通过一个简单的例子，看看具体是如何实现的：</p>
+<p>首先在Excel的VBA集成开发环境的左上角工程资源管理器空白处点击鼠标右键，然后选择插入模块，如下图所示：</p>
+<p><img src="/resource/16_1.png"></p>
+<p>上述步骤会自动添加一个新的模块1,双击模块1,打开模块1的代码编辑窗口，复制粘贴如下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Option</span> <span class="keyword">Explicit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> startshowtime()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line">rng.Font.Size = <span class="number">14</span></span><br><span class="line">rng.NumberFormatLocal = <span class="string">&quot;hh:mm:ss&quot;</span></span><br><span class="line">rng.Value = <span class="built_in">Now</span></span><br><span class="line">rng.Columns.AutoFit</span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> stopshowtime()</span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">False</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>添加对应代码到模块1后如下图所示：</p>
+<p><img src="/resource/16_2.png"></p>
+<p>切换到Excel表窗口，点击开发工具菜单栏，点击开发工具菜单栏下宏安全按键，在弹出的信任中心的宏安全设置中，确保宏设置为启用所有宏选项，如下图所示：</p>
+<p><img src="/resource/16_3.png"></p>
+<p>重新切回到模块1的代码编辑环境，选中startshowtime子程序，然后点击运行按钮，运行该子程序,可以看到在Excel的Sheet1表的H8单元格显示当前时间，并且是持续变化的，点击运行stopshowtime,则会停止定时器，显示停止定时器之前的时间，如图所示：</p>
+<p><img src="/resource/16_4.png"></p>
+<p>下面注释一下相关的代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;强制显示声明模块中的所有变量，没有声明的变量使用会报错</span></span><br><span class="line"><span class="keyword">Option</span> <span class="keyword">Explicit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> startshowtime()</span><br><span class="line"></span><br><span class="line">’声明一个Range变量</span><br><span class="line"><span class="keyword">Dim</span> rng As Range</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置Range变量为第8行第8列单元格，也就是H8单元格</span></span><br><span class="line"><span class="keyword">Set</span> rng = Sheet1.Cells(<span class="number">8</span>, <span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置单元格字体大小为14</span></span><br><span class="line">rng.Font.Size = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27; 设置单元格显示内容的格式为时间格式“hh:mm:ss”</span></span><br><span class="line">rng.NumberFormatLocal = <span class="string">&quot;hh:mm:ss&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置单元格显示内容为当前时间</span></span><br><span class="line">rng.Value = <span class="built_in">Now</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置单元格为自适应列宽</span></span><br><span class="line">rng.Columns.AutoFit</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27; 在当前时间基础上，延后1秒运行startshowtime子程序</span></span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Public</span> <span class="keyword">Sub</span> stopshowtime()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;停止运行startshowtime子程序</span></span><br><span class="line">Application.OnTime <span class="built_in">Now</span> + <span class="built_in">TimeValue</span>(<span class="string">&quot;00:00:01&quot;</span>), <span class="string">&quot;startshowtime&quot;</span>, , <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>这里仅仅通过定时器显示了当前的时间，大家可以在此基础上扩充相关功能，并修改定时时间，完成更复杂的功能，并可以导出模块为.bas文件，供其他的人调用。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA应用之Outlook篇</title>
     <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BOutlook%E7%AF%87.html</url>
     <content><![CDATA[<p>Hi，大家好，前面几期介绍了VBA在Word和Excel的上的一些基础应用，虽然绝大部分的应用都是在Excel上，但是利用VBA代码批量生成邮件，添加附件，自动发邮件的这些需求，也是在日常的工作中会经常遇到的，这里介绍下如何使用VBA调用Outlook发送邮件。</p>
@@ -131,7 +131,7 @@
 
 <p>复制粘贴上述代码到Excel的VBA代码编辑环境中(这里我们主要是模拟通过Excel调用Outlook发送邮件)，如下图所示：</p>
 <p><img src="/resource/17_1.png"></p>
-<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#120;&#121;&#122;&#x40;&#97;&#98;&#x63;&#46;&#x63;&#111;&#109;">&#120;&#121;&#122;&#x40;&#97;&#98;&#x63;&#46;&#x63;&#111;&#109;</a>“替换为所需要的发送的邮件收件人。</p>
+<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#x79;&#x7a;&#x40;&#x61;&#98;&#99;&#x2e;&#x63;&#x6f;&#x6d;">&#x78;&#x79;&#x7a;&#x40;&#x61;&#98;&#99;&#x2e;&#x63;&#x6f;&#x6d;</a>“替换为所需要的发送的邮件收件人。</p>
 <p>因Excel默认没有引用Outlook应用程序对象库，因此，在第一次使用的时候，需要手动添加Outlook对象的应用，添加的方法也很简单，点击VBA编程环境的”工具”栏，点击”引用”，然后再弹出的对话框中，找到”Microsoft  Outlook 15.0 Object Library”，确保前面的复选框是选中状态，然后点击确定，关闭对话框,如下图所示：</p>
 <p><img src="/resource/17_2.png"></p>
 <p>点击运行按钮，运行”Send_Mail” 子程序，此时有可能会弹出安全提醒，如下图所示：</p>
@@ -183,6 +183,45 @@
 
 <p>代码里面的文件名和保存的路径可以根据自己的需求随意更换的，如果不写明保存路径，默认是保存到当前用户的我的文档目录下的。</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA应用之Word篇续2</title>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD2.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的应用，主要是介绍了如何使用VBA的文件操作，例如新建文档，重命名及另存为等操作。</p>
+<p>除了上述的文件操作，还有很大一部分操作是文件编辑操作，这个也是可以通过VBA来实现的。</p>
+<p>再介绍使用VBA编辑操作之前，需要介绍一个新的概念—Range对象。</p>
+<p><strong>Range对象</strong></p>
+<p>表示的是文档中的一个连续的区域，由一个起始字符位置和终止字符位置确定。</p>
+<p>简单来说，就是用来表示Word文档中的一个连续的区域。例如从第1个字符到第10个字符，这个就表示一个区域。</p>
+<p>从Range对象的定义来看，其实定义的是一个范围，因此，这个对象与这个范围里面的内容是无关的，只与起始字符位置，终止字符位置有关系。</p>
+<p>定义了Range对象之后，就可以在Range对象定义区域的基础上进行编辑操作了</p>
+<p>Range对象支持很多操作，例如加粗，修改字体，复制，剪切，粘贴，插入，语法检查，拼写检查等操作。</p>
+<p>下面通过一个简单的例子，演示一下如何通过脚本插入一段文本内容。</p>
+<p>具体的代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> InsertTextAfterRange()</span><br><span class="line"> <span class="keyword">Dim</span> rngDoc As Range</span><br><span class="line"> <span class="keyword">Dim</span> lastwords As Integer</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=<span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line"> rngDoc.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> lastwords = rngDoc.Characters.Count</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=lastwords)</span><br><span class="line"> </span><br><span class="line"> rngDoc.Bold = <span class="literal">True</span></span><br><span class="line"> rngDoc.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码到word文档的VBA代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/12_1.png"></p>
+<p>点击运行按键，运行此子程序，运行结果如下图所示：</p>
+<p><img src="/resource/12_2.png"></p>
+<p>可以看到，这次立即窗口没有任何的输出，返回到对应打开的Word文档，可以看到，在文档的开头，插入了一段斜体加粗的文本。</p>
+<p>下面详细的解释一下相对应的代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> InsertTextAfterRange()</span><br><span class="line"> <span class="keyword">Dim</span> rngDoc As Range</span><br><span class="line"> <span class="keyword">Dim</span> lastwords As Integer</span><br><span class="line"></span><br><span class="line"> <span class="comment">&#x27;设置Range对象的起始点和结束点为当前活动文本的第0个字节</span></span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在Range对象后面插入一段文本</span></span><br><span class="line"> rngDoc.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;统计插入文本后Range对象有多少个字符</span></span><br><span class="line"> lastwords = rngDoc.Characters.Count</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新设置Rang对象，起始点依然为0,终点为此前插入的文本的最后一个字符</span></span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=lastwords)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置Range对象的加粗属性和斜体属性</span></span><br><span class="line"> rngDoc.Bold = <span class="literal">True</span></span><br><span class="line"> rngDoc.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>通过对应的代码解释我们可以看到代码操作主要分以下步骤：</p>
+<ol>
+<li>设置好文本的插入点</li>
+<li>插入所需的文本</li>
+<li>重新调整需要设置加粗和倾斜的字体的区域，这里我们所选定的区域是对所插入的整个文本执行加粗和倾斜的操作</li>
+<li>对设置的区域进行加粗和倾斜操作</li>
+</ol>
+<p>整体的操作还是很简单的，通过调整Range的区域的大小，还是可以对加粗，倾斜的文本范围进行进一步的调整，感兴趣的可以调整代码试一试。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
       <tags>
@@ -252,45 +291,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA应用之Word篇续2</title>
-    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD2.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的应用，主要是介绍了如何使用VBA的文件操作，例如新建文档，重命名及另存为等操作。</p>
-<p>除了上述的文件操作，还有很大一部分操作是文件编辑操作，这个也是可以通过VBA来实现的。</p>
-<p>再介绍使用VBA编辑操作之前，需要介绍一个新的概念—Range对象。</p>
-<p><strong>Range对象</strong></p>
-<p>表示的是文档中的一个连续的区域，由一个起始字符位置和终止字符位置确定。</p>
-<p>简单来说，就是用来表示Word文档中的一个连续的区域。例如从第1个字符到第10个字符，这个就表示一个区域。</p>
-<p>从Range对象的定义来看，其实定义的是一个范围，因此，这个对象与这个范围里面的内容是无关的，只与起始字符位置，终止字符位置有关系。</p>
-<p>定义了Range对象之后，就可以在Range对象定义区域的基础上进行编辑操作了</p>
-<p>Range对象支持很多操作，例如加粗，修改字体，复制，剪切，粘贴，插入，语法检查，拼写检查等操作。</p>
-<p>下面通过一个简单的例子，演示一下如何通过脚本插入一段文本内容。</p>
-<p>具体的代码如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> InsertTextAfterRange()</span><br><span class="line"> <span class="keyword">Dim</span> rngDoc As Range</span><br><span class="line"> <span class="keyword">Dim</span> lastwords As Integer</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=<span class="number">0</span>)</span><br><span class="line"> </span><br><span class="line"> rngDoc.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> lastwords = rngDoc.Characters.Count</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=lastwords)</span><br><span class="line"> </span><br><span class="line"> rngDoc.Bold = <span class="literal">True</span></span><br><span class="line"> rngDoc.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制上述代码到word文档的VBA代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/12_1.png"></p>
-<p>点击运行按键，运行此子程序，运行结果如下图所示：</p>
-<p><img src="/resource/12_2.png"></p>
-<p>可以看到，这次立即窗口没有任何的输出，返回到对应打开的Word文档，可以看到，在文档的开头，插入了一段斜体加粗的文本。</p>
-<p>下面详细的解释一下相对应的代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> InsertTextAfterRange()</span><br><span class="line"> <span class="keyword">Dim</span> rngDoc As Range</span><br><span class="line"> <span class="keyword">Dim</span> lastwords As Integer</span><br><span class="line"></span><br><span class="line"> <span class="comment">&#x27;设置Range对象的起始点和结束点为当前活动文本的第0个字节</span></span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在Range对象后面插入一段文本</span></span><br><span class="line"> rngDoc.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;统计插入文本后Range对象有多少个字符</span></span><br><span class="line"> lastwords = rngDoc.Characters.Count</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新设置Rang对象，起始点依然为0,终点为此前插入的文本的最后一个字符</span></span><br><span class="line"> <span class="keyword">Set</span> rngDoc = ActiveDocument.Range(start:=<span class="number">0</span>, <span class="keyword">End</span>:=lastwords)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设置Range对象的加粗属性和斜体属性</span></span><br><span class="line"> rngDoc.Bold = <span class="literal">True</span></span><br><span class="line"> rngDoc.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>通过对应的代码解释我们可以看到代码操作主要分以下步骤：</p>
-<ol>
-<li>设置好文本的插入点</li>
-<li>插入所需的文本</li>
-<li>重新调整需要设置加粗和倾斜的字体的区域，这里我们所选定的区域是对所插入的整个文本执行加粗和倾斜的操作</li>
-<li>对设置的区域进行加粗和倾斜操作</li>
-</ol>
-<p>整体的操作还是很简单的，通过调整Range的区域的大小，还是可以对加粗，倾斜的文本范围进行进一步的调整，感兴趣的可以调整代码试一试。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA循环控制介绍</title>
     <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
     <content><![CDATA[<p>Hi，大家好，上两期介绍了流程控制里面的分支流程控制，分支流程控制主要是用于解决各种不同的情况下的问题的处理。</p>
@@ -329,55 +329,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA数据运算</title>
-    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
-<p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
-<ul>
-<li>算术运算符</li>
-<li>比较运算符</li>
-<li>串联运算符</li>
-<li>逻辑运算符</li>
-</ul>
-<p>我们先看一下运用的最多的算术运算符</p>
-<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>算术运算符，主要就是用来执行数学计算的运算符，主要包含加+，减-，乘*，除（整数除\，浮点除/），取余Mod，指数运算^ 这几项.<br><strong>加法运算符</strong> “+” ,用来对两个数进行加法运算，从而的到两个数的和，具体的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result &#x3D; num1 + num2</span><br></pre></td></tr></table></figure>
-<p>其中num1 和num2分别是需要相加的变量，sum为运算得到的总和的变量，变量名是可以是任意取的，并且num1 和num2分别可以为整数，单精度浮点数，双精度浮点数等,下同<br><strong>减法运算符</strong>“-“,用来对两个数进行减法运算，从而的到两个数的差，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 - num2</span><br></pre></td></tr></table></figure>
-<p><strong>乘法运算符</strong>“*”,用来对两个数进行乘法运算，从而的到两个数的积，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1*num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>整数除法运算符</strong>“\“, 用来对两个数进行除法操作，但是得到的值只保留整数部分，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1\num2</span><br></pre></td></tr></table></figure>
-
-<p> <strong>浮点除法运算符</strong>“/“,用来对两个数进行除法操作，但是的到的值是个浮点数，具体的语法如下：</p>
-<figure class="highlight vbs"><table><tr><td class="code"><pre><span class="line">result = num1/num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>取余运算符</strong>“Mod”,用来对两个数进行除法操作，然后返回整除之后的余数部分，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 Mod num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>幂指数运算符</strong>“^”,用来求幂指数运算操作，返回指数幂的结果，具体语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 ^ num2</span><br></pre></td></tr></table></figure>
-
-<p>下面，我们用一小段代码来演示一下上面提到的各种常用的运算符，复制如下代码到VBA开发环境的代码编辑框中(戳这里了解VBA运行环境构建)，</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest()</span><br><span class="line"><span class="keyword">Dim</span> sum1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> sum2 As Single</span><br><span class="line"><span class="keyword">Dim</span> num1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num3 As Single</span><br><span class="line"><span class="keyword">Dim</span> num4 As Single</span><br><span class="line">num1 = <span class="number">5</span></span><br><span class="line">num2 = <span class="number">3</span></span><br><span class="line">num3 = <span class="number">2.5</span></span><br><span class="line">num4 = <span class="number">5.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;加法运算</span></span><br><span class="line">sum1 = num1 + num2</span><br><span class="line">sum2 = num3 + num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;减法运算</span></span><br><span class="line">sum1 = num1 - num2</span><br><span class="line">sum2 = num3 - num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;乘法运算</span></span><br><span class="line">sum1 = num1 * num2</span><br><span class="line">sum2 = num3 * num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;除法运算</span></span><br><span class="line">sum1 = num1 \ num2</span><br><span class="line">sum2 = num1 / num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;取余运算</span></span><br><span class="line">sum1 = num1 Mod num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;幂指数运算</span></span><br><span class="line">sum2 = num1 ^ num2</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>如下图所示：</p>
-<p><img src="/4_1.png" alt="4_1"></p>
-<p>点击运行Optest子程序，在立即窗口可以得到如下运行结果：</p>
-<p><img src="/resource/4_2.png"></p>
-<p>可以看到，立即窗口打印出来的值分别对应着如下的运算</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>+<span class="number">3</span> = <span class="number">8</span>          </span><br><span class="line"><span class="number">2.5</span>+<span class="number">5.3</span> = <span class="number">7.8</span></span><br><span class="line"><span class="number">5</span><span class="number">-3</span> = <span class="number">2</span></span><br><span class="line"><span class="number">2.5</span><span class="number">-5.3</span> = <span class="number">-2.8</span></span><br><span class="line"><span class="number">5</span>*<span class="number">3</span>=<span class="number">15</span></span><br><span class="line"><span class="number">2.5</span>*<span class="number">5.3</span>=<span class="number">13.25</span></span><br><span class="line"><span class="number">5</span>\<span class="number">3</span>=<span class="number">1</span>         <span class="comment">//这里是整除，只保留整数部分</span></span><br><span class="line"><span class="number">5</span>/<span class="number">3</span>=<span class="number">1.666667</span>  <span class="comment">//这里是浮点除，保留了小数部分</span></span><br><span class="line"><span class="number">5</span> Mod <span class="number">3</span> = <span class="number">2</span>   <span class="comment">//这里是5除以3，商为1，余数为2，因此得到的结果就是余数2</span></span><br><span class="line"><span class="number">5</span>^<span class="number">3</span>= <span class="number">125</span>      <span class="comment">//这里表示5的3次方，也就是5*5*5=125</span></span><br></pre></td></tr></table></figure>
-
-<p>常用的算术运算符就是这些了，大家掌握了吗？</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA循环控制介绍续2</title>
     <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2.html</url>
     <content><![CDATA[<p>Hi，大家好，上期介绍了循环流程控制里面的For循环控制，今天再介绍另外两种循环—Loop循环及While循环。</p>
@@ -407,41 +358,6 @@
 <p>并点击运行按键运行，运行结果如下：</p>
 <p><img src="/resource/10_2.png"></p>
 <p>在立即窗口可以看到，不管采用何种循环形式，都是可以完成同样的任务的，因此，不同的循环形式，基本上是可以互相转换的。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA数据运算续2</title>
-    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD2.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的算术运算符，也就是常见的加减乘除等等，今天再继续介绍另一个常用的运算符–比较运算符。</p>
-<p>在介绍比较运算符之前，需要先了解一下表达式的概念。</p>
-<p><strong>表达式</strong>是由变量，常量，运算符等组合起来的一个算式，类似于加减乘除的混合运算，经过计算之后，可以得到一个结果，得到的结果可以是整型数据，浮点数据，布尔型数据等等。</p>
-<p><strong>比较运算符</strong></p>
-<p>比较运算符主要就是用来比较两个表达式的大小，是否相等的运算，是否相等的运算，返回的结果为布尔值，也就是只有真和假这两种值,有以下6种常用的运算符：</p>
-<p><img src="/resource/5_3.png"></p>
-<p>以第一个”&lt;”比较运算符为例进行说明，当需要检查表达式expr1是否小于表达是expr2时，可以通过如下语法表示:</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">expr1 &lt; expr2 </span><br></pre></td></tr></table></figure>
-
-<p>程序会分别自动计算expr1和expr2这两个表达式的值，然后比较计算出来的表达式的值，当表达式expr1的值确实比表达式expr2的值要小时，则整个运算返回的结果是布尔值”True”, 反之，当表达式expr1的值大于或者等于表达式expr2的值时，则返回布尔值”False”</p>
-<p>其他的几个比较运算符也是一样的流程，这里不再赘述，通过如下代码可以看到比较运算符的实际应用：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> CompTest()</span><br><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &lt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述事例代码到VBA代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/5_1.png"></p>
-<p>点击运行代码，可以得到如下图所示结果：</p>
-<p><img src="/resource/5_2.png"></p>
-<p>可以看到底下的立即窗口打印了不同的比较运算符的结果。</p>
-<p>如下代码定义了三个变量,分别赋值为1,2,2</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br></pre></td></tr></table></figure>
-
-<p>如下代码则分别调用不同的比较运算符，对三个不同的变量执行比较运算，并通过立即窗口打印比较运算的结果</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Debug.Print expr1 &lt; expr2    // 1 小于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1   //2 小于 1 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3  // 2 小于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2    //1 大于 2 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3    //2大于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3    //2 等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3  //2 不等于 2 比较运算结果为假</span><br></pre></td></tr></table></figure>
-
-<p>表达式和比较运算符应用的范围很广，在后续的很多场合都可以看到表达式和比较运算符的应用，这里只是简单介绍了比较运算符的语法及使用，后面会看到更多比较运算符的例子。</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
@@ -502,41 +418,87 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA数组的声明及应用</title>
-    <url>/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
-    <content><![CDATA[<p>Hi ,大家好,通过此前的VBA编程基础和VBA编程应用的一些教程，大家对于VBA的编程和实际的应用，基本上已经有一些了解，并且应该是可以自行实现一些简单的应用了，属于基本上入门了。</p>
-<p>但是这些基础知识仅能部分的解决一些问题，能替代我们完成一部分的需要重复的任务，但是要想更多的任务通过VBA代码实现自动化，则需要进一步的学习。</p>
-<p>今天就给大家介绍一个更高级的数据结构—数组</p>
-<p><strong>数组</strong></p>
-<p>数组是一组顺序索引的元素，这些元素的基础数据类型是一样的，数组的每个元素都有唯一的索引号，对某一个数组元素的更改，不会影响到其他的元素。</p>
-<p>和此前变量可以理解为一个用来装数据的盒子一样，数组可以理解为排列在一起的一排的盒子，并且每个盒子都按顺序编号，不过这一组盒子都需要放同样类型的数据，如果要放一系列另外一个类型的数据，则需要另外声明一个新的数组用来存放。</p>
-<p>声明数组与声明其他变量类似，但是因为是保存一些列的数据，因此就涉及到需要保存多少个变量的问题，也就是盒子的多少个问题，VBA中的数组支持固定大小的数组和不固定大小的数组，也叫动态大小数组.</p>
-<p><strong>声明固定大小的数组</strong></p>
-<p>例如如下代码声明一个保存6个整形数据的数组,这个为6是因为数组的下标默认是从0开始的</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br></pre></td></tr></table></figure>
+    <title>VBA数据运算</title>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
+<p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
+<ul>
+<li>算术运算符</li>
+<li>比较运算符</li>
+<li>串联运算符</li>
+<li>逻辑运算符</li>
+</ul>
+<p>我们先看一下运用的最多的算术运算符</p>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>算术运算符，主要就是用来执行数学计算的运算符，主要包含加+，减-，乘*，除（整数除\，浮点除/），取余Mod，指数运算^ 这几项.<br><strong>加法运算符</strong> “+” ,用来对两个数进行加法运算，从而的到两个数的和，具体的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result &#x3D; num1 + num2</span><br></pre></td></tr></table></figure>
+<p>其中num1 和num2分别是需要相加的变量，sum为运算得到的总和的变量，变量名是可以是任意取的，并且num1 和num2分别可以为整数，单精度浮点数，双精度浮点数等,下同<br><strong>减法运算符</strong>“-“,用来对两个数进行减法运算，从而的到两个数的差，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 - num2</span><br></pre></td></tr></table></figure>
+<p><strong>乘法运算符</strong>“*”,用来对两个数进行乘法运算，从而的到两个数的积，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1*num2</span><br></pre></td></tr></table></figure>
 
-<p><strong>声明动态大小的数组</strong></p>
-<p>如下代码则声明一个动态数组</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br></pre></td></tr></table></figure>
+<p><strong>整数除法运算符</strong>“\“, 用来对两个数进行除法操作，但是得到的值只保留整数部分，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1\num2</span><br></pre></td></tr></table></figure>
 
-<p>固定大小的数组定义了之后，就可以往里面保存数据了，保存数据的方法与变量类似，但是数组是通过括号里面的下标访问到数组中不同的数据的。</p>
-<p>动态大小的数组声明之后，是不能直接往里面保存数据的，因为声明的动态大小的数组大小默认是0，需要通过ReDim重新设置动态数组的大小之后才可以使用，并且通过ReDim的动态数组的名字需要与前面声明的保持一致，否则会重新声明一个新名字的数组。</p>
-<p>如下代码重新定义了上述动态大小数组为6</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p> <strong>浮点除法运算符</strong>“/“,用来对两个数进行除法操作，但是的到的值是个浮点数，具体的语法如下：</p>
+<figure class="highlight vbs"><table><tr><td class="code"><pre><span class="line">result = num1/num2</span><br></pre></td></tr></table></figure>
 
-<p>如果是多次使用ReDim的话，则数组的的大小会在ReDim之后重新定义，并且此前保存在数组中的数据是默认清空的，如果想保留此前的数据，则需要添加Preserve关键字，如一下代码：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>取余运算符</strong>“Mod”,用来对两个数进行除法操作，然后返回整除之后的余数部分，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 Mod num2</span><br></pre></td></tr></table></figure>
 
-<p>定义完成之后，则动态大小的数组与固定大小的数组使用的方式是一样的，下面通过一个具体的例子演示一下数组具体的用法：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode1()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个固定大小的数组及一个动态大小的数组</span></span><br><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环给固定大小的数组依次赋值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">5</span></span><br><span class="line">IntArray(i) = i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环逆序打印出固定大小数组的每一个值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">5</span> <span class="keyword">To</span> <span class="number">0</span> <span class="keyword">Step</span> <span class="number">-1</span></span><br><span class="line">Debug.Print IntArray(i)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新指定动态数组大小为6</span></span><br><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第4个元素赋值3</span></span><br><span class="line">DintArray(<span class="number">3</span>) = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新定义动态数组的大小为11，并且保留之前的值</span></span><br><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第9个元素赋值8</span></span><br><span class="line">DintArray(<span class="number">8</span>) = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出动态数组的第4个及第9个元素</span></span><br><span class="line">Debug.Print DintArray(<span class="number">3</span>)</span><br><span class="line">Debug.Print DintArray(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+<p><strong>幂指数运算符</strong>“^”,用来求幂指数运算操作，返回指数幂的结果，具体语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 ^ num2</span><br></pre></td></tr></table></figure>
 
-<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
-<p><img src="/resource/18_1.png"></p>
-<p>以上就是VBA中数组的声明及简单应用，保存的数据不仅仅是代码演示的整形数据，其他的基本的数据类型的数据也是可以的，大家可以自行尝试一下。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+<p>下面，我们用一小段代码来演示一下上面提到的各种常用的运算符，复制如下代码到VBA开发环境的代码编辑框中(戳这里了解VBA运行环境构建)，</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest()</span><br><span class="line"><span class="keyword">Dim</span> sum1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> sum2 As Single</span><br><span class="line"><span class="keyword">Dim</span> num1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num3 As Single</span><br><span class="line"><span class="keyword">Dim</span> num4 As Single</span><br><span class="line">num1 = <span class="number">5</span></span><br><span class="line">num2 = <span class="number">3</span></span><br><span class="line">num3 = <span class="number">2.5</span></span><br><span class="line">num4 = <span class="number">5.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;加法运算</span></span><br><span class="line">sum1 = num1 + num2</span><br><span class="line">sum2 = num3 + num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;减法运算</span></span><br><span class="line">sum1 = num1 - num2</span><br><span class="line">sum2 = num3 - num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;乘法运算</span></span><br><span class="line">sum1 = num1 * num2</span><br><span class="line">sum2 = num3 * num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;除法运算</span></span><br><span class="line">sum1 = num1 \ num2</span><br><span class="line">sum2 = num1 / num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;取余运算</span></span><br><span class="line">sum1 = num1 Mod num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;幂指数运算</span></span><br><span class="line">sum2 = num1 ^ num2</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>如下图所示：</p>
+<p><img src="/4_1.png" alt="4_1"></p>
+<p>点击运行Optest子程序，在立即窗口可以得到如下运行结果：</p>
+<p><img src="/resource/4_2.png"></p>
+<p>可以看到，立即窗口打印出来的值分别对应着如下的运算</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>+<span class="number">3</span> = <span class="number">8</span>          </span><br><span class="line"><span class="number">2.5</span>+<span class="number">5.3</span> = <span class="number">7.8</span></span><br><span class="line"><span class="number">5</span><span class="number">-3</span> = <span class="number">2</span></span><br><span class="line"><span class="number">2.5</span><span class="number">-5.3</span> = <span class="number">-2.8</span></span><br><span class="line"><span class="number">5</span>*<span class="number">3</span>=<span class="number">15</span></span><br><span class="line"><span class="number">2.5</span>*<span class="number">5.3</span>=<span class="number">13.25</span></span><br><span class="line"><span class="number">5</span>\<span class="number">3</span>=<span class="number">1</span>         <span class="comment">//这里是整除，只保留整数部分</span></span><br><span class="line"><span class="number">5</span>/<span class="number">3</span>=<span class="number">1.666667</span>  <span class="comment">//这里是浮点除，保留了小数部分</span></span><br><span class="line"><span class="number">5</span> Mod <span class="number">3</span> = <span class="number">2</span>   <span class="comment">//这里是5除以3，商为1，余数为2，因此得到的结果就是余数2</span></span><br><span class="line"><span class="number">5</span>^<span class="number">3</span>= <span class="number">125</span>      <span class="comment">//这里表示5的3次方，也就是5*5*5=125</span></span><br></pre></td></tr></table></figure>
+
+<p>常用的算术运算符就是这些了，大家掌握了吗？</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
 ]]></content>
       <tags>
-        <tag>VBA编程基础高级篇</tag>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA数据运算续2</title>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97%E7%BB%AD2.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了数据运算中的算术运算符，也就是常见的加减乘除等等，今天再继续介绍另一个常用的运算符–比较运算符。</p>
+<p>在介绍比较运算符之前，需要先了解一下表达式的概念。</p>
+<p><strong>表达式</strong>是由变量，常量，运算符等组合起来的一个算式，类似于加减乘除的混合运算，经过计算之后，可以得到一个结果，得到的结果可以是整型数据，浮点数据，布尔型数据等等。</p>
+<p><strong>比较运算符</strong></p>
+<p>比较运算符主要就是用来比较两个表达式的大小，是否相等的运算，是否相等的运算，返回的结果为布尔值，也就是只有真和假这两种值,有以下6种常用的运算符：</p>
+<p><img src="/resource/5_3.png"></p>
+<p>以第一个”&lt;”比较运算符为例进行说明，当需要检查表达式expr1是否小于表达是expr2时，可以通过如下语法表示:</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">expr1 &lt; expr2 </span><br></pre></td></tr></table></figure>
+
+<p>程序会分别自动计算expr1和expr2这两个表达式的值，然后比较计算出来的表达式的值，当表达式expr1的值确实比表达式expr2的值要小时，则整个运算返回的结果是布尔值”True”, 反之，当表达式expr1的值大于或者等于表达式expr2的值时，则返回布尔值”False”</p>
+<p>其他的几个比较运算符也是一样的流程，这里不再赘述，通过如下代码可以看到比较运算符的实际应用：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> CompTest()</span><br><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &lt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述事例代码到VBA代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/5_1.png"></p>
+<p>点击运行代码，可以得到如下图所示结果：</p>
+<p><img src="/resource/5_2.png"></p>
+<p>可以看到底下的立即窗口打印了不同的比较运算符的结果。</p>
+<p>如下代码定义了三个变量,分别赋值为1,2,2</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> expr1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> expr3 As Integer</span><br><span class="line">expr1 = <span class="number">1</span></span><br><span class="line">expr2 = <span class="number">2</span></span><br><span class="line">expr3 = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>如下代码则分别调用不同的比较运算符，对三个不同的变量执行比较运算，并通过立即窗口打印比较运算的结果</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">Debug.Print expr1 &lt; expr2    // 1 小于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt; expr1   //2 小于 1 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;= expr3  // 2 小于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr1 &gt; expr2    //1 大于 2 比较运算结果为假</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &gt;= expr3    //2大于等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 = expr3    //2 等于 2 比较运算结果为真</span><br><span class="line"></span><br><span class="line">Debug.Print expr2 &lt;&gt; expr3  //2 不等于 2 比较运算结果为假</span><br></pre></td></tr></table></figure>
+
+<p>表达式和比较运算符应用的范围很广，在后续的很多场合都可以看到表达式和比较运算符的应用，这里只是简单介绍了比较运算符的语法及使用，后面会看到更多比较运算符的例子。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -594,78 +556,41 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA流程控制介绍续2</title>
-    <url>/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了分支控制流程中的if语句，今天继续介绍分支流程控制的另外一个形式—switch语句</p>
-<p>switch语句的功能与if语句类似，也有两种基本的形式。</p>
-<p>形式1的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
+    <title>VBA数组的声明及应用</title>
+    <url>/VBA%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<p>Hi ,大家好,通过此前的VBA编程基础和VBA编程应用的一些教程，大家对于VBA的编程和实际的应用，基本上已经有一些了解，并且应该是可以自行实现一些简单的应用了，属于基本上入门了。</p>
+<p>但是这些基础知识仅能部分的解决一些问题，能替代我们完成一部分的需要重复的任务，但是要想更多的任务通过VBA代码实现自动化，则需要进一步的学习。</p>
+<p>今天就给大家介绍一个更高级的数据结构—数组</p>
+<p><strong>数组</strong></p>
+<p>数组是一组顺序索引的元素，这些元素的基础数据类型是一样的，数组的每个元素都有唯一的索引号，对某一个数组元素的更改，不会影响到其他的元素。</p>
+<p>和此前变量可以理解为一个用来装数据的盒子一样，数组可以理解为排列在一起的一排的盒子，并且每个盒子都按顺序编号，不过这一组盒子都需要放同样类型的数据，如果要放一系列另外一个类型的数据，则需要另外声明一个新的数组用来存放。</p>
+<p>声明数组与声明其他变量类似，但是因为是保存一些列的数据，因此就涉及到需要保存多少个变量的问题，也就是盒子的多少个问题，VBA中的数组支持固定大小的数组和不固定大小的数组，也叫动态大小数组.</p>
+<p><strong>声明固定大小的数组</strong></p>
+<p>例如如下代码声明一个保存6个整形数据的数组,这个为6是因为数组的下标默认是从0开始的</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br></pre></td></tr></table></figure>
 
-<p>其中expr要求为数值表达式或者字符串表达式</p>
-<p>exprlist1，exprlist2 为expr可能的取值或者可能的取值的范围的表达式。</p>
-<p>Select case的工作流程如下：</p>
-<p>首先计算expr的值，当expr的值与exprlist1的值相同，或者在exprlist1的范围内，则执行执行Case exprlist1后面的语句。</p>
-<p>如果expr的值不满足exprlist1的要求，则继续检查是否满足exprlist2的要求，如果满足exprlist2的要求，这执行Case exprlist2的语句。</p>
-<p>同理，还可以自行添加更多的Case在后面。</p>
-<p>这里可以看出来，添加的不同的Case的顺序很重要，都是在不满足上一个Case的条件下，再继续往下验证下一个Case的，因此有些情况下，要注意Case的顺序，尤其是针对Case的条件是范围值的时候。</p>
-<p>有的时候，Case异常的多，全部写出来达到了成百上千条的那种，总不能每一条都写出来吧，因此对于这样的情况，就引出来另外一种Select Case的形式。</p>
-<p>形式2的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">Case</span> <span class="keyword">Else</span></span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
+<p><strong>声明动态大小的数组</strong></p>
+<p>如下代码则声明一个动态数组</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br></pre></td></tr></table></figure>
 
-<p>从形式2的语法上来看，与形式1的语法就在最后相差一下Case Else，别小看这一点点差别，能处理的Case就大大增强了。</p>
-<p>注意这的Case Else只能放在最后，用于处理都不满足前面的Case的情况。</p>
-<p>下面通过一个具体的例子看看实际的应用。</p>
-<p>实例代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub Optest4()</span><br><span class="line"></span><br><span class="line">Dim age As Integer</span><br><span class="line"> </span><br><span class="line">age &#x3D; 20</span><br><span class="line"></span><br><span class="line">Select Case age</span><br><span class="line"></span><br><span class="line">Case 10</span><br><span class="line">    Debug.Print &quot;已经10岁啦&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 18</span><br><span class="line">    Debug.Print &quot;已经是成年人了&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 6</span><br><span class="line">    Debug.Print &quot;是青少年了&quot;</span><br><span class="line">    </span><br><span class="line">Case Else</span><br><span class="line">    Debug.Print &quot;是婴幼儿&quot;</span><br><span class="line">    </span><br><span class="line">End Select</span><br><span class="line"></span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>固定大小的数组定义了之后，就可以往里面保存数据了，保存数据的方法与变量类似，但是数组是通过括号里面的下标访问到数组中不同的数据的。</p>
+<p>动态大小的数组声明之后，是不能直接往里面保存数据的，因为声明的动态大小的数组大小默认是0，需要通过ReDim重新设置动态数组的大小之后才可以使用，并且通过ReDim的动态数组的名字需要与前面声明的保持一致，否则会重新声明一个新名字的数组。</p>
+<p>如下代码重新定义了上述动态大小数组为6</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
 
-<p>复制粘贴上述代码到VBA代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/8_1.png"></p>
-<p>点击运行按钮，并查看运行结果如下：</p>
-<p><img src="/resource/8_2.png"></p>
-<p>可以看到当age=20的时候，首先对比第一个Case,由于第一个Case为10，不匹配，因此继续往下对比第二个Case， 20正好大于等于18，因此匹配到了第二个Case，并执行第二个Case的输出语句，也就是输出”已经是成年人了”,此时Case 对比结束，退出Select对比。</p>
-<p>大家可以将age分别修改为5,10,15等不同的值，然后保存并运行，看看匹配的Case。</p>
-<p>提示：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">age = <span class="number">5</span>  <span class="comment">&#x27;匹配的是Case Else, 输出 &quot;是婴幼儿&quot;</span></span><br><span class="line">age = <span class="number">10</span> <span class="comment">&#x27;匹配的是Case 10, 输出 &quot;已经10岁啦&quot;</span></span><br><span class="line">age = <span class="number">15</span> <span class="comment">&#x27;匹配的是Case Is &gt;= 6,输出 &quot;是青少年了&quot;</span></span><br></pre></td></tr></table></figure>
+<p>如果是多次使用ReDim的话，则数组的的大小会在ReDim之后重新定义，并且此前保存在数组中的数据是默认清空的，如果想保留此前的数据，则需要添加Preserve关键字，如一下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
 
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
+<p>定义完成之后，则动态大小的数组与固定大小的数组使用的方式是一样的，下面通过一个具体的例子演示一下数组具体的用法：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode1()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个固定大小的数组及一个动态大小的数组</span></span><br><span class="line"><span class="keyword">Dim</span> IntArray(<span class="number">5</span>) As Integer</span><br><span class="line"><span class="keyword">Dim</span> DintArray() As Integer</span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环给固定大小的数组依次赋值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">5</span></span><br><span class="line">IntArray(i) = i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过For循环逆序打印出固定大小数组的每一个值</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">5</span> <span class="keyword">To</span> <span class="number">0</span> <span class="keyword">Step</span> <span class="number">-1</span></span><br><span class="line">Debug.Print IntArray(i)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新指定动态数组大小为6</span></span><br><span class="line"><span class="keyword">ReDim</span> DintArray(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第4个元素赋值3</span></span><br><span class="line">DintArray(<span class="number">3</span>) = <span class="number">3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;重新定义动态数组的大小为11，并且保留之前的值</span></span><br><span class="line"><span class="keyword">ReDim</span> <span class="keyword">Preserve</span> DintArray(<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;动态大小数组第9个元素赋值8</span></span><br><span class="line">DintArray(<span class="number">8</span>) = <span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出动态数组的第4个及第9个元素</span></span><br><span class="line">Debug.Print DintArray(<span class="number">3</span>)</span><br><span class="line">Debug.Print DintArray(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/18_1.png"></p>
+<p>以上就是VBA中数组的声明及简单应用，保存的数据不仅仅是代码演示的整形数据，其他的基本的数据类型的数据也是可以的，大家可以自行尝试一下。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
 ]]></content>
       <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA第一个程序</title>
-    <url>/VBA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F.html</url>
-    <content><![CDATA[<p>Hi，大家好，自从上一期我们成功开启了Office的开发者模式后，就等于是拿到隐藏的绝世武功的秘籍，通往高手之路已经完成了第一步，接下来的就要开启修炼之路了。</p>
-<p>在码农界，有个传统，就是运行的第一个程序，是要输出”Hello world!”，我姑且称之为开工仪式吧，所以我们也继续遵循并发扬这个传统，从”Hello,world”开始高手之路。</p>
-<p>千万不要小瞧这个开工仪式，要是顺利，后面的学习之路也会更加顺畅噢~</p>
-<p>好了，让我们沐浴更衣准备开始吧~</p>
-<p>这里还是以Word为例来演示，首先，新建并打开Word文档，点击<strong>开发工具</strong>（没找到的话，戳这里进一步了解），然后点击Visual Basic按钮</p>
-<p><img src="/resource/2_1.png"></p>
-<p>一切顺利的话，就看到打开了一个以前从来没见过的页面，并且看起来很高级的样子，可以认为是一个集成开发环境（IDE），可能界面略微有点不一样，不影响，后面会重新调整</p>
-<p><img src="/resource/2_2.png"></p>
-<p>点击左上角的<strong>视图</strong>菜单，然后点击代码窗口和立即窗口</p>
-<p><img src="/resource/2_3.png"></p>
-<p>正确开启代码窗口和立即窗口之后的界面如下：</p>
-<p><img src="/resource/2_4.png"></p>
-<p>这个就是我们后续主要工作的窗口了，后续的代码基本上都是在在这个窗口完成。</p>
-<p>复制如下代码到代码窗口中</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub HelloWorld()</span><br><span class="line">Debug.Print &quot;Hello,world!&quot;</span><br><span class="line">MsgBox (&quot;Hello,world!&quot;)</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
-
-<p><img src="/resource/2_5.png"></p>
-<p>点击如下三角图标，运行第一个程序</p>
-<p><img src="/resource/2_6.png"></p>
-<p>不出意外的话，会弹出一个小小的对话框，并且在立即窗口会输出Hello，world!</p>
-<p><img src="/resource/2_7.png"></p>
-<p>如果您成功看到这两个输出，恭喜您，您的第一个程序运行正常，开工仪式顺利完成了！</p>
-<p>此时如果想保留这部分代码的话，Word文档在保存的时候，保存的类型需要选择为.docm</p>
-<p><img src="/resource/2_8.png"></p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
+        <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
   <entry>
@@ -707,6 +632,112 @@
 <figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">person3 是个婴幼儿</span><br></pre></td></tr></table></figure>
 
 <p>If形式的流程控制语句的基本形式就是这几个，尤其是形式3,可以拓展很多，因此可以满足很复杂的流程控制的需求。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA流程控制介绍续2</title>
+    <url>/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了分支控制流程中的if语句，今天继续介绍分支流程控制的另外一个形式—switch语句</p>
+<p>switch语句的功能与if语句类似，也有两种基本的形式。</p>
+<p>形式1的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
+
+<p>其中expr要求为数值表达式或者字符串表达式</p>
+<p>exprlist1，exprlist2 为expr可能的取值或者可能的取值的范围的表达式。</p>
+<p>Select case的工作流程如下：</p>
+<p>首先计算expr的值，当expr的值与exprlist1的值相同，或者在exprlist1的范围内，则执行执行Case exprlist1后面的语句。</p>
+<p>如果expr的值不满足exprlist1的要求，则继续检查是否满足exprlist2的要求，如果满足exprlist2的要求，这执行Case exprlist2的语句。</p>
+<p>同理，还可以自行添加更多的Case在后面。</p>
+<p>这里可以看出来，添加的不同的Case的顺序很重要，都是在不满足上一个Case的条件下，再继续往下验证下一个Case的，因此有些情况下，要注意Case的顺序，尤其是针对Case的条件是范围值的时候。</p>
+<p>有的时候，Case异常的多，全部写出来达到了成百上千条的那种，总不能每一条都写出来吧，因此对于这样的情况，就引出来另外一种Select Case的形式。</p>
+<p>形式2的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Select</span> <span class="keyword">Case</span> expr</span><br><span class="line"><span class="keyword">Case</span> exprlist1</span><br><span class="line"><span class="keyword">Case</span> exprlist2</span><br><span class="line"><span class="keyword">Case</span> <span class="keyword">Else</span></span><br><span class="line"><span class="keyword">End</span>  <span class="keyword">Select</span></span><br></pre></td></tr></table></figure>
+
+<p>从形式2的语法上来看，与形式1的语法就在最后相差一下Case Else，别小看这一点点差别，能处理的Case就大大增强了。</p>
+<p>注意这的Case Else只能放在最后，用于处理都不满足前面的Case的情况。</p>
+<p>下面通过一个具体的例子看看实际的应用。</p>
+<p>实例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub Optest4()</span><br><span class="line"></span><br><span class="line">Dim age As Integer</span><br><span class="line"> </span><br><span class="line">age &#x3D; 20</span><br><span class="line"></span><br><span class="line">Select Case age</span><br><span class="line"></span><br><span class="line">Case 10</span><br><span class="line">    Debug.Print &quot;已经10岁啦&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 18</span><br><span class="line">    Debug.Print &quot;已经是成年人了&quot;</span><br><span class="line">    </span><br><span class="line">Case Is &gt;&#x3D; 6</span><br><span class="line">    Debug.Print &quot;是青少年了&quot;</span><br><span class="line">    </span><br><span class="line">Case Else</span><br><span class="line">    Debug.Print &quot;是婴幼儿&quot;</span><br><span class="line">    </span><br><span class="line">End Select</span><br><span class="line"></span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/8_1.png"></p>
+<p>点击运行按钮，并查看运行结果如下：</p>
+<p><img src="/resource/8_2.png"></p>
+<p>可以看到当age=20的时候，首先对比第一个Case,由于第一个Case为10，不匹配，因此继续往下对比第二个Case， 20正好大于等于18，因此匹配到了第二个Case，并执行第二个Case的输出语句，也就是输出”已经是成年人了”,此时Case 对比结束，退出Select对比。</p>
+<p>大家可以将age分别修改为5,10,15等不同的值，然后保存并运行，看看匹配的Case。</p>
+<p>提示：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">age = <span class="number">5</span>  <span class="comment">&#x27;匹配的是Case Else, 输出 &quot;是婴幼儿&quot;</span></span><br><span class="line">age = <span class="number">10</span> <span class="comment">&#x27;匹配的是Case 10, 输出 &quot;已经10岁啦&quot;</span></span><br><span class="line">age = <span class="number">15</span> <span class="comment">&#x27;匹配的是Case Is &gt;= 6,输出 &quot;是青少年了&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA集合的声明及应用</title>
+    <url>/VBA%E9%9B%86%E5%90%88%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<p>Hi ，大家好，上一期介绍了数组的定义及基本的应用，从数组的定义可以知道，数组在定义的时候，需要预先估计所需存放数据的多少，根据存放数据的多少来定义数组的大小。</p>
+<p>对于事先无法预估数据多少的情况，虽然可以定义动态数组的大小，但是在使用ReDim的时候还是需要预估数组的大小，因此数组在这种情况的使用上还是不能很好的满足要求，此时可以通过另外一种数据结构来解决—-集合</p>
+<p><strong>集合</strong></p>
+<p>集合代表一组相关的数据项，当集合中的数据项更改时，数据项的索引，也就是数据项在集合中的位置也会更改，这一点与数组的数据项互相不影响是有去区别的，同时，集合中的数据项也没有要求公用一个数据类型，这一点也与数组不一样。</p>
+<p>集合是一个对象，而对象都有用于操作对象的方法及反映对象状态的属性，因此集合也提供了添加，删除，获取集合数据项的方法，以及表示集合中包含的数据项的总数的属性。</p>
+<p>通过如下定义可以创建一个集合对象：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个集合对象</span></span><br><span class="line"><span class="keyword">Dim</span> Col As Collection</span><br></pre></td></tr></table></figure>
+
+<p>通过创建集合对象的代码可以看到，定义集合时无需指定集合中包含的数据的数据类型。</p>
+<p>同时因为是对象，需要分配空间才能使用，通过如下代码给上述定义的集合分配空间：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;给集合对象分配空间</span></span><br><span class="line"><span class="keyword">Set</span> Col = <span class="keyword">New</span> Collection </span><br></pre></td></tr></table></figure>
+
+<p>可以看到给集合分配空间时，无需指定集合的大小</p>
+<p>上述代码也可以简化为如下，一步完成集合对象的创建和空间分配：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> Col As <span class="keyword">New</span> Collection</span><br></pre></td></tr></table></figure>
+
+<p>下面通过一个具体的例子，看看如何集合如何添加，删除，访问数据项等操作：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode2()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个新的集合</span></span><br><span class="line"><span class="keyword">Dim</span> Col As <span class="keyword">New</span> Collection</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;给新的集合添加数据元素</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">10</span></span><br><span class="line">Col.Add i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;迭代依次访问集合中的每个数据元素</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> Item <span class="keyword">In</span> Col</span><br><span class="line">Debug.Print Item</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;打印集合中数据项的总数</span></span><br><span class="line">Debug.Print <span class="string">&quot;Col集合中数据项总数为：&quot;</span> &amp; Col.Count</span><br><span class="line">    </span><br><span class="line"><span class="comment">&#x27;打印集合中第一个数据项</span></span><br><span class="line">Debug.Print <span class="string">&quot;集合中第一项为&quot;</span> &amp; Col.Item(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除集合中第一个数据项</span></span><br><span class="line">Col.Remove (<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;打印集合中新的第一个数据项</span></span><br><span class="line">Debug.Print <span class="string">&quot;删除后新的第一项为&quot;</span> &amp; Col.Item(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次打印集合中的数据项总数</span></span><br><span class="line">Debug.Print <span class="string">&quot;Col集合中数据项总数为：&quot;</span> &amp; Col.Count</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/19_1.png"></p>
+<p>通过立即窗口可以看到，在创建了集合之后，依次添加了0-10这11个数据项之后，打印出来的集合的总的数据项是11个，并且第一个数据项是0，然后通过移除操作，移除了第一个数据项，原来的第二个数据项就变成了新的第一个数据项，因此打印出来的第一个数据项变为了1,同时集合中的数据项总数也变成了10个。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA第一个程序</title>
+    <url>/VBA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F.html</url>
+    <content><![CDATA[<p>Hi，大家好，自从上一期我们成功开启了Office的开发者模式后，就等于是拿到隐藏的绝世武功的秘籍，通往高手之路已经完成了第一步，接下来的就要开启修炼之路了。</p>
+<p>在码农界，有个传统，就是运行的第一个程序，是要输出”Hello world!”，我姑且称之为开工仪式吧，所以我们也继续遵循并发扬这个传统，从”Hello,world”开始高手之路。</p>
+<p>千万不要小瞧这个开工仪式，要是顺利，后面的学习之路也会更加顺畅噢~</p>
+<p>好了，让我们沐浴更衣准备开始吧~</p>
+<p>这里还是以Word为例来演示，首先，新建并打开Word文档，点击<strong>开发工具</strong>（没找到的话，戳这里进一步了解），然后点击Visual Basic按钮</p>
+<p><img src="/resource/2_1.png"></p>
+<p>一切顺利的话，就看到打开了一个以前从来没见过的页面，并且看起来很高级的样子，可以认为是一个集成开发环境（IDE），可能界面略微有点不一样，不影响，后面会重新调整</p>
+<p><img src="/resource/2_2.png"></p>
+<p>点击左上角的<strong>视图</strong>菜单，然后点击代码窗口和立即窗口</p>
+<p><img src="/resource/2_3.png"></p>
+<p>正确开启代码窗口和立即窗口之后的界面如下：</p>
+<p><img src="/resource/2_4.png"></p>
+<p>这个就是我们后续主要工作的窗口了，后续的代码基本上都是在在这个窗口完成。</p>
+<p>复制如下代码到代码窗口中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Sub HelloWorld()</span><br><span class="line">Debug.Print &quot;Hello,world!&quot;</span><br><span class="line">MsgBox (&quot;Hello,world!&quot;)</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure>
+
+<p><img src="/resource/2_5.png"></p>
+<p>点击如下三角图标，运行第一个程序</p>
+<p><img src="/resource/2_6.png"></p>
+<p>不出意外的话，会弹出一个小小的对话框，并且在立即窗口会输出Hello，world!</p>
+<p><img src="/resource/2_7.png"></p>
+<p>如果您成功看到这两个输出，恭喜您，您的第一个程序运行正常，开工仪式顺利完成了！</p>
+<p>此时如果想保留这部分代码的话，Word文档在保存的时候，保存的类型需要选择为.docm</p>
+<p><img src="/resource/2_8.png"></p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
