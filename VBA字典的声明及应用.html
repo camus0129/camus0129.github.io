@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+    
+    
+<link rel="stylesheet" href="/css/mdui.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            VBA字典的声明及应用 | 编程小白学VBA
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">编程小白学VBA</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">一个帮助编程小白学习VBA的网站</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-2">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">主页</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-2">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.gif"/>
+                
+            </div>
+            <div class="sidebar-author-name">编程小白学VBA</div>
+            <div class="sidebar-description">帮助编程小白学习VBA</div>
+        </div>
+
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html">VBA字典的声明及应用</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-08-10
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2020-08-11
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=VBA字典的声明及应用&url=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html&pic=http://www.visepet.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=VBA字典的声明及应用&url=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html&via=编程小白学VBA" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html&title=VBA字典的声明及应用" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=编程小白学VBA&title=VBA字典的声明及应用&summary=帮助编程小白学习VBA&pics=http://www.visepet.com/null&url=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://www.visepet.com/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html&text=VBA字典的声明及应用" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/VBA%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E9%AB%98%E7%BA%A7%E7%AF%87/ >VBA编程基础高级篇</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Hi ，大家好，上一期介绍了VBA中集合的简单应用，了解到集合相对于数组，更适用于事先无法预知要保存多少数据项的情况，因为集合可以任意的添加删除数据项，没有数据项个数限制。</p>
+<p>但是我们也可以看到，集合在访问数据项的时候也有一些限制，常用的是通过索引号来访问数据项，但是如果这中间发生了数据项的删除或者添加，则索引号所对应的数据项就会发生变化，如果有些情况下没有注意到这种变化，则获取到的数据项可能不是预先想要的数据。</p>
+<p>虽然集合针对这样的情况，添加了用于替代位置索引访问集合的key，也就是一串唯一的字符串表达式，但是实际使用起来也不是特别的方便，因此，VBA中针对这种使用唯一的key来访问数据项的情况，引入了一个新的对象—-字典</p>
+<p><strong>字典</strong></p>
+<p>字典，简单来说，就是专门用来存储键值对的一种对象，其中键(key)是用来索引的，真正存储的数据是键所对应的值，也就是数据项。</p>
+<p>相比于集合中key只能是字符串表达式来说，字典的key的可用的范围更广，虽然通常是整数或者是字符串，但是除了数组之外，其他的数据类型基本上都可以用。</p>
+<p>通过如下代码可声明一个字典：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;声明一个通用对象</span></span><br><span class="line"><span class="keyword">Dim</span> Dic As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个字典对象，并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> Dic = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.Dictionary&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码可以看到，字典的声明比数组和集合要复杂一些，这是因为字典不是VBA内置的数据类型，属于Windows脚本语言的类型，因此默认情况下不能像其他VBA内置的数据类型的一样直接使用Dim来创建。</p>
+<p>虽然非内置的数据类型定义默认不能直接使用Dim来创建，但是通过在VBA中添加引用，就可以将非内置的数据类型的定义简化，就像是内置类型一样。</p>
+<p>通过点击VBA 代码编辑环境的菜单栏中的”工具”选项中的”引用”,弹出引用选项卡，添加”Microsoft  Scripting Runtime”引用，如下图所示：</p>
+<p><img src="/resource/20_1.png"></p>
+<p>在添加了引用之后，字典的声明的声明就变得跟内置的数据类型一样了，如以下代码所示：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Dim</span> Dic As <span class="keyword">New</span> Dictionary</span><br></pre></td></tr></table></figure>
+
+<p>不过这两种方法各有优缺点：</p>
+<p>方法1：声明步骤多一个步骤，但是对编程环境要求低，代码便于移植到其他文档上面。</p>
+<p>方法2：需要手动添加外部引用，未手动添加的情况下，会出现运行错误的提示，但能简化声明，并且在使用VBA编程环境编写代码时，有很好的代码补全功能。</p>
+<p>具体使用哪一种方法，需要看个人的偏好及实际的应用情况。经过实际测试，方法2在Word上面无法使用，在Excel，PowerPoint，Outlook中运行良好，应该是Word中默认引用的某些库与”Microsoft  Scripting Runtime”库冲突了，导致无法引用。</p>
+<p>字典作为一种对象，与集合一样，同样提供了操作字典的方法，例如添加，删除，返回字典项等操作，同时，还提供反映字典当前的数据项总数的属性等。</p>
+<p>下面通过一个具体例子，看看代码中是如何使用字典类型的：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode3()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;声明一个通用对象</span></span><br><span class="line"><span class="keyword">Dim</span> Dic As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个字典对象，并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> Dic = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.Dictionary&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;添加三个字典项键值对</span></span><br><span class="line">Dic.Add <span class="string">&quot;ppt&quot;</span>, <span class="string">&quot;PowerPoint&quot;</span></span><br><span class="line">Dic.Add <span class="string">&quot;doc&quot;</span>, <span class="string">&quot;Word&quot;</span></span><br><span class="line">Dic.Add <span class="string">&quot;oe&quot;</span>, <span class="string">&quot;Outlook&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;迭代输入已添加的数据项</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> Key <span class="keyword">In</span> Dic.Keys</span><br><span class="line">    Debug.Print <span class="string">&quot;key = &quot;</span> &amp; Key &amp; <span class="string">&quot; Item = &quot;</span> &amp; Dic.Item(Key)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出字典中的总的数据项个数</span></span><br><span class="line">Debug.Print <span class="string">&quot;目前字典中共有 &quot;</span> &amp; Dic.Count &amp; <span class="string">&quot;个数据项&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;检查字典中是否存在指定的key</span></span><br><span class="line"><span class="keyword">If</span> Dic.Exists(<span class="string">&quot;oe&quot;</span>) <span class="keyword">Then</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中存在名为oe的key&quot;</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中不存在名为oe的key &quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除名为&quot;oe&quot;的键值对</span></span><br><span class="line">Dic.Remove (<span class="string">&quot;oe&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出一项键值对后字典项的个数</span></span><br><span class="line">Debug.Print <span class="string">&quot;目前字典中共有 &quot;</span> &amp; Dic.Count &amp; <span class="string">&quot;个数据项&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次检查是否存在指定的key</span></span><br><span class="line"><span class="keyword">If</span> Dic.Exists(<span class="string">&quot;oe&quot;</span>) <span class="keyword">Then</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中存在名为oe的key&quot;</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中不存在名为oe的key &quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除所有键值对</span></span><br><span class="line">Dic.RemoveAll</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出移除所有项后字典项的个数</span></span><br><span class="line">Debug.Print <span class="string">&quot;目前字典中共有 &quot;</span> &amp; Dic.Count &amp; <span class="string">&quot;个数据项&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/20_2.png"></p>
+<p>通过立即窗口打印出来的调试信息可以看到，在创建了字典对象之后，首先添加了3个字典键值对，并将其依次输出，同时字典中数据项为3项，同时，在字典中查找到了存在指定的键”oe”，随后将其键值对删除，并确认字典中已经不存在指定的键了，然后在移除所有的键值对后，确认字典中的数据项为0，上述就是VBA中字典的基本的声明及简单应用了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+
+  </div>
+  <!--文末结束语-->
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/VBA%E9%9B%86%E5%90%88%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html">
+        <span>VBA集合的声明及应用</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2015 - 2020 
+        
+        编程小白学VBA
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>VBA字典的声明及应用</title>
+    <url>/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<p>Hi ，大家好，上一期介绍了VBA中集合的简单应用，了解到集合相对于数组，更适用于事先无法预知要保存多少数据项的情况，因为集合可以任意的添加删除数据项，没有数据项个数限制。</p>
+<p>但是我们也可以看到，集合在访问数据项的时候也有一些限制，常用的是通过索引号来访问数据项，但是如果这中间发生了数据项的删除或者添加，则索引号所对应的数据项就会发生变化，如果有些情况下没有注意到这种变化，则获取到的数据项可能不是预先想要的数据。</p>
+<p>虽然集合针对这样的情况，添加了用于替代位置索引访问集合的key，也就是一串唯一的字符串表达式，但是实际使用起来也不是特别的方便，因此，VBA中针对这种使用唯一的key来访问数据项的情况，引入了一个新的对象—-字典</p>
+<p><strong>字典</strong></p>
+<p>字典，简单来说，就是专门用来存储键值对的一种对象，其中键(key)是用来索引的，真正存储的数据是键所对应的值，也就是数据项。</p>
+<p>相比于集合中key只能是字符串表达式来说，字典的key的可用的范围更广，虽然通常是整数或者是字符串，但是除了数组之外，其他的数据类型基本上都可以用。</p>
+<p>通过如下代码可声明一个字典：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;声明一个通用对象</span></span><br><span class="line"><span class="keyword">Dim</span> Dic As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个字典对象，并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> Dic = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.Dictionary&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码可以看到，字典的声明比数组和集合要复杂一些，这是因为字典不是VBA内置的数据类型，属于Windows脚本语言的类型，因此默认情况下不能像其他VBA内置的数据类型的一样直接使用Dim来创建。</p>
+<p>虽然非内置的数据类型定义默认不能直接使用Dim来创建，但是通过在VBA中添加引用，就可以将非内置的数据类型的定义简化，就像是内置类型一样。</p>
+<p>通过点击VBA 代码编辑环境的菜单栏中的”工具”选项中的”引用”,弹出引用选项卡，添加”Microsoft  Scripting Runtime”引用，如下图所示：</p>
+<p><img src="/resource/20_1.png"></p>
+<p>在添加了引用之后，字典的声明的声明就变得跟内置的数据类型一样了，如以下代码所示：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> Dic As <span class="keyword">New</span> Dictionary</span><br></pre></td></tr></table></figure>
+
+<p>不过这两种方法各有优缺点：</p>
+<p>方法1：声明步骤多一个步骤，但是对编程环境要求低，代码便于移植到其他文档上面。</p>
+<p>方法2：需要手动添加外部引用，未手动添加的情况下，会出现运行错误的提示，但能简化声明，并且在使用VBA编程环境编写代码时，有很好的代码补全功能。</p>
+<p>具体使用哪一种方法，需要看个人的偏好及实际的应用情况。经过实际测试，方法2在Word上面无法使用，在Excel，PowerPoint，Outlook中运行良好，应该是Word中默认引用的某些库与”Microsoft  Scripting Runtime”库冲突了，导致无法引用。</p>
+<p>字典作为一种对象，与集合一样，同样提供了操作字典的方法，例如添加，删除，返回字典项等操作，同时，还提供反映字典当前的数据项总数的属性等。</p>
+<p>下面通过一个具体例子，看看代码中是如何使用字典类型的：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode3()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;声明一个通用对象</span></span><br><span class="line"><span class="keyword">Dim</span> Dic As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个字典对象，并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> Dic = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.Dictionary&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;添加三个字典项键值对</span></span><br><span class="line">Dic.Add <span class="string">&quot;ppt&quot;</span>, <span class="string">&quot;PowerPoint&quot;</span></span><br><span class="line">Dic.Add <span class="string">&quot;doc&quot;</span>, <span class="string">&quot;Word&quot;</span></span><br><span class="line">Dic.Add <span class="string">&quot;oe&quot;</span>, <span class="string">&quot;Outlook&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;迭代输入已添加的数据项</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> Key <span class="keyword">In</span> Dic.Keys</span><br><span class="line">    Debug.Print <span class="string">&quot;key = &quot;</span> &amp; Key &amp; <span class="string">&quot; Item = &quot;</span> &amp; Dic.Item(Key)</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出字典中的总的数据项个数</span></span><br><span class="line">Debug.Print <span class="string">&quot;目前字典中共有 &quot;</span> &amp; Dic.Count &amp; <span class="string">&quot;个数据项&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;检查字典中是否存在指定的key</span></span><br><span class="line"><span class="keyword">If</span> Dic.Exists(<span class="string">&quot;oe&quot;</span>) <span class="keyword">Then</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中存在名为oe的key&quot;</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中不存在名为oe的key &quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除名为&quot;oe&quot;的键值对</span></span><br><span class="line">Dic.Remove (<span class="string">&quot;oe&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出一项键值对后字典项的个数</span></span><br><span class="line">Debug.Print <span class="string">&quot;目前字典中共有 &quot;</span> &amp; Dic.Count &amp; <span class="string">&quot;个数据项&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次检查是否存在指定的key</span></span><br><span class="line"><span class="keyword">If</span> Dic.Exists(<span class="string">&quot;oe&quot;</span>) <span class="keyword">Then</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中存在名为oe的key&quot;</span></span><br><span class="line"><span class="keyword">Else</span></span><br><span class="line">    Debug.Print <span class="string">&quot;字典中不存在名为oe的key &quot;</span></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除所有键值对</span></span><br><span class="line">Dic.RemoveAll</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;输出移除所有项后字典项的个数</span></span><br><span class="line">Debug.Print <span class="string">&quot;目前字典中共有 &quot;</span> &amp; Dic.Count &amp; <span class="string">&quot;个数据项&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/20_2.png"></p>
+<p>通过立即窗口打印出来的调试信息可以看到，在创建了字典对象之后，首先添加了3个字典键值对，并将其依次输出，同时字典中数据项为3项，同时，在字典中查找到了存在指定的键”oe”，随后将其键值对删除，并确认字典中已经不存在指定的键了，然后在移除所有的键值对后，确认字典中的数据项为0，上述就是VBA中字典的基本的声明及简单应用了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo博客搭建步骤</title>
     <url>/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4.html</url>
     <content><![CDATA[<p>在本地安装好了node.js及hexo之后，就可以开始着手搭建博客了<br>首先打开git-bash,在想要放置站点的位置执行如下指令：</p>
@@ -131,7 +167,7 @@
 
 <p>复制粘贴上述代码到Excel的VBA代码编辑环境中(这里我们主要是模拟通过Excel调用Outlook发送邮件)，如下图所示：</p>
 <p><img src="/resource/17_1.png"></p>
-<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#x79;&#x7a;&#x40;&#x61;&#98;&#99;&#x2e;&#x63;&#x6f;&#x6d;">&#x78;&#x79;&#x7a;&#x40;&#x61;&#98;&#99;&#x2e;&#x63;&#x6f;&#x6d;</a>“替换为所需要的发送的邮件收件人。</p>
+<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#120;&#x79;&#122;&#64;&#x61;&#98;&#99;&#46;&#x63;&#111;&#x6d;">&#120;&#x79;&#122;&#64;&#x61;&#98;&#99;&#46;&#x63;&#111;&#x6d;</a>“替换为所需要的发送的邮件收件人。</p>
 <p>因Excel默认没有引用Outlook应用程序对象库，因此，在第一次使用的时候，需要手动添加Outlook对象的应用，添加的方法也很简单，点击VBA编程环境的”工具”栏，点击”引用”，然后再弹出的对话框中，找到”Microsoft  Outlook 15.0 Object Library”，确保前面的复选框是选中状态，然后点击确定，关闭对话框,如下图所示：</p>
 <p><img src="/resource/17_2.png"></p>
 <p>点击运行按钮，运行”Send_Mail” 子程序，此时有可能会弹出安全提醒，如下图所示：</p>
@@ -146,6 +182,41 @@
 ]]></content>
       <tags>
         <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA开发环境配置</title>
+    <url>/VBA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</url>
+    <content><![CDATA[<p>Hi，大家好，提到职场办公软件，绕不开的是微软的office办公套件，尤其是Word,Excel,Power Point三件套（以下简称三件套），已经成为办公领域事实的标准，并且也足够好用，但是总会有一些情况，需要重复的处理很多类似的任务，</p>
+<p>虽然都是简单的步骤，但是重复的次数多了，难免感觉浪费时间，效率也不高。</p>
+<p>那么问题来了，是否有工具可以批量自动完成这些任务，从而可以从繁重的体力劳动中解脱出来呢???</p>
+<p>答案是肯定的，并且自动化工具还不少，很多人都推荐python来完成，python也确实可以很好的完成工作，但是需要安装配置python运行环境等等，也不是那么容易的，并且还可能不兼容，出现运行不了的情况。</p>
+<p>那么是否有原生的，容易配置的工具可以利用呢？</p>
+<p>答案又是肯定的，微软一直在Office中隐藏了绝世秘籍，并且在office的套件均可使用。</p>
+<p>当然这么高级的功能，微软默认是隐藏的，并没有默认打开，毕竟绝大部分人都用不到，需要手动开启，开启的方法也是相当的简单，这里以office 2013的Word为例，介绍一下怎么开启绝世秘籍的方法。</p>
+<p>各位，站稳扶好了，即将要修炼隐藏的武功秘籍了。</p>
+<ol>
+<li>新建或打开任意Word文档</li>
+</ol>
+<p><img src="/resource/1_1.png"></p>
+<ol start="2">
+<li>选择文件，选项</li>
+</ol>
+<p><img src="/resource/1_2.png"></p>
+<ol start="3">
+<li><p>选择自定义功能区，并勾上开发工具</p>
+<p><img src="/resource/1_3.png"></p>
+</li>
+<li><p>确定，保存，在Word的选项上就可以看到多了一个开发工具选项卡</p>
+<p><img src="/resource/1_4.png"></p>
+</li>
+</ol>
+<p>怎么样？步骤是不是很简单？并且一旦开启了之后，之后打开的Word每次都会有这个选项了，Excel，Power Point的开启方式与这个大同小异，就不重复了。</p>
+<p>恭喜你，你已经成功开启了office隐藏的武功秘籍，只要您早晚勤加修炼，假以时日，必能在使用office的时候如虎添翼，有如神助，喝着咖啡就能完成工作了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -226,106 +297,6 @@
 ]]></content>
       <tags>
         <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA应用之Word篇续3</title>
-    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
-<p><strong>Selection对象</strong></p>
-<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
-<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
-<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/13_1.png"></p>
-<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
-<p><img src="/resource/13_2.png"></p>
-<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
-<p>下面详细解释一下代码的含义：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
-<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA开发环境配置</title>
-    <url>/VBA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</url>
-    <content><![CDATA[<p>Hi，大家好，提到职场办公软件，绕不开的是微软的office办公套件，尤其是Word,Excel,Power Point三件套（以下简称三件套），已经成为办公领域事实的标准，并且也足够好用，但是总会有一些情况，需要重复的处理很多类似的任务，</p>
-<p>虽然都是简单的步骤，但是重复的次数多了，难免感觉浪费时间，效率也不高。</p>
-<p>那么问题来了，是否有工具可以批量自动完成这些任务，从而可以从繁重的体力劳动中解脱出来呢???</p>
-<p>答案是肯定的，并且自动化工具还不少，很多人都推荐python来完成，python也确实可以很好的完成工作，但是需要安装配置python运行环境等等，也不是那么容易的，并且还可能不兼容，出现运行不了的情况。</p>
-<p>那么是否有原生的，容易配置的工具可以利用呢？</p>
-<p>答案又是肯定的，微软一直在Office中隐藏了绝世秘籍，并且在office的套件均可使用。</p>
-<p>当然这么高级的功能，微软默认是隐藏的，并没有默认打开，毕竟绝大部分人都用不到，需要手动开启，开启的方法也是相当的简单，这里以office 2013的Word为例，介绍一下怎么开启绝世秘籍的方法。</p>
-<p>各位，站稳扶好了，即将要修炼隐藏的武功秘籍了。</p>
-<ol>
-<li>新建或打开任意Word文档</li>
-</ol>
-<p><img src="/resource/1_1.png"></p>
-<ol start="2">
-<li>选择文件，选项</li>
-</ol>
-<p><img src="/resource/1_2.png"></p>
-<ol start="3">
-<li><p>选择自定义功能区，并勾上开发工具</p>
-<p><img src="/resource/1_3.png"></p>
-</li>
-<li><p>确定，保存，在Word的选项上就可以看到多了一个开发工具选项卡</p>
-<p><img src="/resource/1_4.png"></p>
-</li>
-</ol>
-<p>怎么样？步骤是不是很简单？并且一旦开启了之后，之后打开的Word每次都会有这个选项了，Excel，Power Point的开启方式与这个大同小异，就不重复了。</p>
-<p>恭喜你，你已经成功开启了office隐藏的武功秘籍，只要您早晚勤加修炼，假以时日，必能在使用office的时候如虎添翼，有如神助，喝着咖啡就能完成工作了。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA循环控制介绍</title>
-    <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
-    <content><![CDATA[<p>Hi，大家好，上两期介绍了流程控制里面的分支流程控制，分支流程控制主要是用于解决各种不同的情况下的问题的处理。</p>
-<p>但是生活中我们除了不同的情况的处理，更多的时候我们面对的是很多重复性的操作，而重复性工作正好是电脑所擅长的。</p>
-<p>为了达到让电脑自动为我们工作，就需要利用循环控制，让电脑自动循环重复，我们只需要开始的时候告诉电脑怎么做，然后剩下的就是告诉他一直重复这个步骤，然后在完成之后自动停止，这才是终极的节约时间和节省体力的法宝。</p>
-<p>在VBA中大致有三种不同的形式可以完成循环的工作，三种不同的形式基本上可以互相转换，区别只是在于不同的问题，使用不同的形式，可以使得代码更简洁易懂。</p>
-<p><strong>For循环</strong></p>
-<p>For循环是广泛使用的一种循环，优点是结构简单易懂，根据循环的次数能否确定，可以细分为计数循环和遍历循环。</p>
-<p><strong>计数循环</strong></p>
-<p>计数循环需要明确知道从什么时候开始循环计数，然后到什么时候停止循环计数，对应的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> cnt = start <span class="keyword">To</span> <span class="keyword">end</span> [<span class="keyword">Step</span> <span class="keyword">step</span>]</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [cnt]</span><br></pre></td></tr></table></figure>
-
-<p>其运行流程为从cnt= start开始计数，并执行Next 之前的循环体代码，执行完成后，cnt会加上step,如果step为正数，则检查cnt是否小于等于end，如果step为负数，则检查cnt是否大于等于end,满足条件则继续重复这一个过程，如果不满足，则退出循环。</p>
-<p>其中step是可选的,系统会给出默认值，同样cnt也是可选的，单层循环可以省略。</p>
-<p><strong>遍历循环</strong></p>
-<p>遍历循环则不需要明确知道从什么时候开始计数，会遍历集合中的数据，逐个的取出然后执行循环体，直到遍历结束,对应的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> element <span class="keyword">In</span> collection</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [element]</span><br></pre></td></tr></table></figure>
-
-<p>下面通过一个具体的例子，看看For循环的实际应用。</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制上述代码并粘贴到VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/9_1.png"></p>
-<p>点击运行按钮运行此代码，得到如下图所示运行结果：</p>
-<p><img src="/resource/9_2.png"></p>
-<p>在立即窗口可以看到，此程序打印出来了0~20的所有的奇数和偶数，下面对代码进行逐条解释一下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"></span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span>            <span class="comment">&#x27;设置循环的循环计数从0开始到20结束，默认step为1</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span>        <span class="comment">&#x27;对每次的循环进行取余操作，进行奇偶判断 ，否则为基数</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span>     <span class="comment">&#x27;能被2整除，则余数了0，也就是为偶数</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span>        <span class="comment">&#x27;不能被2整除，余数不为0，为奇数</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num                        <span class="comment">&#x27;执行下一次循环条件判断</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到，应用了循环之后，很多重复性的工作都可以放在循环体里面，通过设定好条件就可以自动执行了。</p>
-<p>这里如果需要计算1000,10000等更大的数据，只需要把20替换为更大的数就可以了。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -712,6 +683,33 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA应用之Word篇续3</title>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
+<p><strong>Selection对象</strong></p>
+<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
+<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
+<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/13_1.png"></p>
+<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
+<p><img src="/resource/13_2.png"></p>
+<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
+<p>下面详细解释一下代码的含义：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
+<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA第一个程序</title>
     <url>/VBA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F.html</url>
     <content><![CDATA[<p>Hi，大家好，自从上一期我们成功开启了Office的开发者模式后，就等于是拿到隐藏的绝世武功的秘籍，通往高手之路已经完成了第一步，接下来的就要开启修炼之路了。</p>
@@ -738,6 +736,44 @@
 <p>如果您成功看到这两个输出，恭喜您，您的第一个程序运行正常，开工仪式顺利完成了！</p>
 <p>此时如果想保留这部分代码的话，Word文档在保存的时候，保存的类型需要选择为.docm</p>
 <p><img src="/resource/2_8.png"></p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA循环控制介绍</title>
+    <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
+    <content><![CDATA[<p>Hi，大家好，上两期介绍了流程控制里面的分支流程控制，分支流程控制主要是用于解决各种不同的情况下的问题的处理。</p>
+<p>但是生活中我们除了不同的情况的处理，更多的时候我们面对的是很多重复性的操作，而重复性工作正好是电脑所擅长的。</p>
+<p>为了达到让电脑自动为我们工作，就需要利用循环控制，让电脑自动循环重复，我们只需要开始的时候告诉电脑怎么做，然后剩下的就是告诉他一直重复这个步骤，然后在完成之后自动停止，这才是终极的节约时间和节省体力的法宝。</p>
+<p>在VBA中大致有三种不同的形式可以完成循环的工作，三种不同的形式基本上可以互相转换，区别只是在于不同的问题，使用不同的形式，可以使得代码更简洁易懂。</p>
+<p><strong>For循环</strong></p>
+<p>For循环是广泛使用的一种循环，优点是结构简单易懂，根据循环的次数能否确定，可以细分为计数循环和遍历循环。</p>
+<p><strong>计数循环</strong></p>
+<p>计数循环需要明确知道从什么时候开始循环计数，然后到什么时候停止循环计数，对应的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> cnt = start <span class="keyword">To</span> <span class="keyword">end</span> [<span class="keyword">Step</span> <span class="keyword">step</span>]</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [cnt]</span><br></pre></td></tr></table></figure>
+
+<p>其运行流程为从cnt= start开始计数，并执行Next 之前的循环体代码，执行完成后，cnt会加上step,如果step为正数，则检查cnt是否小于等于end，如果step为负数，则检查cnt是否大于等于end,满足条件则继续重复这一个过程，如果不满足，则退出循环。</p>
+<p>其中step是可选的,系统会给出默认值，同样cnt也是可选的，单层循环可以省略。</p>
+<p><strong>遍历循环</strong></p>
+<p>遍历循环则不需要明确知道从什么时候开始计数，会遍历集合中的数据，逐个的取出然后执行循环体，直到遍历结束,对应的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> element <span class="keyword">In</span> collection</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [element]</span><br></pre></td></tr></table></figure>
+
+<p>下面通过一个具体的例子，看看For循环的实际应用。</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码并粘贴到VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/9_1.png"></p>
+<p>点击运行按钮运行此代码，得到如下图所示运行结果：</p>
+<p><img src="/resource/9_2.png"></p>
+<p>在立即窗口可以看到，此程序打印出来了0~20的所有的奇数和偶数，下面对代码进行逐条解释一下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"></span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span>            <span class="comment">&#x27;设置循环的循环计数从0开始到20结束，默认step为1</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span>        <span class="comment">&#x27;对每次的循环进行取余操作，进行奇偶判断 ，否则为基数</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span>     <span class="comment">&#x27;能被2整除，则余数了0，也就是为偶数</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span>        <span class="comment">&#x27;不能被2整除，余数不为0，为奇数</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num                        <span class="comment">&#x27;执行下一次循环条件判断</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，应用了循环之后，很多重复性的工作都可以放在循环体里面，通过设定好条件就可以自动执行了。</p>
+<p>这里如果需要计算1000,10000等更大的数据，只需要把20替换为更大的数就可以了。</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
