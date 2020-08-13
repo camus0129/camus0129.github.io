@@ -781,4 +781,66 @@
         <tag>VBA编程基础</tag>
       </tags>
   </entry>
+  <entry>
+    <title>VBA函数的声明及应用</title>
+    <url>/VBA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<p>Hi，大家好，经过前面时间的学习，大家的代码水平也相应的提高，写的代码行数也比以前要多了，在这之前，我们都是在同一个子程序里面写下全部的代码，随着代码的规模扩大，对于后续子程序的代码复用及维护来说，难度都逐渐的增大了。</p>
+<p>为了解决代码复用及维护的问题，有必要将代码按照功能模块划分，分成各个功能子模块，从而提高代码的复用率及可维护性，同时，如果需要实现的功能较为复杂，还可以将相对独立的功能划分给其他的人协同完成。</p>
+<p>要实现上述的目标，则不仅需要划分更多子程序，还需要引入一个新的概念—函数。</p>
+<p><strong>函数</strong></p>
+<p>函数，简单来说，就是一段带有返回值的用来完成特定功能的代码。</p>
+<p>从功能上来看，函数与子程序很接近，但是也有一些显著的区分 </p>
+<ul>
+<li>函数是有返回值的，返回值可以忽略，也可以保存到变量中后续再利用</li>
+<li>函数是不能直接执行的，只能被调用的时候执行，而过程是可以直接执行的。</li>
+</ul>
+<p>之前很多的示例中，已经用了很多函数，只不过那些函数都是VBA的库提供的，我们只在需要的时候，按照函数的调用方法，进行调用。</p>
+<p>但是系统提供的函数功能毕竟有限，并且主要是一些很基础的功能，如果需要实现自己想要的功能，则需要在库提供的函数基础上自行编写相关的代码实现。</p>
+<p>函数的定义与过程类似，函数定义的语法如下所示：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Function</span> 函数名(参数名<span class="number">1</span>，参数名<span class="number">2.</span>..) As 类型名</span><br><span class="line">函数体语句</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>其中Function …End Fuction这个是固定的，函数名是可以任意取的，但是要避免使用系统保留的关键字，函数名最好能体现函数的功能，这样后续维护修改代码的时候，一看函数名字，就知道这个函数的用途</p>
+<p>参数的命名与变量是一样的，这里的参数没有限制数量，可以没有，没有参数的情况下，圆括号也是不能省略的，也可以有多个，但是一般不建议太多的参数，参数太多的话，函数体也会相应的变得复杂，失去了函数设计的初衷</p>
+<p>函数的参数可以在函数体里面使用，就像是函数体中定义的变量一样，直接使用就可以了。</p>
+<p>类型名是表示是函数返回的类型，与变量的类型名是一样的，函数是通过在过程的一条或多条语句中将值分配给函数名称来返回值。</p>
+<p>下面通过一个具体的例子，来看看具体的函数的定义及应用：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode4()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个变量用来表示圆的半径</span></span><br><span class="line"><span class="keyword">Dim</span> rd As Double</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设定半径的值为5</span></span><br><span class="line">rd = <span class="number">5</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">&#x27;调用CircleArea函数计算圆的半径并输出结果</span></span><br><span class="line">Debug.Print <span class="string">&quot;半径为&quot;</span> &amp; rd &amp; <span class="string">&quot;的圆的面积是&quot;</span> &amp; CircleArea(rd)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设定半径的值为5</span></span><br><span class="line">rd = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;再次调用CircleArea函数计算圆的半径并输出结果</span></span><br><span class="line">Debug.Print <span class="string">&quot;半径为&quot;</span> &amp; rd &amp; <span class="string">&quot;的圆的面积是&quot;</span> &amp; CircleArea(rd)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义名为CircleArea的函数，函数有一个类型为双精度浮点型的参数，返回值为双精度浮点型</span></span><br><span class="line"><span class="keyword">Function</span> CircleArea(r As Double) As Double</span><br><span class="line">    CircleArea = <span class="number">3.14</span> * r * r</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/21_1.png"></p>
+<p>从调试的结果可以看到，CircleArea函数分别使用参数5和参数10被调用了两次,然后返回了计算的结果。 </p>
+<p>虽然这里的CircleArea的函数只有短短的一行，体现不出函数的优势，但是当函数体变得很大，并且函数被很多个子程序调用的时候，则子程序中原来很大量的同样的代码块则会被一行函数所取代，子程序也就会变得简洁明了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA驱动器对象介绍</title>
+    <url>/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html</url>
+    <content><![CDATA[<p>Hi 大家好，在VBA开发过程中，很多时候需要通过VBA代码读写磁盘上的一些文件，因此会涉及到对文件系统的访问，VBA通过文件系统对象，提供对磁盘驱动器，文件夹，文件等资源的访问提供接口。</p>
+<p>因文件系统对象涉及到的东西很多，这里就先介绍文件系统对象中的驱动器对象，驱动器对象相对来说简单一些，设计到的属性和方法也不是太多，较为容易上手。</p>
+<p>驱动器就是我们在系统中看到的C盘，D盘这些，也是我们存放各种文件及文件夹的地方，在磁盘上点击鼠标右键，选择属性，然后选择常规选项卡，可以看到磁盘卷标的名字，磁盘类型，文件系统类型，可用空间等等，如下图所示：</p>
+<p><img src="/resource/22_1.png"></p>
+<p>通过文件系统对象中的磁盘对象，不仅可以访问本地磁盘，也就是常说的硬盘，还可以访问可移动硬盘，网络共享硬盘，光驱等设备。</p>
+<p>获取驱动器对象的状态，不仅可以判断磁盘是否可用，因为只有当磁盘可用的时，才能保存或者读取其中的文件，还可以判断磁盘的可用空间是否足够用来保存等，因此对于文件操作，检查磁盘的状态是很重要的一个步骤，尤其是当代码自动化了之后，如果各种需要保存的文件较多，时间长了之后，就有可能出现磁盘空间不足从而导致保存失败，导致数据丢失之类的问题。</p>
+<p>通过如下代码可初始化一个驱动器集合：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示驱动器对象集合</span></span><br><span class="line"><span class="keyword">Dim</span> ds As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个文件系统对象并与通用对象绑定</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取驱动器对象的集合并与通用对象绑定</span></span><br><span class="line"><span class="keyword">Set</span> ds = fs.Drives</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码上可以看到，文件系统对象也是基于Windows脚本语言的对象，创建方式与此前的字典对象的创建方式很类似。</p>
+<p>其中代码中最后获取的是一个驱动器对象的集合，这个集合中包含了被系统支持的各类驱动器对象。</p>
+<p>下面通过一个具体的例子，看看如何通过VBA代码访问磁盘驱动器：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode5()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示磁盘驱动器集合</span></span><br><span class="line"><span class="keyword">Dim</span> ds As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用来表示磁盘驱动器</span></span><br><span class="line"><span class="keyword">Dim</span> d As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取驱动器集合对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> ds = fs.Drives</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;迭代访问驱动器集合中的每个驱动器对象</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> d <span class="keyword">In</span> ds</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;驱动类型为2表示硬盘驱动器，这里仅对硬盘驱动器获取状态</span></span><br><span class="line">    <span class="keyword">If</span> d.DriveType = <span class="number">2</span> <span class="keyword">Then</span></span><br><span class="line">        Debug.Print <span class="string">&quot;驱动器&quot;</span> &amp; d.DriveLetter</span><br><span class="line">        Debug.Print <span class="string">&quot;总存储空间为：&quot;</span> &amp; d.TotalSize &amp; <span class="string">&quot;Bytes&quot;</span></span><br><span class="line">        Debug.Print <span class="string">&quot;可用存储空间为：&quot;</span> &amp; d.AvailableSpace &amp; <span class="string">&quot;Bytes&quot;</span></span><br><span class="line">        Debug.Print <span class="string">&quot;文件系统类型为：&quot;</span> &amp; d.FileSystem</span><br><span class="line">       </span><br><span class="line"> <span class="comment">&#x27;判断驱动器的卷标名字是否为空，不为空时输出卷标名</span></span><br><span class="line">    <span class="keyword">If</span> d.VolumeName &lt;&gt; <span class="string">&quot;&quot;</span> <span class="keyword">Then</span></span><br><span class="line">        Debug.Print <span class="string">&quot;磁盘驱动器卷名：&quot;</span> &amp; d.VolumeName</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;为了输出美观，这里额外输出一个回车换行符号</span></span><br><span class="line">        Debug.Print vbCrLf</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口，并运行上述代码，可以看到类似如下运行结果：</p>
+<p><img src="/resource/22_2.png"></p>
+<p>从结果可以看出，电脑中一共有4个磁盘驱动器，分别是C,D,E,F, 磁盘的分区格式均为NTFS格式，磁盘的卷标名称分别是system,data,program,Backup及各磁盘驱动器上总磁盘空间大小及可用磁盘空间大小，这里显示的空间大小单位为字节，如需显示为其他单位，例如MB,GB等，大家可以自行尝试如何显示出来。</p>
+<p>因每个人电脑上可以访问的驱动器不一样，因此上述运行结果中显示的驱动器也是大家都不完全一致，大家可以根据运行结果对照自己的磁盘驱动器，看代码是否运行正确。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
 </search>

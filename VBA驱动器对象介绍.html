@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+    
+    
+<link rel="stylesheet" href="/css/mdui.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            VBA驱动器对象介绍 | 编程小白学VBA
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">编程小白学VBA</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">一个帮助编程小白学习VBA的网站</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-2">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">主页</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-2">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.gif"/>
+                
+            </div>
+            <div class="sidebar-author-name">编程小白学VBA</div>
+            <div class="sidebar-description">帮助编程小白学习VBA</div>
+        </div>
+
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html">VBA驱动器对象介绍</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-08-12
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2020-08-13
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=VBA驱动器对象介绍&url=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&pic=http://www.visepet.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=VBA驱动器对象介绍&url=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&via=编程小白学VBA" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&title=VBA驱动器对象介绍" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=编程小白学VBA&title=VBA驱动器对象介绍&summary=帮助编程小白学习VBA&pics=http://www.visepet.com/null&url=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://www.visepet.com/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&text=VBA驱动器对象介绍" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/VBA%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E9%AB%98%E7%BA%A7%E7%AF%87/ >VBA编程基础高级篇</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Hi 大家好，在VBA开发过程中，很多时候需要通过VBA代码读写磁盘上的一些文件，因此会涉及到对文件系统的访问，VBA通过文件系统对象，提供对磁盘驱动器，文件夹，文件等资源的访问提供接口。</p>
+<p>因文件系统对象涉及到的东西很多，这里就先介绍文件系统对象中的驱动器对象，驱动器对象相对来说简单一些，设计到的属性和方法也不是太多，较为容易上手。</p>
+<p>驱动器就是我们在系统中看到的C盘，D盘这些，也是我们存放各种文件及文件夹的地方，在磁盘上点击鼠标右键，选择属性，然后选择常规选项卡，可以看到磁盘卷标的名字，磁盘类型，文件系统类型，可用空间等等，如下图所示：</p>
+<p><img src="/resource/22_1.png"></p>
+<p>通过文件系统对象中的磁盘对象，不仅可以访问本地磁盘，也就是常说的硬盘，还可以访问可移动硬盘，网络共享硬盘，光驱等设备。</p>
+<p>获取驱动器对象的状态，不仅可以判断磁盘是否可用，因为只有当磁盘可用的时，才能保存或者读取其中的文件，还可以判断磁盘的可用空间是否足够用来保存等，因此对于文件操作，检查磁盘的状态是很重要的一个步骤，尤其是当代码自动化了之后，如果各种需要保存的文件较多，时间长了之后，就有可能出现磁盘空间不足从而导致保存失败，导致数据丢失之类的问题。</p>
+<p>通过如下代码可初始化一个驱动器集合：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示驱动器对象集合</span></span><br><span class="line"><span class="keyword">Dim</span> ds As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个文件系统对象并与通用对象绑定</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取驱动器对象的集合并与通用对象绑定</span></span><br><span class="line"><span class="keyword">Set</span> ds = fs.Drives</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码上可以看到，文件系统对象也是基于Windows脚本语言的对象，创建方式与此前的字典对象的创建方式很类似。</p>
+<p>其中代码中最后获取的是一个驱动器对象的集合，这个集合中包含了被系统支持的各类驱动器对象。</p>
+<p>下面通过一个具体的例子，看看如何通过VBA代码访问磁盘驱动器：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode5()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示磁盘驱动器集合</span></span><br><span class="line"><span class="keyword">Dim</span> ds As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用来表示磁盘驱动器</span></span><br><span class="line"><span class="keyword">Dim</span> d As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建一个文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取驱动器集合对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> ds = fs.Drives</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;迭代访问驱动器集合中的每个驱动器对象</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> d <span class="keyword">In</span> ds</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;驱动类型为2表示硬盘驱动器，这里仅对硬盘驱动器获取状态</span></span><br><span class="line">    <span class="keyword">If</span> d.DriveType = <span class="number">2</span> <span class="keyword">Then</span></span><br><span class="line">        Debug.Print <span class="string">&quot;驱动器&quot;</span> &amp; d.DriveLetter</span><br><span class="line">        Debug.Print <span class="string">&quot;总存储空间为：&quot;</span> &amp; d.TotalSize &amp; <span class="string">&quot;Bytes&quot;</span></span><br><span class="line">        Debug.Print <span class="string">&quot;可用存储空间为：&quot;</span> &amp; d.AvailableSpace &amp; <span class="string">&quot;Bytes&quot;</span></span><br><span class="line">        Debug.Print <span class="string">&quot;文件系统类型为：&quot;</span> &amp; d.FileSystem</span><br><span class="line">       </span><br><span class="line"> <span class="comment">&#x27;判断驱动器的卷标名字是否为空，不为空时输出卷标名</span></span><br><span class="line">    <span class="keyword">If</span> d.VolumeName &lt;&gt; <span class="string">&quot;&quot;</span> <span class="keyword">Then</span></span><br><span class="line">        Debug.Print <span class="string">&quot;磁盘驱动器卷名：&quot;</span> &amp; d.VolumeName</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;为了输出美观，这里额外输出一个回车换行符号</span></span><br><span class="line">        Debug.Print vbCrLf</span><br><span class="line">    <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口，并运行上述代码，可以看到类似如下运行结果：</p>
+<p><img src="/resource/22_2.png"></p>
+<p>从结果可以看出，电脑中一共有4个磁盘驱动器，分别是C,D,E,F, 磁盘的分区格式均为NTFS格式，磁盘的卷标名称分别是system,data,program,Backup及各磁盘驱动器上总磁盘空间大小及可用磁盘空间大小，这里显示的空间大小单位为字节，如需显示为其他单位，例如MB,GB等，大家可以自行尝试如何显示出来。</p>
+<p>因每个人电脑上可以访问的驱动器不一样，因此上述运行结果中显示的驱动器也是大家都不完全一致，大家可以根据运行结果对照自己的磁盘驱动器，看代码是否运行正确。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+
+  </div>
+  <!--文末结束语-->
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/VBA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html">
+        <span>VBA函数的声明及应用</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/VBA%E9%A9%B1%E5%8A%A8%E5%99%A8%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2015 - 2020 
+        
+        编程小白学VBA
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >
