@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hexo博客搭建步骤</title>
+    <url>/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4.html</url>
+    <content><![CDATA[<p>在本地安装好了node.js及hexo之后，就可以开始着手搭建博客了<br>首先打开git-bash,在想要放置站点的位置执行如下指令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init foldername</span><br></pre></td></tr></table></figure>
+
+<p>就会在当前目录新建foldername的文件夹并初始化</p>
+<p>切换到新建的foldername目录，然后执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>然后执行如下代码，生成静态的html文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+
+<p>然后执行如下代码，启动本地服务器用于调试</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器打开如下页面<code>http://localhost:4000</code>,如果能正常的看渲染的页面，则基础的hexo就跑起来了，<br>否则有提示缺少一些不要的node module的情况下，需要手动单独安装。</p>
+<p>切换到站点所有目录的themes目录，输入如下代码安装meadow主题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;kb1000fx&#x2F;Meadow</span><br></pre></td></tr></table></figure>
+
+<p>然后修改站点所在目录的_config.yml的theme字段，修改为meadow,然后清除配置，重新生成静态html.</p>
+<p>通过浏览器预览，可以看到主题已经更改了。</p>
+<p>根据meadow主题的说明文档，修改相关配置项目.</p>
+<p>如果需要部署到服务器的话，则需要安装如下包：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-dployer-git --save</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <tags>
+        <tag>博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA函数的声明及应用</title>
+    <url>/VBA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<p>Hi，大家好，经过前面时间的学习，大家的代码水平也相应的提高，写的代码行数也比以前要多了，在这之前，我们都是在同一个子程序里面写下全部的代码，随着代码的规模扩大，对于后续子程序的代码复用及维护来说，难度都逐渐的增大了。</p>
+<p>为了解决代码复用及维护的问题，有必要将代码按照功能模块划分，分成各个功能子模块，从而提高代码的复用率及可维护性，同时，如果需要实现的功能较为复杂，还可以将相对独立的功能划分给其他的人协同完成。</p>
+<p>要实现上述的目标，则不仅需要划分更多子程序，还需要引入一个新的概念—函数。</p>
+<p><strong>函数</strong></p>
+<p>函数，简单来说，就是一段带有返回值的用来完成特定功能的代码。</p>
+<p>从功能上来看，函数与子程序很接近，但是也有一些显著的区分 </p>
+<ul>
+<li>函数是有返回值的，返回值可以忽略，也可以保存到变量中后续再利用</li>
+<li>函数是不能直接执行的，只能被调用的时候执行，而过程是可以直接执行的。</li>
+</ul>
+<p>之前很多的示例中，已经用了很多函数，只不过那些函数都是VBA的库提供的，我们只在需要的时候，按照函数的调用方法，进行调用。</p>
+<p>但是系统提供的函数功能毕竟有限，并且主要是一些很基础的功能，如果需要实现自己想要的功能，则需要在库提供的函数基础上自行编写相关的代码实现。</p>
+<p>函数的定义与过程类似，函数定义的语法如下所示：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Function</span> 函数名(参数名<span class="number">1</span>，参数名<span class="number">2.</span>..) As 类型名</span><br><span class="line">函数体语句</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>其中Function …End Fuction这个是固定的，函数名是可以任意取的，但是要避免使用系统保留的关键字，函数名最好能体现函数的功能，这样后续维护修改代码的时候，一看函数名字，就知道这个函数的用途</p>
+<p>参数的命名与变量是一样的，这里的参数没有限制数量，可以没有，没有参数的情况下，圆括号也是不能省略的，也可以有多个，但是一般不建议太多的参数，参数太多的话，函数体也会相应的变得复杂，失去了函数设计的初衷</p>
+<p>函数的参数可以在函数体里面使用，就像是函数体中定义的变量一样，直接使用就可以了。</p>
+<p>类型名是表示是函数返回的类型，与变量的类型名是一样的，函数是通过在过程的一条或多条语句中将值分配给函数名称来返回值。</p>
+<p>下面通过一个具体的例子，来看看具体的函数的定义及应用：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode4()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个变量用来表示圆的半径</span></span><br><span class="line"><span class="keyword">Dim</span> rd As Double</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设定半径的值为5</span></span><br><span class="line">rd = <span class="number">5</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">&#x27;调用CircleArea函数计算圆的半径并输出结果</span></span><br><span class="line">Debug.Print <span class="string">&quot;半径为&quot;</span> &amp; rd &amp; <span class="string">&quot;的圆的面积是&quot;</span> &amp; CircleArea(rd)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设定半径的值为5</span></span><br><span class="line">rd = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;再次调用CircleArea函数计算圆的半径并输出结果</span></span><br><span class="line">Debug.Print <span class="string">&quot;半径为&quot;</span> &amp; rd &amp; <span class="string">&quot;的圆的面积是&quot;</span> &amp; CircleArea(rd)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义名为CircleArea的函数，函数有一个类型为双精度浮点型的参数，返回值为双精度浮点型</span></span><br><span class="line"><span class="keyword">Function</span> CircleArea(r As Double) As Double</span><br><span class="line">    CircleArea = <span class="number">3.14</span> * r * r</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
+<p><img src="/resource/21_1.png"></p>
+<p>从调试的结果可以看到，CircleArea函数分别使用参数5和参数10被调用了两次,然后返回了计算的结果。 </p>
+<p>虽然这里的CircleArea的函数只有短短的一行，体现不出函数的优势，但是当函数体变得很大，并且函数被很多个子程序调用的时候，则子程序中原来很大量的同样的代码块则会被一行函数所取代，子程序也就会变得简洁明了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA字典的声明及应用</title>
     <url>/VBA%E5%AD%97%E5%85%B8%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
     <content><![CDATA[<p>Hi ，大家好，上一期介绍了VBA中集合的简单应用，了解到集合相对于数组，更适用于事先无法预知要保存多少数据项的情况，因为集合可以任意的添加删除数据项，没有数据项个数限制。</p>
@@ -34,39 +102,6 @@
 ]]></content>
       <tags>
         <tag>VBA编程基础高级篇</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hexo博客搭建步骤</title>
-    <url>/Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%AD%A5%E9%AA%A4.html</url>
-    <content><![CDATA[<p>在本地安装好了node.js及hexo之后，就可以开始着手搭建博客了<br>首先打开git-bash,在想要放置站点的位置执行如下指令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init foldername</span><br></pre></td></tr></table></figure>
-
-<p>就会在当前目录新建foldername的文件夹并初始化</p>
-<p>切换到新建的foldername目录，然后执行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
-
-<p>然后执行如下代码，生成静态的html文件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
-<p>然后执行如下代码，启动本地服务器用于调试</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
-<p>在浏览器打开如下页面<code>http://localhost:4000</code>,如果能正常的看渲染的页面，则基础的hexo就跑起来了，<br>否则有提示缺少一些不要的node module的情况下，需要手动单独安装。</p>
-<p>切换到站点所有目录的themes目录，输入如下代码安装meadow主题</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;kb1000fx&#x2F;Meadow</span><br></pre></td></tr></table></figure>
-
-<p>然后修改站点所在目录的_config.yml的theme字段，修改为meadow,然后清除配置，重新生成静态html.</p>
-<p>通过浏览器预览，可以看到主题已经更改了。</p>
-<p>根据meadow主题的说明文档，修改相关配置项目.</p>
-<p>如果需要部署到服务器的话，则需要安装如下包：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-dployer-git --save</span><br></pre></td></tr></table></figure>
-
-
-
-]]></content>
-      <tags>
-        <tag>博客搭建</tag>
       </tags>
   </entry>
   <entry>
@@ -167,7 +202,7 @@
 
 <p>复制粘贴上述代码到Excel的VBA代码编辑环境中(这里我们主要是模拟通过Excel调用Outlook发送邮件)，如下图所示：</p>
 <p><img src="/resource/17_1.png"></p>
-<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#120;&#x79;&#122;&#64;&#x61;&#98;&#99;&#46;&#x63;&#111;&#x6d;">&#120;&#x79;&#122;&#64;&#x61;&#98;&#99;&#46;&#x63;&#111;&#x6d;</a>“替换为所需要的发送的邮件收件人。</p>
+<p>为了确保能收到邮件，这里大家需要将代码中.To 后面的”<a href="mailto:&#x78;&#121;&#x7a;&#x40;&#97;&#x62;&#99;&#46;&#99;&#111;&#109;">&#x78;&#121;&#x7a;&#x40;&#97;&#x62;&#99;&#46;&#99;&#111;&#109;</a>“替换为所需要的发送的邮件收件人。</p>
 <p>因Excel默认没有引用Outlook应用程序对象库，因此，在第一次使用的时候，需要手动添加Outlook对象的应用，添加的方法也很简单，点击VBA编程环境的”工具”栏，点击”引用”，然后再弹出的对话框中，找到”Microsoft  Outlook 15.0 Object Library”，确保前面的复选框是选中状态，然后点击确定，关闭对话框,如下图所示：</p>
 <p><img src="/resource/17_2.png"></p>
 <p>点击运行按钮，运行”Send_Mail” 子程序，此时有可能会弹出安全提醒，如下图所示：</p>
@@ -182,41 +217,6 @@
 ]]></content>
       <tags>
         <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA开发环境配置</title>
-    <url>/VBA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</url>
-    <content><![CDATA[<p>Hi，大家好，提到职场办公软件，绕不开的是微软的office办公套件，尤其是Word,Excel,Power Point三件套（以下简称三件套），已经成为办公领域事实的标准，并且也足够好用，但是总会有一些情况，需要重复的处理很多类似的任务，</p>
-<p>虽然都是简单的步骤，但是重复的次数多了，难免感觉浪费时间，效率也不高。</p>
-<p>那么问题来了，是否有工具可以批量自动完成这些任务，从而可以从繁重的体力劳动中解脱出来呢???</p>
-<p>答案是肯定的，并且自动化工具还不少，很多人都推荐python来完成，python也确实可以很好的完成工作，但是需要安装配置python运行环境等等，也不是那么容易的，并且还可能不兼容，出现运行不了的情况。</p>
-<p>那么是否有原生的，容易配置的工具可以利用呢？</p>
-<p>答案又是肯定的，微软一直在Office中隐藏了绝世秘籍，并且在office的套件均可使用。</p>
-<p>当然这么高级的功能，微软默认是隐藏的，并没有默认打开，毕竟绝大部分人都用不到，需要手动开启，开启的方法也是相当的简单，这里以office 2013的Word为例，介绍一下怎么开启绝世秘籍的方法。</p>
-<p>各位，站稳扶好了，即将要修炼隐藏的武功秘籍了。</p>
-<ol>
-<li>新建或打开任意Word文档</li>
-</ol>
-<p><img src="/resource/1_1.png"></p>
-<ol start="2">
-<li>选择文件，选项</li>
-</ol>
-<p><img src="/resource/1_2.png"></p>
-<ol start="3">
-<li><p>选择自定义功能区，并勾上开发工具</p>
-<p><img src="/resource/1_3.png"></p>
-</li>
-<li><p>确定，保存，在Word的选项上就可以看到多了一个开发工具选项卡</p>
-<p><img src="/resource/1_4.png"></p>
-</li>
-</ol>
-<p>怎么样？步骤是不是很简单？并且一旦开启了之后，之后打开的Word每次都会有这个选项了，Excel，Power Point的开启方式与这个大同小异，就不重复了。</p>
-<p>恭喜你，你已经成功开启了office隐藏的武功秘籍，只要您早晚勤加修炼，假以时日，必能在使用office的时候如虎添翼，有如神助，喝着咖啡就能完成工作了。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
       </tags>
   </entry>
   <entry>
@@ -300,6 +300,106 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA应用之Word篇续3</title>
+    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
+<p><strong>Selection对象</strong></p>
+<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
+<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
+<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/13_1.png"></p>
+<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
+<p><img src="/resource/13_2.png"></p>
+<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
+<p>下面详细解释一下代码的含义：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
+<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程应用</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA开发环境配置</title>
+    <url>/VBA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</url>
+    <content><![CDATA[<p>Hi，大家好，提到职场办公软件，绕不开的是微软的office办公套件，尤其是Word,Excel,Power Point三件套（以下简称三件套），已经成为办公领域事实的标准，并且也足够好用，但是总会有一些情况，需要重复的处理很多类似的任务，</p>
+<p>虽然都是简单的步骤，但是重复的次数多了，难免感觉浪费时间，效率也不高。</p>
+<p>那么问题来了，是否有工具可以批量自动完成这些任务，从而可以从繁重的体力劳动中解脱出来呢???</p>
+<p>答案是肯定的，并且自动化工具还不少，很多人都推荐python来完成，python也确实可以很好的完成工作，但是需要安装配置python运行环境等等，也不是那么容易的，并且还可能不兼容，出现运行不了的情况。</p>
+<p>那么是否有原生的，容易配置的工具可以利用呢？</p>
+<p>答案又是肯定的，微软一直在Office中隐藏了绝世秘籍，并且在office的套件均可使用。</p>
+<p>当然这么高级的功能，微软默认是隐藏的，并没有默认打开，毕竟绝大部分人都用不到，需要手动开启，开启的方法也是相当的简单，这里以office 2013的Word为例，介绍一下怎么开启绝世秘籍的方法。</p>
+<p>各位，站稳扶好了，即将要修炼隐藏的武功秘籍了。</p>
+<ol>
+<li>新建或打开任意Word文档</li>
+</ol>
+<p><img src="/resource/1_1.png"></p>
+<ol start="2">
+<li>选择文件，选项</li>
+</ol>
+<p><img src="/resource/1_2.png"></p>
+<ol start="3">
+<li><p>选择自定义功能区，并勾上开发工具</p>
+<p><img src="/resource/1_3.png"></p>
+</li>
+<li><p>确定，保存，在Word的选项上就可以看到多了一个开发工具选项卡</p>
+<p><img src="/resource/1_4.png"></p>
+</li>
+</ol>
+<p>怎么样？步骤是不是很简单？并且一旦开启了之后，之后打开的Word每次都会有这个选项了，Excel，Power Point的开启方式与这个大同小异，就不重复了。</p>
+<p>恭喜你，你已经成功开启了office隐藏的武功秘籍，只要您早晚勤加修炼，假以时日，必能在使用office的时候如虎添翼，有如神助，喝着咖啡就能完成工作了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA循环控制介绍</title>
+    <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
+    <content><![CDATA[<p>Hi，大家好，上两期介绍了流程控制里面的分支流程控制，分支流程控制主要是用于解决各种不同的情况下的问题的处理。</p>
+<p>但是生活中我们除了不同的情况的处理，更多的时候我们面对的是很多重复性的操作，而重复性工作正好是电脑所擅长的。</p>
+<p>为了达到让电脑自动为我们工作，就需要利用循环控制，让电脑自动循环重复，我们只需要开始的时候告诉电脑怎么做，然后剩下的就是告诉他一直重复这个步骤，然后在完成之后自动停止，这才是终极的节约时间和节省体力的法宝。</p>
+<p>在VBA中大致有三种不同的形式可以完成循环的工作，三种不同的形式基本上可以互相转换，区别只是在于不同的问题，使用不同的形式，可以使得代码更简洁易懂。</p>
+<p><strong>For循环</strong></p>
+<p>For循环是广泛使用的一种循环，优点是结构简单易懂，根据循环的次数能否确定，可以细分为计数循环和遍历循环。</p>
+<p><strong>计数循环</strong></p>
+<p>计数循环需要明确知道从什么时候开始循环计数，然后到什么时候停止循环计数，对应的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> cnt = start <span class="keyword">To</span> <span class="keyword">end</span> [<span class="keyword">Step</span> <span class="keyword">step</span>]</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [cnt]</span><br></pre></td></tr></table></figure>
+
+<p>其运行流程为从cnt= start开始计数，并执行Next 之前的循环体代码，执行完成后，cnt会加上step,如果step为正数，则检查cnt是否小于等于end，如果step为负数，则检查cnt是否大于等于end,满足条件则继续重复这一个过程，如果不满足，则退出循环。</p>
+<p>其中step是可选的,系统会给出默认值，同样cnt也是可选的，单层循环可以省略。</p>
+<p><strong>遍历循环</strong></p>
+<p>遍历循环则不需要明确知道从什么时候开始计数，会遍历集合中的数据，逐个的取出然后执行循环体，直到遍历结束,对应的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> element <span class="keyword">In</span> collection</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [element]</span><br></pre></td></tr></table></figure>
+
+<p>下面通过一个具体的例子，看看For循环的实际应用。</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码并粘贴到VBA的代码编辑窗口，如下图所示：</p>
+<p><img src="/resource/9_1.png"></p>
+<p>点击运行按钮运行此代码，得到如下图所示运行结果：</p>
+<p><img src="/resource/9_2.png"></p>
+<p>在立即窗口可以看到，此程序打印出来了0~20的所有的奇数和偶数，下面对代码进行逐条解释一下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"></span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span>            <span class="comment">&#x27;设置循环的循环计数从0开始到20结束，默认step为1</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span>        <span class="comment">&#x27;对每次的循环进行取余操作，进行奇偶判断 ，否则为基数</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span>     <span class="comment">&#x27;能被2整除，则余数了0，也就是为偶数</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span>        <span class="comment">&#x27;不能被2整除，余数不为0，为奇数</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num                        <span class="comment">&#x27;执行下一次循环条件判断</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，应用了循环之后，很多重复性的工作都可以放在循环体里面，通过设定好条件就可以自动执行了。</p>
+<p>这里如果需要计算1000,10000等更大的数据，只需要把20替换为更大的数就可以了。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA循环控制介绍续2</title>
     <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D%E7%BB%AD2.html</url>
     <content><![CDATA[<p>Hi，大家好，上期介绍了循环流程控制里面的For循环控制，今天再介绍另外两种循环—Loop循环及While循环。</p>
@@ -329,6 +429,55 @@
 <p>并点击运行按键运行，运行结果如下：</p>
 <p><img src="/resource/10_2.png"></p>
 <p>在立即窗口可以看到，不管采用何种循环形式，都是可以完成同样的任务的，因此，不同的循环形式，基本上是可以互相转换的。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA数据运算</title>
+    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
+<p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
+<ul>
+<li>算术运算符</li>
+<li>比较运算符</li>
+<li>串联运算符</li>
+<li>逻辑运算符</li>
+</ul>
+<p>我们先看一下运用的最多的算术运算符</p>
+<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>算术运算符，主要就是用来执行数学计算的运算符，主要包含加+，减-，乘*，除（整数除\，浮点除/），取余Mod，指数运算^ 这几项.<br><strong>加法运算符</strong> “+” ,用来对两个数进行加法运算，从而的到两个数的和，具体的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result &#x3D; num1 + num2</span><br></pre></td></tr></table></figure>
+<p>其中num1 和num2分别是需要相加的变量，sum为运算得到的总和的变量，变量名是可以是任意取的，并且num1 和num2分别可以为整数，单精度浮点数，双精度浮点数等,下同<br><strong>减法运算符</strong>“-“,用来对两个数进行减法运算，从而的到两个数的差，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 - num2</span><br></pre></td></tr></table></figure>
+<p><strong>乘法运算符</strong>“*”,用来对两个数进行乘法运算，从而的到两个数的积，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1*num2</span><br></pre></td></tr></table></figure>
+
+<p><strong>整数除法运算符</strong>“\“, 用来对两个数进行除法操作，但是得到的值只保留整数部分，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1\num2</span><br></pre></td></tr></table></figure>
+
+<p> <strong>浮点除法运算符</strong>“/“,用来对两个数进行除法操作，但是的到的值是个浮点数，具体的语法如下：</p>
+<figure class="highlight vbs"><table><tr><td class="code"><pre><span class="line">result = num1/num2</span><br></pre></td></tr></table></figure>
+
+<p><strong>取余运算符</strong>“Mod”,用来对两个数进行除法操作，然后返回整除之后的余数部分，具体的语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 Mod num2</span><br></pre></td></tr></table></figure>
+
+<p><strong>幂指数运算符</strong>“^”,用来求幂指数运算操作，返回指数幂的结果，具体语法如下：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 ^ num2</span><br></pre></td></tr></table></figure>
+
+<p>下面，我们用一小段代码来演示一下上面提到的各种常用的运算符，复制如下代码到VBA开发环境的代码编辑框中(戳这里了解VBA运行环境构建)，</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest()</span><br><span class="line"><span class="keyword">Dim</span> sum1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> sum2 As Single</span><br><span class="line"><span class="keyword">Dim</span> num1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num3 As Single</span><br><span class="line"><span class="keyword">Dim</span> num4 As Single</span><br><span class="line">num1 = <span class="number">5</span></span><br><span class="line">num2 = <span class="number">3</span></span><br><span class="line">num3 = <span class="number">2.5</span></span><br><span class="line">num4 = <span class="number">5.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;加法运算</span></span><br><span class="line">sum1 = num1 + num2</span><br><span class="line">sum2 = num3 + num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;减法运算</span></span><br><span class="line">sum1 = num1 - num2</span><br><span class="line">sum2 = num3 - num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;乘法运算</span></span><br><span class="line">sum1 = num1 * num2</span><br><span class="line">sum2 = num3 * num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;除法运算</span></span><br><span class="line">sum1 = num1 \ num2</span><br><span class="line">sum2 = num1 / num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;取余运算</span></span><br><span class="line">sum1 = num1 Mod num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;幂指数运算</span></span><br><span class="line">sum2 = num1 ^ num2</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>如下图所示：</p>
+<p><img src="/4_1.png" alt="4_1"></p>
+<p>点击运行Optest子程序，在立即窗口可以得到如下运行结果：</p>
+<p><img src="/resource/4_2.png"></p>
+<p>可以看到，立即窗口打印出来的值分别对应着如下的运算</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>+<span class="number">3</span> = <span class="number">8</span>          </span><br><span class="line"><span class="number">2.5</span>+<span class="number">5.3</span> = <span class="number">7.8</span></span><br><span class="line"><span class="number">5</span><span class="number">-3</span> = <span class="number">2</span></span><br><span class="line"><span class="number">2.5</span><span class="number">-5.3</span> = <span class="number">-2.8</span></span><br><span class="line"><span class="number">5</span>*<span class="number">3</span>=<span class="number">15</span></span><br><span class="line"><span class="number">2.5</span>*<span class="number">5.3</span>=<span class="number">13.25</span></span><br><span class="line"><span class="number">5</span>\<span class="number">3</span>=<span class="number">1</span>         <span class="comment">//这里是整除，只保留整数部分</span></span><br><span class="line"><span class="number">5</span>/<span class="number">3</span>=<span class="number">1.666667</span>  <span class="comment">//这里是浮点除，保留了小数部分</span></span><br><span class="line"><span class="number">5</span> Mod <span class="number">3</span> = <span class="number">2</span>   <span class="comment">//这里是5除以3，商为1，余数为2，因此得到的结果就是余数2</span></span><br><span class="line"><span class="number">5</span>^<span class="number">3</span>= <span class="number">125</span>      <span class="comment">//这里表示5的3次方，也就是5*5*5=125</span></span><br></pre></td></tr></table></figure>
+
+<p>常用的算术运算符就是这些了，大家掌握了吗？</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
@@ -381,55 +530,6 @@
 <p><img src="/resource/3_2.png"></p>
 <p>这里就是VBA中变量的定义及赋值和取值的简单例子，后续还会有更多变量的类型和赋值，但基本上与这个形式是差不多。</p>
 <p>如果大家有任何的疑问，可以在在下方留言噢~</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA数据运算</title>
-    <url>/VBA%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA的变量的定义及常用的数据类型，同时介绍了变量的取值和赋值操作，就像将信息放在盒子里保存起来，或者将保存的信息从盒子里取出来，但是仅仅保存或者取出信息显然是不够的，我们更多的时候还需要对原始信息进行进一步的加工，才能得到我们最终所需要的信息，</p>
-<p>因为我们信息都是根据不同的数据类型存储在变量里面的，所以，对信息的进一步加工，就是对变量进行运算，不同的数据类型支持不同的运算格式，总的来说，VBA支持如下四种运算符:</p>
-<ul>
-<li>算术运算符</li>
-<li>比较运算符</li>
-<li>串联运算符</li>
-<li>逻辑运算符</li>
-</ul>
-<p>我们先看一下运用的最多的算术运算符</p>
-<h4 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a><strong>算术运算符</strong></h4><p>算术运算符，主要就是用来执行数学计算的运算符，主要包含加+，减-，乘*，除（整数除\，浮点除/），取余Mod，指数运算^ 这几项.<br><strong>加法运算符</strong> “+” ,用来对两个数进行加法运算，从而的到两个数的和，具体的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">result &#x3D; num1 + num2</span><br></pre></td></tr></table></figure>
-<p>其中num1 和num2分别是需要相加的变量，sum为运算得到的总和的变量，变量名是可以是任意取的，并且num1 和num2分别可以为整数，单精度浮点数，双精度浮点数等,下同<br><strong>减法运算符</strong>“-“,用来对两个数进行减法运算，从而的到两个数的差，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 - num2</span><br></pre></td></tr></table></figure>
-<p><strong>乘法运算符</strong>“*”,用来对两个数进行乘法运算，从而的到两个数的积，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1*num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>整数除法运算符</strong>“\“, 用来对两个数进行除法操作，但是得到的值只保留整数部分，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1\num2</span><br></pre></td></tr></table></figure>
-
-<p> <strong>浮点除法运算符</strong>“/“,用来对两个数进行除法操作，但是的到的值是个浮点数，具体的语法如下：</p>
-<figure class="highlight vbs"><table><tr><td class="code"><pre><span class="line">result = num1/num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>取余运算符</strong>“Mod”,用来对两个数进行除法操作，然后返回整除之后的余数部分，具体的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 Mod num2</span><br></pre></td></tr></table></figure>
-
-<p><strong>幂指数运算符</strong>“^”,用来求幂指数运算操作，返回指数幂的结果，具体语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">result = num1 ^ num2</span><br></pre></td></tr></table></figure>
-
-<p>下面，我们用一小段代码来演示一下上面提到的各种常用的运算符，复制如下代码到VBA开发环境的代码编辑框中(戳这里了解VBA运行环境构建)，</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest()</span><br><span class="line"><span class="keyword">Dim</span> sum1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> sum2 As Single</span><br><span class="line"><span class="keyword">Dim</span> num1 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num2 As Integer</span><br><span class="line"><span class="keyword">Dim</span> num3 As Single</span><br><span class="line"><span class="keyword">Dim</span> num4 As Single</span><br><span class="line">num1 = <span class="number">5</span></span><br><span class="line">num2 = <span class="number">3</span></span><br><span class="line">num3 = <span class="number">2.5</span></span><br><span class="line">num4 = <span class="number">5.3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;加法运算</span></span><br><span class="line">sum1 = num1 + num2</span><br><span class="line">sum2 = num3 + num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;减法运算</span></span><br><span class="line">sum1 = num1 - num2</span><br><span class="line">sum2 = num3 - num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;乘法运算</span></span><br><span class="line">sum1 = num1 * num2</span><br><span class="line">sum2 = num3 * num4</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;除法运算</span></span><br><span class="line">sum1 = num1 \ num2</span><br><span class="line">sum2 = num1 / num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;取余运算</span></span><br><span class="line">sum1 = num1 Mod num2</span><br><span class="line">Debug.Print sum1</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;幂指数运算</span></span><br><span class="line">sum2 = num1 ^ num2</span><br><span class="line">Debug.Print sum2</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>如下图所示：</p>
-<p><img src="/4_1.png" alt="4_1"></p>
-<p>点击运行Optest子程序，在立即窗口可以得到如下运行结果：</p>
-<p><img src="/resource/4_2.png"></p>
-<p>可以看到，立即窗口打印出来的值分别对应着如下的运算</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="number">5</span>+<span class="number">3</span> = <span class="number">8</span>          </span><br><span class="line"><span class="number">2.5</span>+<span class="number">5.3</span> = <span class="number">7.8</span></span><br><span class="line"><span class="number">5</span><span class="number">-3</span> = <span class="number">2</span></span><br><span class="line"><span class="number">2.5</span><span class="number">-5.3</span> = <span class="number">-2.8</span></span><br><span class="line"><span class="number">5</span>*<span class="number">3</span>=<span class="number">15</span></span><br><span class="line"><span class="number">2.5</span>*<span class="number">5.3</span>=<span class="number">13.25</span></span><br><span class="line"><span class="number">5</span>\<span class="number">3</span>=<span class="number">1</span>         <span class="comment">//这里是整除，只保留整数部分</span></span><br><span class="line"><span class="number">5</span>/<span class="number">3</span>=<span class="number">1.666667</span>  <span class="comment">//这里是浮点除，保留了小数部分</span></span><br><span class="line"><span class="number">5</span> Mod <span class="number">3</span> = <span class="number">2</span>   <span class="comment">//这里是5除以3，商为1，余数为2，因此得到的结果就是余数2</span></span><br><span class="line"><span class="number">5</span>^<span class="number">3</span>= <span class="number">125</span>      <span class="comment">//这里表示5的3次方，也就是5*5*5=125</span></span><br></pre></td></tr></table></figure>
-
-<p>常用的算术运算符就是这些了，大家掌握了吗？</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
 <p><img src="/resource/wechat.jpg"></p>
 ]]></content>
@@ -565,6 +665,34 @@
       </tags>
   </entry>
   <entry>
+    <title>VBA文件对象的介绍</title>
+    <url>/VBA%E6%96%87%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BB%8B%E7%BB%8D.html</url>
+    <content><![CDATA[<p>Hi,大家好，上一期介绍了文件系统对象的驱动器对象，主要用来获取驱动器的一些状态信息，今天看看文件系统里面另外一个重要的对象——–文件对象</p>
+<p><strong>文件对象</strong></p>
+<p>文件对象，顾名思义，就是对文件系统中的文件进行抽象，使用文件对象来表示磁盘中的文件。</p>
+<p>与驱动器对象类似，通过文件对象，可以访问磁盘中的文件的各种属性，例如文件的名字，文件大小，文件类型，创建时间，修改时间，所在的磁盘驱动器盘符，文件在磁盘中的完整路径等等属性。同时还提供文件的一些常见的操作，例如复制，移动，删除等操作。</p>
+<p>因不同的应用程序创建的文件，格式各有不同，需要通过专门的应用程序才能打开，因此文件对象无法提供这些不同类型的文件的打开操作，但是对于文本文件，因为文件结构较为简单，通过文件对象是可以打开的，因打开文本文件涉及到文件系统对象的另外一个对象——文本流对象，这里暂时按下不表。</p>
+<p>文件对象的创建方法与驱动器对象创建方法类似，可以通过如下代码创建一个文件对象</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> f As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取&quot;D:\test.txt&quot;文件并绑定到此前定义的通用对象</span></span><br><span class="line"><span class="keyword">Set</span> f = fs.GetFile(<span class="string">&quot;filepath&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>从上述代码可以看到，这里前面三个步骤与驱动器对象文件创建是一样的，只是在最后一个步骤换成了获取文件并绑定到通用对象，这里filepath表示文件的路径，实际使用时，需要替换为有效路径。</p>
+<p>下面通过一个具体例子，看看如何文件对象的属性的获取及操作：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode5()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> f As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取&quot;D:\test.txt&quot;文件并绑定到此前定义的通用对象</span></span><br><span class="line"><span class="keyword">Set</span> f = fs.GetFile(<span class="string">&quot;D:\test.txt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;调用显示文件信息子程序显示文件信息</span></span><br><span class="line"><span class="keyword">Call</span> ShowFileInfo(f)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;拷贝文件到&quot;F:\&quot;跟目录，并重命名为text2.txt</span></span><br><span class="line">f.Copy <span class="string">&quot;F:\test2.txt&quot;</span>, <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取&quot;F:\test2.txt&quot;文件并绑定到此前定义的通用对象</span></span><br><span class="line"><span class="keyword">Set</span> f = fs.GetFile(<span class="string">&quot;F:\test2.txt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次调用显示文件信息子程序显示新的文件信息</span></span><br><span class="line"><span class="keyword">Call</span> ShowFileInfo(f)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;删除&quot;F:\test2.txt&quot;文件</span></span><br><span class="line">f.Delete</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> ShowFileInfo(file As Object)</span><br><span class="line">Debug.Print <span class="string">&quot;文件名：&quot;</span> &amp; file.Name</span><br><span class="line">Debug.Print <span class="string">&quot;文件类型：&quot;</span> &amp; file.Type</span><br><span class="line">Debug.Print <span class="string">&quot;文件大小：&quot;</span> &amp; file.Size &amp; <span class="string">&quot;Bytes&quot;</span></span><br><span class="line">Debug.Print <span class="string">&quot;文件创建时间：&quot;</span> &amp; file.DateCreated</span><br><span class="line">Debug.Print <span class="string">&quot;文件最后修改时间：&quot;</span> &amp; file.DateLastModified</span><br><span class="line">Debug.Print <span class="string">&quot;文件完整路径&quot;</span> &amp; file.Path</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+
+<p>示例代码里面操作的是”D:\test.txt”文本文件，需要事先新建一个，然后输入如下内容并保存：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">这是一个用来测试的文本文件</span><br></pre></td></tr></table></figure>
+
+<p>复制粘贴上述代码到并运行，可以看到如下运行结果：</p>
+<p><img src="/resource/23_1.png"></p>
+<p>从调试窗口的调试信息可以看到，首先打印出文件名test.txt，然后文件类型为文本文件，文件大小为26字节(测试文本为13个汉字，每个汉字占用2个字节)，随后是文件的创建时间及修改时间，然后是文件的完整路径。</p>
+<p>然后拷贝文件到F盘，并重命名为test2.txt，再次调用打印文件信息子程序，打印新的文件属性信息，完成后将文件test2.txt删除。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>VBA流程控制介绍</title>
     <url>/VBA%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
     <content><![CDATA[<p>Hi，大家好，前几期主要介绍了变量及变量的操作–数据运算，有了这些基础之后，我们开始介绍编程里面另外一个核心—流程控制。</p>
@@ -652,64 +780,6 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA集合的声明及应用</title>
-    <url>/VBA%E9%9B%86%E5%90%88%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
-    <content><![CDATA[<p>Hi ，大家好，上一期介绍了数组的定义及基本的应用，从数组的定义可以知道，数组在定义的时候，需要预先估计所需存放数据的多少，根据存放数据的多少来定义数组的大小。</p>
-<p>对于事先无法预估数据多少的情况，虽然可以定义动态数组的大小，但是在使用ReDim的时候还是需要预估数组的大小，因此数组在这种情况的使用上还是不能很好的满足要求，此时可以通过另外一种数据结构来解决—-集合</p>
-<p><strong>集合</strong></p>
-<p>集合代表一组相关的数据项，当集合中的数据项更改时，数据项的索引，也就是数据项在集合中的位置也会更改，这一点与数组的数据项互相不影响是有去区别的，同时，集合中的数据项也没有要求公用一个数据类型，这一点也与数组不一样。</p>
-<p>集合是一个对象，而对象都有用于操作对象的方法及反映对象状态的属性，因此集合也提供了添加，删除，获取集合数据项的方法，以及表示集合中包含的数据项的总数的属性。</p>
-<p>通过如下定义可以创建一个集合对象：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个集合对象</span></span><br><span class="line"><span class="keyword">Dim</span> Col As Collection</span><br></pre></td></tr></table></figure>
-
-<p>通过创建集合对象的代码可以看到，定义集合时无需指定集合中包含的数据的数据类型。</p>
-<p>同时因为是对象，需要分配空间才能使用，通过如下代码给上述定义的集合分配空间：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;给集合对象分配空间</span></span><br><span class="line"><span class="keyword">Set</span> Col = <span class="keyword">New</span> Collection </span><br></pre></td></tr></table></figure>
-
-<p>可以看到给集合分配空间时，无需指定集合的大小</p>
-<p>上述代码也可以简化为如下，一步完成集合对象的创建和空间分配：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> Col As <span class="keyword">New</span> Collection</span><br></pre></td></tr></table></figure>
-
-<p>下面通过一个具体的例子，看看如何集合如何添加，删除，访问数据项等操作：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode2()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个新的集合</span></span><br><span class="line"><span class="keyword">Dim</span> Col As <span class="keyword">New</span> Collection</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;给新的集合添加数据元素</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">10</span></span><br><span class="line">Col.Add i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;迭代依次访问集合中的每个数据元素</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> Item <span class="keyword">In</span> Col</span><br><span class="line">Debug.Print Item</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;打印集合中数据项的总数</span></span><br><span class="line">Debug.Print <span class="string">&quot;Col集合中数据项总数为：&quot;</span> &amp; Col.Count</span><br><span class="line">    </span><br><span class="line"><span class="comment">&#x27;打印集合中第一个数据项</span></span><br><span class="line">Debug.Print <span class="string">&quot;集合中第一项为&quot;</span> &amp; Col.Item(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除集合中第一个数据项</span></span><br><span class="line">Col.Remove (<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;打印集合中新的第一个数据项</span></span><br><span class="line">Debug.Print <span class="string">&quot;删除后新的第一项为&quot;</span> &amp; Col.Item(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次打印集合中的数据项总数</span></span><br><span class="line">Debug.Print <span class="string">&quot;Col集合中数据项总数为：&quot;</span> &amp; Col.Count</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
-<p><img src="/resource/19_1.png"></p>
-<p>通过立即窗口可以看到，在创建了集合之后，依次添加了0-10这11个数据项之后，打印出来的集合的总的数据项是11个，并且第一个数据项是0，然后通过移除操作，移除了第一个数据项，原来的第二个数据项就变成了新的第一个数据项，因此打印出来的第一个数据项变为了1,同时集合中的数据项总数也变成了10个。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础高级篇</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA应用之Word篇续3</title>
-    <url>/VBA%E5%BA%94%E7%94%A8%E4%B9%8BWord%E7%AF%87%E7%BB%AD3.html</url>
-    <content><![CDATA[<p>Hi，大家好，上一期介绍了VBA在Word上的基于Range对象的文件编辑操作，今天介绍另外一种在Word中对文档进行操作的对象—Selection对象。</p>
-<p><strong>Selection对象</strong></p>
-<p>在编辑Word的时候，我们如果要对某部分文字进行排版等操作，首先会对需要操作的部分进行选定，然后再对选定的文本进行操作，那么选定的文本对应到VBA的代码中，就是Selection对象了。</p>
-<p>Selection对象与Range对象的用法很接近，Range主要针对的是某个范围，Selcetion则会对待处理的文本进行选中，选定的内容会突出显示，就像用鼠标选中的效果一样。</p>
-<p>下面通过一个具体的例子看一下具体的用法，具体的代码如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> .Wrap = wdFindContinue     </span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>复制上述代码到VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/13_1.png"></p>
-<p>点击运行按钮，执行这段子程序代码，可以看到结果如下图所示：</p>
-<p><img src="/resource/13_2.png"></p>
-<p>可以看到，运行的结果与上期使用Range的运行结果很类似，同样的操作，既可以通过Range来完成，也可以通过Selection来完成。</p>
-<p>下面详细解释一下代码的含义：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> FindAndReplace()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;选中当前活动文本的所有内容</span></span><br><span class="line">ActiveDocument.Content.<span class="keyword">Select</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;在当前选中的内容之后插入所需要的文本并选中</span></span><br><span class="line"> Selection.InsertAfter <span class="string">&quot;Hi,大家好,这是我第一个使用脚本自动生成的文本!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;将所选内容加粗和倾斜</span></span><br><span class="line"> Selection.Font.Bold = <span class="literal">True</span></span><br><span class="line"> Selection.Font.Italic = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;在所选内容中进行搜索，</span></span><br><span class="line"> <span class="keyword">With</span> Selection.Find</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;设置搜索模式为向下搜索</span></span><br><span class="line"> .Forward = <span class="literal">True</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;不需要全字匹配</span></span><br><span class="line"> .MatchWholeWord = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;忽略大小写</span></span><br><span class="line"> .MatchCase = <span class="literal">False</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;到达搜索区域的开始或者结尾时，继续执行搜索</span></span><br><span class="line"> .Wrap = wdFindContinue</span><br><span class="line"> </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;一&quot;，则替换为&quot;二&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;一&quot;</span>, ReplaceWith:=<span class="string">&quot;二&quot;</span></span><br><span class="line">            </span><br><span class="line"> <span class="comment">&#x27;如果找到文本&quot;我&quot;， 则替换为&quot;你&quot;</span></span><br><span class="line"> .<span class="keyword">Execute</span> FindText:=<span class="string">&quot;我&quot;</span>, ReplaceWith:=<span class="string">&quot;你&quot;</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">With</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>从代码上面也可以看出，Selection的操作与Range几乎是一样的，相比Range的中添加文本及加粗倾斜的操作，这里额外执行了搜索替换操作，将字符”一”和”我”分别替换为了”二”和”你”。</p>
-<p>这段代码中的搜索替换是可以应用在很多地方的，如果仅仅是需要搜索替换，则代码中前面插入文本的操作是可以去掉的，同时可以根据自己的需要，将需要搜索替换的文本换成自己所需要的文本</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！ </p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程应用</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VBA第一个程序</title>
     <url>/VBA%E7%AC%AC%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F.html</url>
     <content><![CDATA[<p>Hi，大家好，自从上一期我们成功开启了Office的开发者模式后，就等于是拿到隐藏的绝世武功的秘籍，通往高手之路已经完成了第一步，接下来的就要开启修炼之路了。</p>
@@ -744,72 +814,30 @@
       </tags>
   </entry>
   <entry>
-    <title>VBA循环控制介绍</title>
-    <url>/VBA%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E4%BB%8B%E7%BB%8D.html</url>
-    <content><![CDATA[<p>Hi，大家好，上两期介绍了流程控制里面的分支流程控制，分支流程控制主要是用于解决各种不同的情况下的问题的处理。</p>
-<p>但是生活中我们除了不同的情况的处理，更多的时候我们面对的是很多重复性的操作，而重复性工作正好是电脑所擅长的。</p>
-<p>为了达到让电脑自动为我们工作，就需要利用循环控制，让电脑自动循环重复，我们只需要开始的时候告诉电脑怎么做，然后剩下的就是告诉他一直重复这个步骤，然后在完成之后自动停止，这才是终极的节约时间和节省体力的法宝。</p>
-<p>在VBA中大致有三种不同的形式可以完成循环的工作，三种不同的形式基本上可以互相转换，区别只是在于不同的问题，使用不同的形式，可以使得代码更简洁易懂。</p>
-<p><strong>For循环</strong></p>
-<p>For循环是广泛使用的一种循环，优点是结构简单易懂，根据循环的次数能否确定，可以细分为计数循环和遍历循环。</p>
-<p><strong>计数循环</strong></p>
-<p>计数循环需要明确知道从什么时候开始循环计数，然后到什么时候停止循环计数，对应的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> cnt = start <span class="keyword">To</span> <span class="keyword">end</span> [<span class="keyword">Step</span> <span class="keyword">step</span>]</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [cnt]</span><br></pre></td></tr></table></figure>
+    <title>VBA集合的声明及应用</title>
+    <url>/VBA%E9%9B%86%E5%90%88%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
+    <content><![CDATA[<p>Hi ，大家好，上一期介绍了数组的定义及基本的应用，从数组的定义可以知道，数组在定义的时候，需要预先估计所需存放数据的多少，根据存放数据的多少来定义数组的大小。</p>
+<p>对于事先无法预估数据多少的情况，虽然可以定义动态数组的大小，但是在使用ReDim的时候还是需要预估数组的大小，因此数组在这种情况的使用上还是不能很好的满足要求，此时可以通过另外一种数据结构来解决—-集合</p>
+<p><strong>集合</strong></p>
+<p>集合代表一组相关的数据项，当集合中的数据项更改时，数据项的索引，也就是数据项在集合中的位置也会更改，这一点与数组的数据项互相不影响是有去区别的，同时，集合中的数据项也没有要求公用一个数据类型，这一点也与数组不一样。</p>
+<p>集合是一个对象，而对象都有用于操作对象的方法及反映对象状态的属性，因此集合也提供了添加，删除，获取集合数据项的方法，以及表示集合中包含的数据项的总数的属性。</p>
+<p>通过如下定义可以创建一个集合对象：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个集合对象</span></span><br><span class="line"><span class="keyword">Dim</span> Col As Collection</span><br></pre></td></tr></table></figure>
 
-<p>其运行流程为从cnt= start开始计数，并执行Next 之前的循环体代码，执行完成后，cnt会加上step,如果step为正数，则检查cnt是否小于等于end，如果step为负数，则检查cnt是否大于等于end,满足条件则继续重复这一个过程，如果不满足，则退出循环。</p>
-<p>其中step是可选的,系统会给出默认值，同样cnt也是可选的，单层循环可以省略。</p>
-<p><strong>遍历循环</strong></p>
-<p>遍历循环则不需要明确知道从什么时候开始计数，会遍历集合中的数据，逐个的取出然后执行循环体，直到遍历结束,对应的语法如下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> element <span class="keyword">In</span> collection</span><br><span class="line"><span class="comment">&#x27;执行循环体语句</span></span><br><span class="line"><span class="keyword">Next</span> [element]</span><br></pre></td></tr></table></figure>
+<p>通过创建集合对象的代码可以看到，定义集合时无需指定集合中包含的数据的数据类型。</p>
+<p>同时因为是对象，需要分配空间才能使用，通过如下代码给上述定义的集合分配空间：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;给集合对象分配空间</span></span><br><span class="line"><span class="keyword">Set</span> Col = <span class="keyword">New</span> Collection </span><br></pre></td></tr></table></figure>
 
-<p>下面通过一个具体的例子，看看For循环的实际应用。</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
+<p>可以看到给集合分配空间时，无需指定集合的大小</p>
+<p>上述代码也可以简化为如下，一步完成集合对象的创建和空间分配：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Dim</span> Col As <span class="keyword">New</span> Collection</span><br></pre></td></tr></table></figure>
 
-<p>复制上述代码并粘贴到VBA的代码编辑窗口，如下图所示：</p>
-<p><img src="/resource/9_1.png"></p>
-<p>点击运行按钮运行此代码，得到如下图所示运行结果：</p>
-<p><img src="/resource/9_2.png"></p>
-<p>在立即窗口可以看到，此程序打印出来了0~20的所有的奇数和偶数，下面对代码进行逐条解释一下：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> Optest5()</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> num As Integer</span><br><span class="line"></span><br><span class="line"> <span class="keyword">For</span> num = <span class="number">0</span> <span class="keyword">To</span> <span class="number">20</span>            <span class="comment">&#x27;设置循环的循环计数从0开始到20结束，默认step为1</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">If</span> num Mod <span class="number">2</span> = <span class="number">0</span> <span class="keyword">Then</span>        <span class="comment">&#x27;对每次的循环进行取余操作，进行奇偶判断 ，否则为基数</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是偶数&quot;</span>     <span class="comment">&#x27;能被2整除，则余数了0，也就是为偶数</span></span><br><span class="line"> <span class="keyword">Else</span></span><br><span class="line">    Debug.Print num &amp; <span class="string">&quot;是奇数&quot;</span>        <span class="comment">&#x27;不能被2整除，余数不为0，为奇数</span></span><br><span class="line"> <span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">Next</span> num                        <span class="comment">&#x27;执行下一次循环条件判断</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到，应用了循环之后，很多重复性的工作都可以放在循环体里面，通过设定好条件就可以自动执行了。</p>
-<p>这里如果需要计算1000,10000等更大的数据，只需要把20替换为更大的数就可以了。</p>
-<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
-<p><img src="/resource/wechat.jpg"></p>
-]]></content>
-      <tags>
-        <tag>VBA编程基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>VBA函数的声明及应用</title>
-    <url>/VBA%E5%87%BD%E6%95%B0%E7%9A%84%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%BA%94%E7%94%A8.html</url>
-    <content><![CDATA[<p>Hi，大家好，经过前面时间的学习，大家的代码水平也相应的提高，写的代码行数也比以前要多了，在这之前，我们都是在同一个子程序里面写下全部的代码，随着代码的规模扩大，对于后续子程序的代码复用及维护来说，难度都逐渐的增大了。</p>
-<p>为了解决代码复用及维护的问题，有必要将代码按照功能模块划分，分成各个功能子模块，从而提高代码的复用率及可维护性，同时，如果需要实现的功能较为复杂，还可以将相对独立的功能划分给其他的人协同完成。</p>
-<p>要实现上述的目标，则不仅需要划分更多子程序，还需要引入一个新的概念—函数。</p>
-<p><strong>函数</strong></p>
-<p>函数，简单来说，就是一段带有返回值的用来完成特定功能的代码。</p>
-<p>从功能上来看，函数与子程序很接近，但是也有一些显著的区分 </p>
-<ul>
-<li>函数是有返回值的，返回值可以忽略，也可以保存到变量中后续再利用</li>
-<li>函数是不能直接执行的，只能被调用的时候执行，而过程是可以直接执行的。</li>
-</ul>
-<p>之前很多的示例中，已经用了很多函数，只不过那些函数都是VBA的库提供的，我们只在需要的时候，按照函数的调用方法，进行调用。</p>
-<p>但是系统提供的函数功能毕竟有限，并且主要是一些很基础的功能，如果需要实现自己想要的功能，则需要在库提供的函数基础上自行编写相关的代码实现。</p>
-<p>函数的定义与过程类似，函数定义的语法如下所示：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Function</span> 函数名(参数名<span class="number">1</span>，参数名<span class="number">2.</span>..) As 类型名</span><br><span class="line">函数体语句</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
-
-<p>其中Function …End Fuction这个是固定的，函数名是可以任意取的，但是要避免使用系统保留的关键字，函数名最好能体现函数的功能，这样后续维护修改代码的时候，一看函数名字，就知道这个函数的用途</p>
-<p>参数的命名与变量是一样的，这里的参数没有限制数量，可以没有，没有参数的情况下，圆括号也是不能省略的，也可以有多个，但是一般不建议太多的参数，参数太多的话，函数体也会相应的变得复杂，失去了函数设计的初衷</p>
-<p>函数的参数可以在函数体里面使用，就像是函数体中定义的变量一样，直接使用就可以了。</p>
-<p>类型名是表示是函数返回的类型，与变量的类型名是一样的，函数是通过在过程的一条或多条语句中将值分配给函数名称来返回值。</p>
-<p>下面通过一个具体的例子，来看看具体的函数的定义及应用：</p>
-<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode4()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个变量用来表示圆的半径</span></span><br><span class="line"><span class="keyword">Dim</span> rd As Double</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设定半径的值为5</span></span><br><span class="line">rd = <span class="number">5</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">&#x27;调用CircleArea函数计算圆的半径并输出结果</span></span><br><span class="line">Debug.Print <span class="string">&quot;半径为&quot;</span> &amp; rd &amp; <span class="string">&quot;的圆的面积是&quot;</span> &amp; CircleArea(rd)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;设定半径的值为5</span></span><br><span class="line">rd = <span class="number">10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;再次调用CircleArea函数计算圆的半径并输出结果</span></span><br><span class="line">Debug.Print <span class="string">&quot;半径为&quot;</span> &amp; rd &amp; <span class="string">&quot;的圆的面积是&quot;</span> &amp; CircleArea(rd)</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义名为CircleArea的函数，函数有一个类型为双精度浮点型的参数，返回值为双精度浮点型</span></span><br><span class="line"><span class="keyword">Function</span> CircleArea(r As Double) As Double</span><br><span class="line">    CircleArea = <span class="number">3.14</span> * r * r</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Function</span></span><br></pre></td></tr></table></figure>
+<p>下面通过一个具体的例子，看看如何集合如何添加，删除，访问数据项等操作：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode2()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个新的集合</span></span><br><span class="line"><span class="keyword">Dim</span> Col As <span class="keyword">New</span> Collection</span><br><span class="line"></span><br><span class="line"><span class="keyword">Dim</span> i As Integer</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;给新的集合添加数据元素</span></span><br><span class="line"><span class="keyword">For</span> i = <span class="number">0</span> <span class="keyword">To</span> <span class="number">10</span></span><br><span class="line">Col.Add i</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">&#x27;迭代依次访问集合中的每个数据元素</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> Item <span class="keyword">In</span> Col</span><br><span class="line">Debug.Print Item</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;打印集合中数据项的总数</span></span><br><span class="line">Debug.Print <span class="string">&quot;Col集合中数据项总数为：&quot;</span> &amp; Col.Count</span><br><span class="line">    </span><br><span class="line"><span class="comment">&#x27;打印集合中第一个数据项</span></span><br><span class="line">Debug.Print <span class="string">&quot;集合中第一项为&quot;</span> &amp; Col.Item(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;移除集合中第一个数据项</span></span><br><span class="line">Col.Remove (<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;打印集合中新的第一个数据项</span></span><br><span class="line">Debug.Print <span class="string">&quot;删除后新的第一项为&quot;</span> &amp; Col.Item(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次打印集合中的数据项总数</span></span><br><span class="line">Debug.Print <span class="string">&quot;Col集合中数据项总数为：&quot;</span> &amp; Col.Count</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>复制粘贴上述代码到VBA代码编辑窗口并运行，运行结果如下图所示：</p>
-<p><img src="/resource/21_1.png"></p>
-<p>从调试的结果可以看到，CircleArea函数分别使用参数5和参数10被调用了两次,然后返回了计算的结果。 </p>
-<p>虽然这里的CircleArea的函数只有短短的一行，体现不出函数的优势，但是当函数体变得很大，并且函数被很多个子程序调用的时候，则子程序中原来很大量的同样的代码块则会被一行函数所取代，子程序也就会变得简洁明了。</p>
+<p><img src="/resource/19_1.png"></p>
+<p>通过立即窗口可以看到，在创建了集合之后，依次添加了0-10这11个数据项之后，打印出来的集合的总的数据项是11个，并且第一个数据项是0，然后通过移除操作，移除了第一个数据项，原来的第二个数据项就变成了新的第一个数据项，因此打印出来的第一个数据项变为了1,同时集合中的数据项总数也变成了10个。</p>
 <p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
 ]]></content>
       <tags>
