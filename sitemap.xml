@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html</loc>
+    
+    <lastmod>2020-08-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BB%8B%E7%BB%8D.html</loc>
     
-    <lastmod>2020-08-18</lastmod>
+    <lastmod>2020-08-19</lastmod>
     
   </url>
   
@@ -186,7 +193,7 @@
 
   <url>
     <loc>http://www.visepet.com/</loc>
-    <lastmod>2020-08-18</lastmod>
+    <lastmod>2020-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -194,28 +201,28 @@
   
   <url>
     <loc>http://www.visepet.com/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2020-08-18</lastmod>
+    <lastmod>2020-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.visepet.com/tags/VBA%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E9%AB%98%E7%BA%A7%E7%AF%87/</loc>
-    <lastmod>2020-08-18</lastmod>
+    <lastmod>2020-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.visepet.com/tags/VBA%E7%BC%96%E7%A8%8B%E5%BA%94%E7%94%A8/</loc>
-    <lastmod>2020-08-18</lastmod>
+    <lastmod>2020-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://www.visepet.com/tags/VBA%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2020-08-18</lastmod>
+    <lastmod>2020-08-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+    
+    
+<link rel="stylesheet" href="/css/mdui.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            VBA文件夹对象介绍 | 编程小白学VBA
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">编程小白学VBA</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">一个帮助编程小白学习VBA的网站</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-2">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">主页</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-2">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.gif"/>
+                
+            </div>
+            <div class="sidebar-author-name">编程小白学VBA</div>
+            <div class="sidebar-description">帮助编程小白学习VBA</div>
+        </div>
+
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html">VBA文件夹对象介绍</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-08-18
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2020-08-19
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=VBA文件夹对象介绍&url=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&pic=http://www.visepet.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=VBA文件夹对象介绍&url=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&via=编程小白学VBA" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&title=VBA文件夹对象介绍" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=编程小白学VBA&title=VBA文件夹对象介绍&summary=帮助编程小白学习VBA&pics=http://www.visepet.com/null&url=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://www.visepet.com/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html&text=VBA文件夹对象介绍" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/VBA%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E9%AB%98%E7%BA%A7%E7%AF%87/ >VBA编程基础高级篇</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Hi,大家好，前面分别介绍了文件系统对象中的驱动器对象和文件对象，在文件系统中，还有另外一个占据着较大比重的对象——文件夹对象。</p>
+<p>文件夹对象与文件对象存在着很多相似的地方，例如文件夹的名字，类型，包含文件大小，创建时间，最后一次访问时间，修改时间等等。</p>
+<p>同时，文件与文件夹也有不同的地方，文件的作用主要是保存信息，文件夹则是一个容器，用来管理文件或者其他文件夹等，因此反映到文件夹对象上，则表现为文件夹对象存在着父目录及子目录属性等，同时还能反映文件夹所包含的文件信息等，这个是文件对象所没有的属性。</p>
+<p>首先来看看文件夹对象的创建方法，与文件对象创建方法很类似，通过如下代码可创建一个文件夹对象：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件夹对象</span></span><br><span class="line"><span class="keyword">Dim</span> fd As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取&quot;folderpath&quot;文件夹并绑定到此前定义的通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fd = fs.GetFolder(<span class="string">&quot;folderpath&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到与文件的创建对象几乎一致，同样代码最后的folderpath需要填写实际的文件夹路径。</p>
+<p>下面通过一个完整的例子，看看文件夹的相关的属性及操作的方法:</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode6()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件夹对象</span></span><br><span class="line"><span class="keyword">Dim</span> fd As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取&quot;D:\test&quot;文件夹并绑定到此前定义的通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fd = fs.GetFolder(<span class="string">&quot;D:\test\&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;调用显示文件夹信息子程序显示文件夹信息</span></span><br><span class="line"><span class="keyword">Call</span> ShowFolderInfo(fd)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;拷贝文件夹到&quot;F:\&quot;跟目录</span></span><br><span class="line">fd.Copy <span class="string">&quot;F:\&quot;</span>, <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取&quot;F:\test\&quot;文件夹并绑定到此前定义的通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fd = fs.GetFolder(<span class="string">&quot;F:\test\&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;再次调用显示文件夹信息子程序显示新的文件夹信息</span></span><br><span class="line"><span class="keyword">Call</span> ShowFolderInfo(fd)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;删除&quot;F:\test&quot;文件夹</span></span><br><span class="line">fd.Delete</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> ShowFolderInfo(folder As Object)</span><br><span class="line"><span class="keyword">Dim</span> sf As Object</span><br><span class="line"><span class="keyword">Dim</span> f As Object</span><br><span class="line">Debug.Print <span class="string">&quot;文件夹名：&quot;</span> &amp; folder.Name</span><br><span class="line">Debug.Print <span class="string">&quot;文件夹类型：&quot;</span> &amp; folder.Type</span><br><span class="line">Debug.Print <span class="string">&quot;文件夹大小：&quot;</span> &amp; folder.Size &amp; <span class="string">&quot;Bytes&quot;</span></span><br><span class="line">Debug.Print <span class="string">&quot;文件夹创建时间：&quot;</span> &amp; folder.DateCreated</span><br><span class="line">Debug.Print <span class="string">&quot;文件夹最后修改时间：&quot;</span> &amp; folder.DateLastModified</span><br><span class="line">Debug.Print <span class="string">&quot;文件夹完整路径&quot;</span> &amp; folder.Path</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;检查文件夹是否是根目录,非根目录则打印文件夹的上一层文件夹</span></span><br><span class="line"><span class="keyword">If</span> <span class="keyword">Not</span> folder.IsRootFolder <span class="keyword">Then</span></span><br><span class="line">Debug.Print <span class="string">&quot;文件夹的父目录：&quot;</span> &amp; folder.ParentFolder</span><br><span class="line">Debug.Print vbCrCf</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;检查文件夹的子文件夹个数是否大于0，大于0则表示有子文件夹</span></span><br><span class="line"><span class="keyword">If</span> folder.SubFolders.Count &gt; <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line"></span><br><span class="line">Debug.Print folder.Name &amp; <span class="string">&quot;文件夹有如下子文件夹：&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;依次打印子文件夹的名字</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> sf <span class="keyword">In</span> folder.SubFolders</span><br><span class="line">Debug.Print sf.Name</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line">Debug.Print vbCrCf</span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;检查文件夹下的文件数量是否大于0，大于0则表示包含有子文件</span></span><br><span class="line"><span class="keyword">If</span> folder.Files.Count &gt; <span class="number">0</span> <span class="keyword">Then</span></span><br><span class="line"></span><br><span class="line">Debug.Print folder.Name &amp; <span class="string">&quot;文件夹有如下文件：&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;依次输出文件夹包含的文件的名字</span></span><br><span class="line"><span class="keyword">For</span> <span class="keyword">Each</span> f <span class="keyword">In</span> folder.Files</span><br><span class="line">Debug.Print f.Name</span><br><span class="line"><span class="keyword">Next</span></span><br><span class="line">Debug.Print vbCrCf</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">If</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>同样，在运行示例代码之前，需要事先在D盘根目录新建test目录，然后在test目录下新建名为test2,test3,test4,tets5四个子目录及一个test.txt的文本文件，文本文件内容随意。</p>
+<p>复制粘贴上述代码并运行，可以看到类似如下运行结果：</p>
+<p><img src="/resource/24_1.png"></p>
+<p>从运行结果中可以看到，首先打印出来D盘的test文件夹的一些信息，例如文件夹名字，类型，大小，文件夹路径，然后输出文件夹的上一层目录，随后检查并输出文件夹包含的子文件夹名字及包含的文件名字，然后将文件夹整个拷贝到F盘，同样检查F盘的test文件夹信息，最后删除F盘的test文件夹。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+
+  </div>
+  <!--文末结束语-->
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/VBA%E6%96%87%E4%BB%B6%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BB%8B%E7%BB%8D.html">
+        <span>VBA文件对象的介绍</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/VBA%E6%96%87%E4%BB%B6%E5%A4%B9%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2015 - 2020 
+        
+        编程小白学VBA
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >
