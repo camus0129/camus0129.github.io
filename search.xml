@@ -919,4 +919,34 @@
         <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
+  <entry>
+    <title>VBA文本文件对象介绍</title>
+    <url>/VBA%E6%96%87%E6%9C%AC%E6%96%87%E4%BB%B6%E5%AF%B9%E8%B1%A1%E4%BB%8B%E7%BB%8D.html</url>
+    <content><![CDATA[<p>Hi,大家好,上一期介绍了文件系统对象，从示例演示可以看到，通过文件系统对象，可以利用代码快速的创建，复制，粘贴，移动文件夹等操作，同时示例中还涉及到了对文文件对象的简单操作，演示代码中创建了一个文本文件对象，并写入了一串字符串到文本文件中。 </p>
+<p>鉴于文本文件易于创建，读取，保存，格式简单，同时兼容性较好，能应用在很多的场合，无需安装额外的软件就能操作，因此，在对文本文件进行抽象后，形成了文本对象，便于通过代码来自动化操作文本文件。</p>
+<p>文本文件对象不仅提供了常用的文件操作，例如文件的创建，打开，关闭等操作，还提供了编辑操作，读取，写入，移动光标等操作，同时还提供了返回当前光标所在的行，列等位置信息，有了这些支持，已经可以满足绝大部分情况下对文本文件操作的需求了。</p>
+<p>虽然此前的例子的中已经演示了如何创建文本对象，这里还是再次提一下，方便以后查看：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文本文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> file As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文本文件test.txt对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.CreateTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>上述例子中，创建的文本文件对象对应的文本文件是新建的，若想通过打开已有的文本文件创建对象，则需要用到如下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">2</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<p>通过打开已有的文件的方式的情况下，如果要打开的文件不存在，则有两种可能，一种是报错，提示找不到文件，另外一种就是直接创建新文件。 </p>
+<p>要想在打开的文件不存在时直接创建新文件，则需要在打开打开文件函数调用上设置第三个参数要为True，否则文件不存在时，会报错。</p>
+<p>下面通过一个具体的示例，演示一下对于文本文件的常用的操作是如何实现的：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCode8()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文本文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> file As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象,设置文本的打开方式为写入</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">2</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;写入如下两行文本到文件</span></span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第一行字符&quot;</span>)</span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第二行字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象，设置文本的打开方式为追加</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">8</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;以追加的方式写入如下两行文本</span></span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第三行字符&quot;</span>)</span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第四行字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象，设置文本的打开方式为只读</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">1</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;获取文件对象的名字并输出</span></span><br><span class="line">Debug.Print fs.getFile(<span class="string">&quot;D:\test.txt&quot;</span>).Name &amp; <span class="string">&quot;内容如下：&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;读取所有文本内容并输出</span></span><br><span class="line">Debug.Print file.ReadAll</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>复制上述代码到VBA代码编辑窗口并运行，可以看到如下结果：</p>
+<p><img src="/resource/26_1.png"></p>
+<p>这里主要演示了通过打开文本文件的方式来创建一个文本对象，第一次以写入的方式进行打开，然后写入最开始的两行文本，然后关闭文件。</p>
+<p>然后再次以追加的方式打开文件，再次写入文本，追加的方式会在此前文本内容的最后进行添加，然后再次关闭文件。</p>
+<p>随后以只读的方式打开文件，读取所有的文本内容并输出，然后最后关闭文件。</p>
+<p>打开文件时，读取，写入，追加这三种方式是要分开处理的，以读取方式打开时，此时是不能写入的。同样，以写入，追加的方式打开时，此时是不能读取的。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！</p>
+<p><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA编程基础高级篇</tag>
+      </tags>
+  </entry>
 </search>
