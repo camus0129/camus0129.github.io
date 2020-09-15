@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode)) window.location.href="https://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); </script>
+    
+    
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Regular.woff2" as="font">
+        <link rel="preload" crossorigin="crossorigin" href="/fonts/roboto/Roboto-Bold.woff2" as="font">
+    
+    
+    
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+    
+    
+    
+<link rel="stylesheet" href="/css/mdui.min.css">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/iconfont.css">
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+    
+    
+    <title>
+        
+            VBA用户界面编程续2 | 编程小白学VBA
+        
+    </title>
+    
+    
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body class="mdui-drawer-body-left mdui-appbar-with-toolbar mdui-theme-primary-teal mdui-theme-accent-blue">
+  
+  <header class="mdui-appbar mdui-appbar-fixed">
+  <div id="toolbar" class="mdui-toolbar mdui-color-theme">
+    <button class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar', swipe: true}"><i class="iconfont icon-menu"></i></button>
+    <a href="/" class="mdui-typo-headline">编程小白学VBA</a>
+    <a href="/" class="header-subtitle mdui-typo-headline">一个帮助编程小白学习VBA的网站</a>
+    <div class="mdui-toolbar-spacer"></div>
+    <button class="mdui-btn mdui-btn-icon" mdui-dialog="{target: '#search'}" mdui-tooltip="{content: 'search'}"><i class="iconfont icon-search"></i></button>
+  </div>
+</header>
+
+<div class="mdui-dialog" id="search">
+  
+    <div class="search-form">
+      <input type="search" class="search-form-input" placeholder="请输入关键字" onfocus="listenSearchFunc()">
+    </div>
+    <div class="search-result" data-resource="/search.xml"></div>
+  
+</div>
+
+  <aside id="sidebar" class="mdui-drawer">
+    <div class="mdui-tab" mdui-tab>
+        <a href="#sidebar-tab1" id="sidebartab" class="mdui-ripple mdui-tab-active">站点概览</a>
+        <a href="#sidebar-tab2" id="sidebartab" class="mdui-ripple">关于</a>
+    </div>
+
+    
+    <div id="sidebar-tab1" class="mdui-p-a-2">
+        <div class="mdui-list">
+            
+                
+                <a href="/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-home"></i>
+                    </div>
+                    <div class="mdui-list-item-content">主页</div>
+                </a>
+            
+                
+                <a href="/tags/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-bookmark"></i>
+                    </div>
+                    <div class="mdui-list-item-content">标签</div>
+                </a>
+            
+                
+                <a href="/archives/" class="mdui-list-item mdui-ripple">
+                    <div class="mdui-list-item-icon">
+                        <i class="iconfont icon-archive"></i>
+                    </div>
+                    <div class="mdui-list-item-content">归档</div>
+                </a>
+            
+            <div class="mdui-list-item mdui-ripple">
+                <div class="mdui-list-item-icon">
+                    <i class="iconfont icon-moon"></i>
+                </div>
+                <div class="mdui-list-item-content">夜间模式</div>
+                <label class="mdui-switch" id="darkmode">
+                  <input type="checkbox" id="nightmode_switch"/>
+                  <i class="mdui-switch-icon"></i>
+                </label>
+            </div>           
+        </div>
+    </div>
+
+    
+    <div id="sidebar-tab2" class="mdui-p-a-2">
+        <div class="sidebar-overview">
+            <div class="sidebar-avatar">
+                
+                    <img src="/icons/avatar.gif"/>
+                
+            </div>
+            <div class="sidebar-author-name">编程小白学VBA</div>
+            <div class="sidebar-description">帮助编程小白学习VBA</div>
+        </div>
+
+    </div>
+
+    <div class="mdui-divider"></div>
+    
+    
+</aside>
+  
+  <main id="main-contain" class="mdui-container mdui-m-t-5">
+    <article id="article" class="mdui-card mdui-p-b-2 mdui-m-b-5">
+  <header class="mdui-card-media">
+    
+    
+      <div class="post-header"> 
+  <a class="post-header-title" href="/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html">VBA用户界面编程续2</a>
+  <div class="post-header-meta">
+    <span>
+      <span class="iconfont icon-calendar"></span>
+      发布于:&nbsp;2020-09-08
+    </span>
+    <span>
+      <span class="iconfont icon-calendar-check"></span>
+      更新于:&nbsp;2020-09-09
+    </span>
+    <span>
+      <span class="iconfont icon-folder"></span>
+      分类于:&nbsp;
+    </span>
+    
+      <span>
+        <span class="iconfont icon-eye"></span>
+        阅读次数:&nbsp;
+        <span id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv"></span></span>
+      </span>
+    
+  </div>
+</div>   
+    
+
+
+
+    
+    
+    <div class="mdui-card-menu">
+    
+      <button class="mdui-btn mdui-btn-icon mdui-text-color-teal" mdui-menu="{target: '#share_menu', align: 'right'}"><i class="iconfont icon-share"></i></button>
+      <ul class="mdui-menu" id="share_menu">
+        <li class="mdui-menu-item">
+          <a href="http://service.weibo.com/share/share.php?appkey=&title=VBA用户界面编程续2&url=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html&pic=http://www.visepet.com/null&searchPic=false&style=simple" target="_blank" class="mdui-ripple">分享到 Weibo</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://twitter.com/intent/tweet?text=VBA用户界面编程续2&url=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html&via=编程小白学VBA" target="_blank" class="mdui-ripple">分享到 Twitter</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html" target="_blank" class="mdui-ripple">分享到 Facebook</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://plus.google.com/share?url=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html" target="_blank" class="mdui-ripple">分享到 Google+</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html&title=VBA用户界面编程续2" target="_blank" class="mdui-ripple">分享到 LinkedIn</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="http://connect.qq.com/widget/shareqq/index.html?site=编程小白学VBA&title=VBA用户界面编程续2&summary=帮助编程小白学习VBA&pics=http://www.visepet.com/null&url=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html" target="_blank" class="mdui-ripple">分享到 QQ</a>
+        </li>
+        <li class="mdui-menu-item">
+          <a href="https://telegram.me/share/url?url=http://www.visepet.com/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html&text=VBA用户界面编程续2" target="_blank" class="mdui-ripple">分享到 Telegram</a>
+        </li>
+      </ul>
+    
+  </div>
+  </header>
+  
+  
+  
+  
+  <div class="post-tags">
+    
+      <i class="iconfont icon-tag">
+        <a rel="tag" href = /tags/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B/ >VBA用户界面编程</a>
+      </i>
+    
+  </div>
+
+  
+  <div class="mdui-card-content mdui-typo mdui-p-x-4">
+    <p>Hi，大家好，上一期我们开启了用户界面编程，但是只是简单的开启了用户界面，界面上什么控件都没有，也无法与用户交互，这一期我们尝试在用户界面上添加几个常用的用户控件。</p>
+<p>在上一期添加了用户界面之后，我们可以看到，系统默认添加的用户界面比较小，因此， 有需要的情况下，可以将默认的用户界面大小进行调整，调整的方法跟普通的windows应用程序一样，选中之后，将鼠标放在在右方或者下方边缘或者右下方角落，等待鼠标图标变成箭头之后，按住鼠标左键就可以随意拖动大小了。</p>
+<p>调整用户界面到合适的大小之后，就可以尝试添加用户控件了，添加的方式也很简单，从旁边小的工具箱里面选择所需的控件，然后鼠标左键按住所选控件，将其拖动到用户界面上即可。</p>
+<p>在用户界面上，可以随意的调整控件所在的位置，如添加一个按钮后的用户界面如下图所示：</p>
+<p><img src="/resource/28_1.png"></p>
+<p>在添加的控件上点鼠标右键，选择属性，则会弹出对应控件的属性窗口，在属性窗口中，可以对所选控件进行一系列的修改，例如修改按钮控件上显示的名字，字体，字体颜色，以及对应的控件的大小等参数。</p>
+<p>示例这里添加两个按钮，分别修改按钮名字为文本读测试和文本写测试，同时添加一个标签及一个文本框，标签标题修改为”文件内容如下”,并调整到合适的位置，如下图所示：</p>
+<p><img src="/resource/28_2.png"></p>
+<p>继续底下文本框的属性，修改文本框的MaxLenth，MultiLine，WordWrap属性如图所示：</p>
+<p><img src="/resource/28_3.png"> </p>
+<p>修改完所选控件的属性之后，双击控件，即可进入控件的相应事件的代码编辑窗口，例如双击按钮控件之后，出现如下窗口：</p>
+<p><img src="/resource/28_4.png"> </p>
+<p>分别修改两个按钮的的按键响应代码如图所示：</p>
+<p><img src="/resource/28_5.png"> </p>
+<p>同时在代码区域最上层添加如下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCodeWriteTest()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文本文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> file As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象,设置文本的打开方式为写入</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">2</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;写入如下两行文本到文件</span></span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第一行字符&quot;</span>)</span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第二行字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象，设置文本的打开方式为追加</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">8</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;以追加的方式写入如下两行文本</span></span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第三行字符&quot;</span>)</span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第四行字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> BaseCodeReadTest()</span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文本文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> file As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象，设置文本的打开方式为只读</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">1</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;读取所有文本内容并输出</span></span><br><span class="line">TextBox1.Text = TextBox1.Text + file.ReadAll()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"><span class="keyword">End</span></span><br></pre></td></tr></table></figure>
+
+<p>选中UserForm1后点击运行，点击文件写测试按钮之后，再点击文件读测试按钮，可以看到底下文本框中显示出来了生成的文本文件的内容，如下图所示：</p>
+<p><img src="/resource/28_6.png"> </p>
+<p>程序执行时，点击文本写测试按钮会在D盘根目录生成一个test.txt文件，并添加四行文本。点击文本读测试按钮则会打开D盘根目录的test.txt文本，读取文本内容后添加到文本框中。</p>
+<p>这里按钮主要是用来触发子程序的执行，标签则用于提示信息，文本框则主要用来接收用户的输入或者输文本。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+
+  </div>
+  <!--文末结束语-->
+  
+  <!--页脚广告-->
+  
+  <div class="mdui-divider"></div>
+  
+  <nav>
+    
+      <a rel="prev" class="post-nav-item mdui-float-left" href="/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD3.html">
+        <i class="iconfont icon-angle-left"></i>
+        <span>VBA用户界面编程续3</span>
+      </a>
+    
+    
+      <a rel="next" class="post-nav-item mdui-float-right" href="/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E4%BB%8B%E7%BB%8D.html">
+        <span>VBA用户界面编程介绍</span>
+        <i class="iconfont icon-angle-right"></i>
+      </a>
+    
+  </nav>
+</article>
+
+
+
+
+  <div class="toc-button"  style="z-index: 100;">
+    <button class="mdui-fab mdui-ripple mdui-color-teal" mdui-menu="{target: '#toc'}"><i class="iconfont icon-list"></i></button>
+    <ul class="mdui-menu" id="toc">
+      <li class="mdui-menu-item">
+        <a href="/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html" id="toc-header" class="mdui-ripple">文章目录</a>
+        
+      </li>
+    </ul>
+  </div>
+
+
+
+  </main>
+  <footer id="footer" class="mdui-text-center mdui-m-t-5 mdui-p-b-2 mdui-p-t-4 mdui-color-theme">
+  <div class="mdui-container">
+    <div class="mdui-row">
+      
+        <a href="http://www.beian.miit.gov.cn" rel="noopener" target="_blank"></a>
+      
+      <span>
+        &copy; 2015 - 2020 
+        
+        编程小白学VBA
+      </span>
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span>Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span>Theme: <a href="https://github.com/kb1000fx/Meadow" rel="noopener" target="_blank">Meadow</a></span>
+        </div>
+      
+    </div>
+    <div class="mdui-row">
+      
+        <div class="mdui-col-xs-6 mdui-text-right">
+          <span id="busuanzi_container_site_uv" style="display: none;"> <span class="iconfont icon-user"></span>总访客量 <span id="busuanzi_value_site_uv"></span></span>
+        </div>
+        <div class="mdui-col-xs-6 mdui-text-left">
+          <span id="busuanzi_container_site_pv" style="display: none;"> <span class="iconfont icon-eye"></span>总访问量 <span id="busuanzi_value_site_pv"></span></span>
+        </div>
+      
+    </div>
+ </div>
+</footer>
+  
+  <button id="gotop" class="mdui-fab mdui-fab-fixed mdui-fab-hide mdui-ripple mdui-color-teal" style="z-index:100;"><i class="iconfont icon-arrowup"></i></button>
+  
+  
+
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@8.4.8/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({
+        startOnLoad: true,
+        theme: "default"
+    });</script>
+
+
+
+
+<script src="/js/mdui.min.js"></script>
+<script src="/js/meadow.js"></script>
+
+</body>
+</html >

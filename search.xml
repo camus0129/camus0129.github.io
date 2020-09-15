@@ -971,4 +971,59 @@
         <tag>VBA编程基础高级篇</tag>
       </tags>
   </entry>
+  <entry>
+    <title>VBA用户界面编程续2</title>
+    <url>/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD2.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期我们开启了用户界面编程，但是只是简单的开启了用户界面，界面上什么控件都没有，也无法与用户交互，这一期我们尝试在用户界面上添加几个常用的用户控件。</p>
+<p>在上一期添加了用户界面之后，我们可以看到，系统默认添加的用户界面比较小，因此， 有需要的情况下，可以将默认的用户界面大小进行调整，调整的方法跟普通的windows应用程序一样，选中之后，将鼠标放在在右方或者下方边缘或者右下方角落，等待鼠标图标变成箭头之后，按住鼠标左键就可以随意拖动大小了。</p>
+<p>调整用户界面到合适的大小之后，就可以尝试添加用户控件了，添加的方式也很简单，从旁边小的工具箱里面选择所需的控件，然后鼠标左键按住所选控件，将其拖动到用户界面上即可。</p>
+<p>在用户界面上，可以随意的调整控件所在的位置，如添加一个按钮后的用户界面如下图所示：</p>
+<p><img src="/resource/28_1.png"></p>
+<p>在添加的控件上点鼠标右键，选择属性，则会弹出对应控件的属性窗口，在属性窗口中，可以对所选控件进行一系列的修改，例如修改按钮控件上显示的名字，字体，字体颜色，以及对应的控件的大小等参数。</p>
+<p>示例这里添加两个按钮，分别修改按钮名字为文本读测试和文本写测试，同时添加一个标签及一个文本框，标签标题修改为”文件内容如下”,并调整到合适的位置，如下图所示：</p>
+<p><img src="/resource/28_2.png"></p>
+<p>继续底下文本框的属性，修改文本框的MaxLenth，MultiLine，WordWrap属性如图所示：</p>
+<p><img src="/resource/28_3.png"> </p>
+<p>修改完所选控件的属性之后，双击控件，即可进入控件的相应事件的代码编辑窗口，例如双击按钮控件之后，出现如下窗口：</p>
+<p><img src="/resource/28_4.png"> </p>
+<p>分别修改两个按钮的的按键响应代码如图所示：</p>
+<p><img src="/resource/28_5.png"> </p>
+<p>同时在代码区域最上层添加如下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">Sub</span> BaseCodeWriteTest()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文本文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> file As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象,设置文本的打开方式为写入</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">2</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;写入如下两行文本到文件</span></span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第一行字符&quot;</span>)</span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第二行字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象，设置文本的打开方式为追加</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">8</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;以追加的方式写入如下两行文本</span></span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第三行字符&quot;</span>)</span><br><span class="line">file.WriteLine (<span class="string">&quot;这是通过VBA脚本写入的第四行字符&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"></span><br><span class="line"><span class="keyword">End</span> <span class="keyword">Sub</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">Sub</span> BaseCodeReadTest()</span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文件系统对象</span></span><br><span class="line"><span class="keyword">Dim</span> fs As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;定义一个通用对象用于表示文本文件对象</span></span><br><span class="line"><span class="keyword">Dim</span> file As Object</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;创建文件系统对象并绑定到通用对象</span></span><br><span class="line"><span class="keyword">Set</span> fs = <span class="built_in">CreateObject</span>(<span class="string">&quot;Scripting.FileSystemObject&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;通过打开已有的文本文件来创建文本文件对象，设置文本的打开方式为只读</span></span><br><span class="line"><span class="keyword">Set</span> file = fs.OpenTextFile(<span class="string">&quot;D:\test.txt&quot;</span>, <span class="number">1</span>, <span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;读取所有文本内容并输出</span></span><br><span class="line">TextBox1.Text = TextBox1.Text + file.ReadAll()</span><br><span class="line"></span><br><span class="line"><span class="comment">&#x27;关闭文件</span></span><br><span class="line">file.Close</span><br><span class="line"><span class="keyword">End</span></span><br></pre></td></tr></table></figure>
+
+<p>选中UserForm1后点击运行，点击文件写测试按钮之后，再点击文件读测试按钮，可以看到底下文本框中显示出来了生成的文本文件的内容，如下图所示：</p>
+<p><img src="/resource/28_6.png"> </p>
+<p>程序执行时，点击文本写测试按钮会在D盘根目录生成一个test.txt文件，并添加四行文本。点击文本读测试按钮则会打开D盘根目录的test.txt文本，读取文本内容后添加到文本框中。</p>
+<p>这里按钮主要是用来触发子程序的执行，标签则用于提示信息，文本框则主要用来接收用户的输入或者输文本。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA用户界面编程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VBA用户界面编程续3</title>
+    <url>/VBA%E7%94%A8%E6%88%B7%E7%95%8C%E9%9D%A2%E7%BC%96%E7%A8%8B%E7%BB%AD3.html</url>
+    <content><![CDATA[<p>Hi，大家好，上一期我们在用户界面上面添加了一个用于用户交互的控件，并添加了控件交互的代码，从而第一次实现了一个基于用于界面交互的VBA小程序，通过按键触发，实现了对文本文件的读写操作。</p>
+<p>虽然上述简单的用户界面运行起来了，但是我们运行的方式依然没有摆脱VBA集成开发环境的限制，回忆一下上一期用户界面运行的步骤，可以看到，首先是要打开VBA集成开发环境，然后选中UserForm1,然后点击运行按钮才能最终运行，这显然与我们之前的设想的还有一些差距，但是考虑到还是此前还是开发调试阶段，所以也还是能接受。</p>
+<p>假设上一期的用户界面和功能都已经调试完成没有问题了，那么我们现在的需求就是每次打开文档时，用户界面就自动显示出来了，然后需要调用某个功能，就只需要点击对应的按钮就可以了。</p>
+<p>要实现上述的需求，也是很容易的，在上一期的基础上，只差了一小步，也就是打开文档时，用户界面需要自动显示出来这个步骤，要实现这个步骤，只需要在代码中再添加一行即可。</p>
+<p>让我们把目光从UserForm1上再次移到Document对象上来，从此前的文档中我们可以知道，文档的对象被抽象为Document, 在文档在打开，关闭，新建等这些操作是，对应的Document则会将这些操作抽象为一些对应的事件，因此我们只需要在这些对应的事件发生的时候，添加一些额外要处理的代码即可，例如在文档打开的时候，添加显示用户界面的代码，即可实现在用户打开文档时，自动显示用户界面。</p>
+<p>要添加上述代码很简单，首先打开文档，切换到VBA集成开发环境，确保左侧对象窗口选中的是文档对象，也就是ThisDocument,然后再代码编辑区的上方，点击黑色下拉三角，将代码窗口切换到Document，然后同样将右侧的事件窗口切换到open事件，可以看到代码中自动生成了两个空白的子程序Document_new,Document_open，分别对应着新建文档事件及打开文档事件，如下图所示：</p>
+<p><img src="/resource/29_1.png"></p>
+<p>这里我们要利用的是Document_open子程序，在Document_open子程序中添加如下代码：</p>
+<figure class="highlight vbscript"><table><tr><td class="code"><pre><span class="line">UserForm1.Show</span><br></pre></td></tr></table></figure>
+
+<p>添加完代码后，确认如下图所示后，保存并关闭VBA代码编辑窗口及打开的文档窗口:</p>
+<p><img src="/resource/29_2.png"></p>
+<p>现在重新打开此前的文档，不出意外的话，在文档打开后，此前添加的用户界面就能正确自动显示出来了，跟我们此前手动运行用户窗口是一样，如下图所示：</p>
+<p><img src="/resource/29_3.png"></p>
+<p>怎么样？是不是很简单？一行代码就搞定了。除了open事件之外，还有close等一些其他的事件，大家可以将代码编辑窗口上方左侧的对象窗口切换到不同的Document对象，然后再右侧的事件窗口中查看此对象支持的不同的事件。</p>
+<p>虽然我们这里的例子是在文档中实现的，但是类似的操作，是完全可以在Office中其他的应用中实现的，只是不同的应用的事件可能有一些小的不同，但是总体上都是大同小异的，感兴趣的可以在Excel上试试。</p>
+<p>觉得有用吗？想了解更多吗？下方扫码关注喔！<br><img src="/resource/wechat.jpg"></p>
+]]></content>
+      <tags>
+        <tag>VBA用户界面编程</tag>
+      </tags>
+  </entry>
 </search>
